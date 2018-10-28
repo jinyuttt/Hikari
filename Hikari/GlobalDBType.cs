@@ -32,12 +32,12 @@ namespace Hikari
             //oralce
             lock (lock_obj)
             {
+                //Oracle
                 DriverDLL driverDLL = new DriverDLL();
                 driverDLL.DriverDLLName = "Oracle.ManagedDataAccess";
-
                 driverDLL.DBType = "Oracle";
                 dicDBType[driverDLL.DBType] = driverDLL;
-                //mysql
+                //MySql
                 driverDLL = new DriverDLL();
                 driverDLL.DriverDLLName = "MySql.Data";
 
@@ -45,11 +45,10 @@ namespace Hikari
                 dicDBType[driverDLL.DBType] = driverDLL;
                 //SQLServer
                 driverDLL = new DriverDLL();
-                driverDLL.DriverDLLName = "System";
-
+                driverDLL.DriverDLLName = "System.Data";
                 driverDLL.DBType = "SqlServer";
                 dicDBType[driverDLL.DBType] = driverDLL;
-                //
+                //PostgreSQL
                 driverDLL = new DriverDLL();
                 driverDLL.DriverDLLName = "Npgsql";
 

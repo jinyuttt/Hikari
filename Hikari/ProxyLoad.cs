@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -106,12 +107,21 @@ namespace Hikari
                 {
                    
                     Monitor.Enter(lock_obj,ref token);
+                    FileInfo fileInfo = new FileInfo(dllPath);
+                    if(!fileInfo.Exists)
+                    {
+                        Logger.Singleton.Error("没有找到驱动程序集！路径："+path);
+                    }
                     Assembly assembly = Assembly.LoadFrom(dllPath); //利用dll的路径加载,同时将此程序集所依赖的程序集加载进来,需后辍名.dll
                     Type[] allTypes = assembly.GetTypes();
                     AssemblyDLLType dLLType = new AssemblyDLLType();
                     int num = 4;
                     foreach (Type tmp in allTypes)
                     {
+                        if(!tmp.IsClass||tmp.IsAbstract)
+                        {
+                            continue;
+                        }
                         if(typeof(IDbConnection).IsAssignableFrom(tmp))
                         {
                             type = tmp;

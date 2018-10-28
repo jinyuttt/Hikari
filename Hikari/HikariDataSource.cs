@@ -22,10 +22,30 @@ namespace Hikari
     public class HikariDataSource:HikariConfig,IDisposable
     {
        
+        /// <summary>
+        /// 连接池
+        /// </summary>
         private HikariPool pool = null;
+
+        /// <summary>
+        /// 是否关闭
+        /// </summary>
         private volatile  bool isShutdown = false;
+
+        /// <summary>
+        /// 连接池
+        /// </summary>
         private  HikariPool fastPathPool;
+
+        /// <summary>
+        /// 是否初始化
+        /// </summary>
         private volatile bool isInit = true;//需要加载
+
+        /// <summary>
+        /// 连接提供DataSource
+        /// </summary>
+        /// <param name="configuration"></param>
         public HikariDataSource(HikariConfig configuration)
         {
             configuration.Validate();
@@ -36,6 +56,10 @@ namespace Hikari
 
            // this.seal();
         }
+
+        /// <summary>
+        /// 连接提供DataSource
+        /// </summary>
         public HikariDataSource():base()
         {
             fastPathPool = null;

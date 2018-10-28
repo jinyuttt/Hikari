@@ -45,7 +45,9 @@ namespace Hikari
         private const string prefix = "HikariPool-";
       
         /// <summary>
+        /// 
         /// 数据库连接字符串
+        /// 
         /// </sumsry>
         public string ConnectString { get { return connectString; } set { connectString = value; } }
 

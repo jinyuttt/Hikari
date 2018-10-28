@@ -57,8 +57,9 @@ namespace ConsoleApp1
         }
         private static void TestConnect()
         {
+          
             HikariConfig hikariConfig = new HikariConfig();
-            hikariConfig.DBType = "PostgreSQL";
+            hikariConfig.DBType = "SqlServer";
             hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
             //hikariConfig.DriverDir = "DBDrivers";
             //hikariConfig.DriverDLL = "XXXX.dll";
