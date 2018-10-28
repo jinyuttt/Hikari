@@ -16,7 +16,7 @@ namespace Hikari
 
         private long createTime = 0;
         private long lastAccessed = 0;
-        private volatile int state = 0;//状态
+        
         private HikariPool hikariPool;//所属的连接池
 
         /// <summary>
@@ -24,10 +24,7 @@ namespace Hikari
         /// 当前主要是方便调试
         /// </summary>
         public int ID { get; set; }
-        /// <summary>
-        /// 状态
-        /// </summary>
-        public new int State { get { return state; } }
+       
 
         /// <summary>
         /// 操作时间
@@ -139,26 +136,6 @@ namespace Hikari
                 default:
                     return "Invalid";
             }
-        }
-
-        /// <summary>
-        /// 实现状态判断修改
-        /// </summary>
-        /// <param name="expectState"></param>
-        /// <param name="newState"></param>
-        /// <returns></returns>
-        public override bool CompareAndSet(int expectState, int newState)
-        {
-            if(Interlocked.CompareExchange(ref state, newState, expectState)!=expectState)
-            {
-                return true;
-            }
-            else
-            {
-                //没有替换
-                return false;
-            }
-          
         }
 
        

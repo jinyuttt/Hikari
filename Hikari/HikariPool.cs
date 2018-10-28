@@ -40,11 +40,11 @@ namespace Hikari
         /// </summary>
         private static int tickms = 10000;
         private KeepingExecutorService keepingExecutor;
-        private ConnectionList<PoolEntry> connectionBag=null;
+        private ConcurrentList<PoolEntry> connectionBag=null;
         
         public HikariPool(HikariDataSource hikariDataSource) : base(hikariDataSource)
         {
-            connectionBag = new ConnectionList<PoolEntry>();
+            connectionBag = new ConcurrentList<PoolEntry>();
             keepingExecutor = new KeepingExecutorService(hikariDataSource.IdleTimeout, hikariDataSource.MaxLifetime, hikariDataSource.LeakDetectionThreshold);
             resetEvent = new AutoResetEvent(true);
             CheckFailFast();//初始化创建
@@ -129,7 +129,7 @@ namespace Hikari
                                 poolEntry = CreatePoolEntry();
                                 if (poolEntry != null)
                                 {
-                                    poolEntry.CompareAndSet(IConcurrentBagEntry.STATE_NOT_IN_USE,IConcurrentBagEntry.STATE_IN_USE);
+                                    poolEntry.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE,IConcurrentBagEntry.STATE_IN_USE);
                                     keepingExecutor.ScheduleUse(poolEntry);
                                    
                                     return poolEntry.CreateProxyConnection(DateTime.Now.Ticks);

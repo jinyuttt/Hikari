@@ -18,7 +18,7 @@ namespace ConsoleApp1
         private static void TestBag()
         {
 
-            ConnectionList<PoolEntry> connectionList = new ConnectionList<PoolEntry>();
+            ConcurrentList<PoolEntry> connectionList = new ConcurrentList<PoolEntry>();
             int num = 100;
             Task[] tasks = new Task[num];
             Task[] read = new Task[num];
@@ -59,12 +59,11 @@ namespace ConsoleApp1
         {
           
             HikariConfig hikariConfig = new HikariConfig();
-            hikariConfig.DBType = "SqlServer";
+            hikariConfig.DBType = "PostgreSQL";
             hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
             //hikariConfig.DriverDir = "DBDrivers";
             //hikariConfig.DriverDLL = "XXXX.dll";
             //hikariConfig.DBTypeXml = "DBType.xml";
-
             HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
             //
             //hikariConfig.LoadConfig("Hikari.txt");
@@ -86,10 +85,10 @@ namespace ConsoleApp1
             {
                 tasks[i] = Task.Factory.StartNew(() =>
                 {
-                    var ss = hikariDataSource.GetConnection();
-                    if (ss != null)
+                    var connection = hikariDataSource.GetConnection();
+                    if (connection != null)
                     {
-                        var cmd = ss.CreateCommand();
+                        var cmd = connection.CreateCommand();
                         cmd.CommandText = "select * from student";
                         var rd = cmd.ExecuteReader();
                         int datanum = 0;
@@ -102,7 +101,7 @@ namespace ConsoleApp1
                         }
                         rd.Close();
                         cmd.Dispose();
-                        ss.Close();
+                        connection.Close();
                         Console.WriteLine(datanum);
                     }
 

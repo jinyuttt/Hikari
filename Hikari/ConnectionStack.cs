@@ -135,7 +135,8 @@ namespace Hikari
             }
             concurrentStack.Push(item);
             size++;
-            item.State = IConcurrentBagEntry.STATE_NOT_IN_USE;
+           
+            item.CompareAndSetState(IConcurrentBagEntry.STATE_IN_USE, IConcurrentBagEntry.STATE_NOT_IN_USE);
             return true;
         }
 
@@ -176,7 +177,8 @@ namespace Hikari
                 
                 if (item != null)
                 {
-                    item.State = IConcurrentBagEntry.STATE_IN_USE;
+                   
+                    item.CompareAndSetState(IConcurrentBagEntry.STATE_IN_USE, IConcurrentBagEntry.STATE_NOT_IN_USE);
                     r = true;
                 }
             }
@@ -202,7 +204,8 @@ namespace Hikari
                         break;//没有取出成功或者取出的可以使用则成功；
                     }
                 }
-                item.State = IConcurrentBagEntry.STATE_IN_USE;
+                
+                item.CompareAndSetState(IConcurrentBagEntry.STATE_IN_USE, IConcurrentBagEntry.STATE_NOT_IN_USE);
                 r = true;
             }
             return r;
@@ -215,7 +218,7 @@ namespace Hikari
         public void Remove(T item)
         {
             //修改状态即可
-            item.CompareAndSet(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_REMOVED);
+            item.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_REMOVED);
             size--;
         }
 

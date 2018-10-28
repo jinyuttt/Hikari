@@ -103,7 +103,7 @@ namespace Hikari
                         {
                             if ((now - poolEntry.AccessedTime) / tickms > idleTimeOut)
                             {
-                                poolEntry.CompareAndSet(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_REMOVED);
+                                poolEntry.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_REMOVED);
                             }
                             num--;
                             if (poolEntry.State != -1)
@@ -133,7 +133,7 @@ namespace Hikari
                         {
                             if ((now - poolEntry.CreateTime) / tickms > maxLeftTime)
                             {
-                                poolEntry.CompareAndSet(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_REMOVED);
+                                poolEntry.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_REMOVED);
                             }
                             num--;
                             if (poolEntry.State != -1)
