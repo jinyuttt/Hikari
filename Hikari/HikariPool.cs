@@ -30,7 +30,7 @@ namespace Hikari
         public volatile int poolState=0;//当前状态
         private AutoResetEvent resetEvent = null;
         private object lock_obj = new object();
-        private volatile bool isWaitClose = true;//是否启动验证关闭
+        //private volatile bool isWaitClose = true;//是否启动验证关闭
         private volatile bool isWaitAdd = true;//快速添加
 
         /// <summary>
@@ -40,17 +40,22 @@ namespace Hikari
         /// </summary>
         private static int tickms = 10000;
         private KeepingExecutorService keepingExecutor;
-        private ConcurrentList<PoolEntry> connectionBag=null;
+        private ConnectionBucket<PoolEntry> connectionBag=null;
         
         public HikariPool(HikariDataSource hikariDataSource) : base(hikariDataSource)
         {
-            connectionBag = new ConcurrentList<PoolEntry>();
+            connectionBag = new ConnectionBucket<PoolEntry>();
             keepingExecutor = new KeepingExecutorService(hikariDataSource.IdleTimeout, hikariDataSource.MaxLifetime, hikariDataSource.LeakDetectionThreshold);
             resetEvent = new AutoResetEvent(true);
             CheckFailFast();//初始化创建
             connectionBag.ArrayEntryRemove += ConnectionBag_ArrayEntryRemove;
         }
 
+        /// <summary>
+        /// 标记移除的进行处理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="entrys"></param>
         private void ConnectionBag_ArrayEntryRemove(object sender, PoolEntry[] entrys)
         {
           if(entrys!=null&&entrys.Length>0)
@@ -76,7 +81,15 @@ namespace Hikari
                 CloseConnection(poolEntry.Close());
                 return;
             }
-            connectionBag.Push(poolEntry);
+            if(!connectionBag.Push(poolEntry))
+            {
+                CloseConnection(poolEntry.Close());
+            }
+            else
+            {
+                //监视空闲
+                keepingExecutor.ScheduleIdleTimeout(poolEntry);
+            }
         }
        
 
@@ -118,59 +131,42 @@ namespace Hikari
                 do
                 {
                     PoolEntry poolEntry = null;
-                    CheckPool();//监测连接
-                    if (connectionBag.IsEmpty)
+                    if(connectionBag.TryPop(out poolEntry))
                     {
                         try
                         {
-                            if (size < config.MaximumPoolSize)
+                            if (poolEntry.State == IConcurrentBagEntry.STATE_REMOVED)
                             {
-                                //创建新的,不再进入集合
-                                poolEntry = CreatePoolEntry();
-                                if (poolEntry != null)
-                                {
-                                    poolEntry.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE,IConcurrentBagEntry.STATE_IN_USE);
-                                    keepingExecutor.ScheduleUse(poolEntry);
-                                   
-                                    return poolEntry.CreateProxyConnection(DateTime.Now.Ticks);
-                                }
-                                else
-                                {
-                                    continue;
-                                }
+                                //已经要移除的
+                                CloseConnection(poolEntry.Close());
+                                continue;//继续获取
                             }
+                            keepingExecutor.ScheduleUse(poolEntry);
                         }
                         catch (Exception ex)
                         {
-                            throw new Exception("创建失败:"+ex.Message);
+                            throw new Exception("获取失败:" + ex.Message);
                         }
+                        //每次产生代理连接，代理连接在外面会关闭，返回连接池的对象
+                        return poolEntry.CreateProxyConnection(DateTime.Now.Ticks);
                     }
                     else
                     {
-                        try
+                        CheckPool();//监测连接
+                        if (size < config.MaximumPoolSize)
                         {
-                            if (connectionBag.TryPop(out poolEntry))
+                            //创建新的,不再进入集合
+                            poolEntry = CreatePoolEntry();
+                            if (poolEntry != null)
                             {
-                                try
-                                {
-                                    if (poolEntry.State == -1)
-                                    {
-                                        //已经要移除的
-                                        CloseConnection(poolEntry.Close());
-                                        continue;//继续获取
-                                    }
-                                    keepingExecutor.ScheduleUse(poolEntry);
-                                }
-                                catch(Exception ex)
-                                {
-                                    throw new Exception("获取失败12:" + ex.Message);
-                                }
+                                poolEntry.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_IN_USE);
+                                keepingExecutor.ScheduleUse(poolEntry);
                                 return poolEntry.CreateProxyConnection(DateTime.Now.Ticks);
                             }
-                        }
-                        catch(Exception ex)
-                        {
-                            throw new Exception("获取失败:" + ex.Message);
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
                     //计算获取的时间，转化成ms
@@ -179,7 +175,6 @@ namespace Hikari
             }
             catch (Exception e)
             {
-               
                 throw new SQLException(poolName + " - Interrupted during connection acquisition", e);
             }
             finally
@@ -272,15 +267,16 @@ namespace Hikari
                     config.MinimumIdle = Environment.ProcessorCount * 2;
                 }
             }
-            //
+            //isWaitAdd 
             if (isWaitAdd)
             {
                 isWaitAdd = false;
-                Task.Factory.StartNew(() =>
+                Task.Factory.StartNew((Action)(() =>
                 {
                     int num = 10;//20s内的监测
                     while (true)
                     {
+                        //挂满池中最小空闲
                         while (size < config.MaximumPoolSize && connectionBag.Count < config.MinimumIdle)
                         {
                             //迅速添加连接爬升，可以从池中获取
@@ -292,56 +288,18 @@ namespace Hikari
                         }
                         Thread.Sleep(2000);//延迟2秒，监测
                         num--;
-                        if(num==0)
+                        if(num == 0)
                         {
                             break;
                         }
                     }
                     isWaitAdd = true;
                   
-                });
+                }));
             }
             //
-            if(isWaitAdd)
-            {
-                isWaitAdd = false;
-                Task.Factory.StartNew(() =>
-                {
-                    Thread.Sleep(config.DestroyInterval);
-                    int num = 2;
-                    while (true)
-                    {
-                        while (true)
-                        {
-                            PoolEntry poolEntry = connectionBag.Dequeue();
-                            if (poolEntry != null && poolEntry.State == IConcurrentBagEntry.STATE_REMOVED)
-                            {
-                                CloseConnection(poolEntry.Close());
-                            }
-                            else if (poolEntry != null)
-                            {
-                                //说明没有移除了，顶部移除由取出连接决定
-                                connectionBag.Enqueue(poolEntry);//压回
-                                break;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        //等待下一次销毁
-                        Thread.Sleep(config.DestroyInterval/num);
-                        num--;
-                        if(num==0)
-                        {
-                            //必须退出，当没有业务时不需要占用资源
-                            break;
-                        }
-                    }
-                    isWaitAdd = true;
-
-                });
-            }
+           
+            
         }
 
 
@@ -417,8 +375,6 @@ namespace Hikari
 
         private void LogPoolState(params string[] v)
         {
-           
-              
                 Logger.Singleton.DebugFormat("{0} - {1}stats (total={2}, active={3}, idle={4}, waiting={5})",
                              poolName,poolState, (v.Length > 0 ? v[0] : ""),
                              connectionBag.Count, 0, 0);

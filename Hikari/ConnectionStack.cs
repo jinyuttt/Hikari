@@ -82,6 +82,7 @@ namespace Hikari
                         Array.Copy(removeList, tmp, tmp.Length);
                         Task.Factory.StartNew(() =>
                         {
+                            //移除推送
                             ArrayEntryRemove(this, tmp);
                         });
                     }

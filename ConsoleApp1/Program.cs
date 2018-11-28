@@ -92,11 +92,12 @@ namespace ConsoleApp1
                         cmd.CommandText = "select * from student";
                         var rd = cmd.ExecuteReader();
                         int datanum = 0;
+                        string data = "";
                         while (rd.Read())
                         {
-                            rd.GetInt32(0);
-                            rd.GetString(1);
-                            rd.GetInt32(2);
+                            data+="ID:"+rd.GetInt32(0);
+                            data+=",Name:"+ rd.GetString(1);
+                            Console.WriteLine(data);
                             datanum++;
                         }
                         rd.Close();

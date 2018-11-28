@@ -13,7 +13,7 @@ using System.Threading;
 namespace Hikari
 {
     /// <summary>
-    /// 功能描述    ：KeepingExecutorService  
+    /// 功能描述    ：KeepingExecutorService  监视连接池对象活动
     /// 创 建 者    ：jinyu
     /// 创建日期    ：2018/10/24 22:00:41 
     /// 最后修改者  ：jinyu
@@ -25,6 +25,7 @@ namespace Hikari
         private ConcurrentQueue<PoolEntry> idleTimeQueue;
         private ConcurrentQueue<PoolEntry> maxLiveQueue;
         private ConcurrentQueue<PoolEntry> userQueue;
+
         /// <summary>
         /// tick与毫秒的转化值
         /// </summary>
@@ -60,6 +61,7 @@ namespace Hikari
             this.userQueue = new ConcurrentQueue<PoolEntry>();
             Start();
         }
+
         /// <summary>
         /// 监测空闲的连接
         /// </summary>
@@ -79,7 +81,7 @@ namespace Hikari
         }
 
         /// <summary>
-        /// 监视连接离开的池的世界
+        /// 监视连接离开的池的对象
         /// </summary>
         /// <param name="poolEntry"></param>
         public void ScheduleUse(PoolEntry poolEntry)
@@ -87,6 +89,9 @@ namespace Hikari
             userQueue.Enqueue(poolEntry);
         }
 
+        /// <summary>
+        /// 开启监视
+        /// </summary>
         private void Start()
         {
             Thread idle = new Thread(() =>
@@ -101,12 +106,13 @@ namespace Hikari
                     {
                         if (idleTimeQueue.TryDequeue(out poolEntry))
                         {
+                            //超过空闲时间就不需要，标记移除
                             if ((now - poolEntry.AccessedTime) / tickms > idleTimeOut)
                             {
                                 poolEntry.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_REMOVED);
                             }
                             num--;
-                            if (poolEntry.State != -1)
+                            if (poolEntry.State != IConcurrentBagEntry.STATE_REMOVED)
                             {
                                 //已经标记移除的不再监测
                                 idleTimeQueue.Enqueue(poolEntry);
@@ -136,7 +142,7 @@ namespace Hikari
                                 poolEntry.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_REMOVED);
                             }
                             num--;
-                            if (poolEntry.State != -1)
+                            if (poolEntry.State != IConcurrentBagEntry.STATE_REMOVED)
                             {
                                 //已经标记移除的不再监测
                                 maxLiveQueue.Enqueue(poolEntry);
@@ -177,11 +183,11 @@ namespace Hikari
                             {
                                 if ((now - poolEntry.AccessedTime) / tickms > leakDetectionThreshold)
                                 {
-                                    Logger.Singleton.Warn(string.Format("{0}-可能泄露",PoolName));
+                                    Logger.Singleton.Warn(string.Format("{0}-可能泄露,实体:{1}",PoolName,poolEntry.ID));
                                 }
                             }
                             num--;
-                            if (poolEntry.State == 1)
+                            if (poolEntry.State == IConcurrentBagEntry.STATE_IN_USE)
                             {
                                 //没有使用的不再监测
                                 userQueue.Enqueue(poolEntry);
@@ -232,6 +238,8 @@ namespace Hikari
                 }
             }
         }
+       
+        
         /// <summary>
         /// 关闭清除
         /// </summary>

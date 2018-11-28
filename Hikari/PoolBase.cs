@@ -19,7 +19,7 @@ namespace Hikari
         protected long connectionTimeout;
         protected int validationTimeout;
         protected string dllPath = "";//dll路径
-        protected  int size = 0;//生成的连接
+        protected  int size = 0;//生成的连接数量
         protected int entryid = 0;//ID生成
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Hikari
         /// <summary>
         /// 关闭驱动连接
         /// 按照设计，只有连接池能够操作驱动连接
-        /// 但是给
+        /// 
         /// </summary>
         /// <param name="connection"></param>
         protected void CloseConnection(IDbConnection connection)

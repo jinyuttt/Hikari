@@ -1,14 +1,18 @@
-﻿using log4net.Core;
-using System;
+﻿using System;
 using System.Data;
 using System.Threading;
 
 namespace Hikari
 {
+
+
+    /// <summary>
+    /// 连接池缓存对象
+    /// 包含驱动连接
+    /// </summary>
     public class PoolEntry:IConcurrentBagEntry
     {
 
-     
         /// <summary>
         /// 驱动连接
         /// </summary>
@@ -60,11 +64,12 @@ namespace Hikari
         {
             try
             {
+                this.AccessedTime = DateTime.Now.Ticks;
                 return ProxyFactory.GetProxyConnection(this, connection, now);
             }
             catch(Exception ex)
             {
-                throw new Exception("获取失败34:" + ex.Message);
+                throw new Exception("获取失败:" + ex.Message);
             }
         }
 
