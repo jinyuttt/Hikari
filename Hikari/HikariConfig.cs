@@ -265,7 +265,7 @@ namespace Hikari
         /// 默认：DBPoolCfg/Hikari.txt
         /// </summary>
         /// <param name="filePath"></param>
-        public void LoadConfig(string filePath)
+        public virtual void LoadConfig(string filePath)
         {
             if(!File.Exists(filePath))
             {

@@ -41,8 +41,15 @@ namespace Hikari
         /// </summary>
         private volatile bool isInit = true;//需要加载
 
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public bool IsClosed
+        {
+            get { return isShutdown; }
 
-        
+        }
+
 
         /// <summary>
         /// 连接提供DataSource
@@ -163,14 +170,14 @@ namespace Hikari
                 }
             }
         }
-    
-       /// <summary>
-       /// 状态
-       /// </summary>
-        public bool IsClosed
+
+        /// <summary>
+        /// 不允许使用该方法
+        /// </summary>
+        /// <param name="filePath"></param>
+        public override void LoadConfig(string filePath)
         {
-            get { return isShutdown; }
-            
+            throw new Exception("不允许使用该方法");
         }
 
         #region ADO.NET对象
