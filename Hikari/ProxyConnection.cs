@@ -62,6 +62,11 @@ namespace Hikari
         /// </summary>
         public void Close()
         {
+            if(IsClosed)
+            {
+                //已经关闭的不再关闭
+                return;
+            }
             isClosed = true;
             poolEntry.Recycle(DateTime.Now.Ticks);
         }
@@ -77,7 +82,6 @@ namespace Hikari
         public void Open()
         {
             isClosed = false;
-           
             delegateCon.Open();
         }
 

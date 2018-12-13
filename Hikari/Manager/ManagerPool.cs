@@ -23,6 +23,7 @@ using System.Data;
 using System.IO;
 using System.Collections.Concurrent;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Hikari.Manager
 {
@@ -36,6 +37,9 @@ namespace Hikari.Manager
 
     public  class ManagerPool
     {
+        /// <summary>
+        /// 单例
+        /// </summary>
         public readonly static ManagerPool Instance = new ManagerPool();
         private readonly object lock_obj = new object();
         private Dictionary<string, HikariDataSource> dicSource = new Dictionary<string, HikariDataSource>();
@@ -74,8 +78,56 @@ namespace Hikari.Manager
         {
             PoolDriverXML = Path.Combine("DBPoolCfg", "DBType.xml");
             DirverDir = "Dirvers";
+            CheckValiate();
         }
 
+        /// <summary>
+        /// 监测已经关闭的
+        /// 只是移除无效的，和性能无关
+        /// </summary>
+        private void CheckValiate()
+        {
+            Task.Factory.StartNew(() =>
+            {
+                Thread.Sleep(1000000);
+                List<IDbConnection> lst = new List<IDbConnection>(100);
+                foreach(var item in dicCons)
+                {
+                    //遍历查找已经关闭的对象
+                    HikariConnection hikari = item.Value as HikariConnection;
+                    if(hikari!=null)
+                    {
+                       
+                        if(hikari.IsClosed)
+                        {
+                            //没有加锁，直接移除会导致功能受影响
+                            lst.Add(item.Value);
+                        }
+                    }
+
+                }
+                //已经关闭的
+                if (lst.Count > 0)
+                {
+                    //避免刚刚进入的被替换；主要是解决线程不是新线程的问题
+                    int[] keys = new int[dicCons.Count];
+                    dicCons.Keys.CopyTo(keys, 0);
+                    IDbConnection connection = null;
+                    foreach(int key in keys)
+                    {
+                       if( dicCons.TryGetValue(key,out  connection))
+                        {
+                            if(lst.Contains(connection))
+                            {
+                                dicCons.TryRemove(key, out connection);
+                            }
+                        }
+                    }
+                }
+                //
+                CheckValiate();//递归返回
+            });
+        }
 
 
         /// <summary>
