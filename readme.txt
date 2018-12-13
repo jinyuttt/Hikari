@@ -18,7 +18,7 @@
             hikariDataSource.DriverDLL = "XXXX.dll";
             hikariDataSource.DBTypeXml = "DBType.xml";
 
-配置文件
+配置文件（推荐方式）
 HikariConfig hikariConfig = new HikariConfig();
 hikariConfig.LoadConfig("Hikari.txt");
 //也可以使用

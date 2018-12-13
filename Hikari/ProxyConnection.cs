@@ -1,5 +1,4 @@
-﻿using log4net.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -34,6 +33,15 @@ namespace Hikari
         private long lastAccess=0;
         protected IDbConnection delegateCon = null;
         private  PoolEntry poolEntry = null;
+
+        private volatile bool isClosed = false;
+
+        /// <summary>
+        /// 关闭状态
+        /// </summary>
+        public bool IsClosed { get { return IsClosed; } set { isClosed = value; } }
+
+
         public IDbTransaction BeginTransaction()
         {
            return delegateCon.BeginTransaction();
@@ -49,8 +57,12 @@ namespace Hikari
             delegateCon.ChangeDatabase(databaseName);
         }
 
+        /// <summary>
+        /// 关闭连接
+        /// </summary>
         public void Close()
         {
+            isClosed = true;
             poolEntry.Recycle(DateTime.Now.Ticks);
         }
 
@@ -59,8 +71,13 @@ namespace Hikari
            return delegateCon.CreateCommand();
         }
 
+        /// <summary>
+        /// 开启连接
+        /// </summary>
         public void Open()
         {
+            isClosed = false;
+           
             delegateCon.Open();
         }
 

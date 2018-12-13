@@ -1,5 +1,4 @@
-﻿using log4net.Core;
-using System;
+﻿using System;
 using System.Data;
 using System.Threading;
 /**
@@ -41,6 +40,9 @@ namespace Hikari
         /// 是否初始化
         /// </summary>
         private volatile bool isInit = true;//需要加载
+
+
+        
 
         /// <summary>
         /// 连接提供DataSource
@@ -91,14 +93,14 @@ namespace Hikari
                 //
                 if(!string.IsNullOrEmpty(this.DBType))
                 {
-                   var dllinfo= GlobalDBType.GetDriver(this.DBType);
+                    //根据全局配置信息查找DLL
+                    var dllinfo= GlobalDBType.GetDriver(this.DBType);
                     if (dllinfo != null)
                     {
-                        if (string.IsNullOrEmpty(this.DriverDLL))
+                        if (string.IsNullOrEmpty(this.DriverDLLFile))
                         {
-                            this.DriverDLL = dllinfo.DriverDLLName;
+                            this.DriverDLLFile = dllinfo.DriverDLLName;
                         }
-                        
                     }
                 }
                 isInit = false;
@@ -120,11 +122,12 @@ namespace Hikari
                         try
                         {
                             pool = result = new HikariPool(this);
-                            //this.seal();
-                        }
-                        catch (Exception pie)
-                        {
                            
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            Logger.Singleton.Error(ex.Message);
                         }
                         Logger.Singleton.InfoFormat("{} - Start completed.", PoolName);
                     }

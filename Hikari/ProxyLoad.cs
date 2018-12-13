@@ -25,16 +25,15 @@ namespace Hikari
     /// </summary>
    public class ProxyLoad
     {
-        private static readonly string DllName = ".dll";
-        private static object lock_obj = new object();
+        private const string DllExtension = ".dll";
+        private static readonly object lock_obj = new object();
         private static Dictionary<string, Type> dic_ConnectType = new Dictionary<string, Type>();
         private static Dictionary<string, AssemblyDLLType> dicAssemblyDLLType = new Dictionary<string, AssemblyDLLType>();
-        public static IDbConnection GetConnection(string path,string clazz)
+        private static IDbConnection GetConnection(string path,string clazz)
         {
             Type type = null;
             if (dic_ConnectType.TryGetValue(clazz,out type))
             {
-               
                 IDbConnection connection = (IDbConnection)Activator.CreateInstance(type);
                 return connection;
             }
@@ -44,9 +43,9 @@ namespace Hikari
                 {
                     return null;
                 }
-                if(!path.ToLower().Trim().EndsWith(DllName))
+                if(!path.ToLower().Trim().EndsWith(DllExtension))
                 {
-                    path = path + DllName;
+                    path = path + DllExtension;
                 }
                 try
                 {
@@ -80,7 +79,7 @@ namespace Hikari
         /// <summary>
         /// 获取驱动对象
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">驱动路径</param>
         /// <returns></returns>
         public static IDbConnection GetConnection(string path)
         {
@@ -98,9 +97,9 @@ namespace Hikari
                     return null;
                 }
                 string dllPath = path;
-                if (!path.ToLower().Trim().EndsWith(DllName))
+                if (!path.ToLower().Trim().EndsWith(DllExtension))
                 {
-                    dllPath = path + DllName;
+                    dllPath = path + DllExtension;
                 }
                 bool token = false;
                 try

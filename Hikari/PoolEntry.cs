@@ -53,21 +53,21 @@ namespace Hikari
             this.createTime = lastAccessed;
         }
 
-    
+
         /// <summary>
         /// 创建代理连接
         /// 将驱动包到代理连接中
         /// </summary>
         /// <param name="now"></param>
         /// <returns></returns>
-       public IDbConnection CreateProxyConnection(long now)
+        public IDbConnection CreateProxyConnection(long now)
         {
             try
             {
                 this.AccessedTime = DateTime.Now.Ticks;
                 return ProxyFactory.GetProxyConnection(this, connection, now);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("获取失败:" + ex.Message);
             }
@@ -142,7 +142,5 @@ namespace Hikari
                     return "Invalid";
             }
         }
-
-       
     }
 }

@@ -136,9 +136,9 @@ namespace Hikari
 
      
         /// <summary>
-        /// 驱动dll路径
+        /// 驱动dll文件
         /// </summary>
-        public string DriverDLL { get { return driverDLL; } set { driverDLL = value; } }
+        public string DriverDLLFile { get { return driverDLL; } set { driverDLL = value; } }
 
         /// <summary>
         /// 驱动目录
@@ -150,12 +150,15 @@ namespace Hikari
 
         /// <summary>
         /// 全局配置
-        /// 默认：DBType.xml
+        /// 默认：DBPoolCfg/DBDLLType.xml
         /// </summary>
         public string DBTypeXml { get { return dbTypeXml; } set { dbTypeXml = value; } }
 
         /// <summary>
-        /// 数据库类型
+        /// 数据库类型;
+        /// 全局固化的数据库才有意义
+        /// 当前有4类
+        /// 可以不配置dll名称
         /// </summary>
         public string DBType { get; set; }
 
@@ -169,6 +172,13 @@ namespace Hikari
         /// 默认：10分钟(600000毫秒)
         /// </summary>
         public int DestroyInterval { get { return destroyInterval; } set { destroyInterval = value; } }
+       
+        public HikariConfig()
+        {
+            this.dbTypeXml = Path.Combine("DBPoolCfg", "DBType.xml");
+            
+        }
+        
         /// <summary>
         /// 获取数据
         /// </summary>
@@ -251,7 +261,8 @@ namespace Hikari
         }
 
         /// <summary>
-        /// 加载配置文件
+        /// 加载数据库连接配置文件
+        /// 默认：DBPoolCfg/Hikari.txt
         /// </summary>
         /// <param name="filePath"></param>
         public void LoadConfig(string filePath)

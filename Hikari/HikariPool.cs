@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Hikari
 {
+  //  public delegate void BagEntryRemove<T>(object sender, T[] entrys);
     /// <summary>
     /// 功能描述    ：HikariPool  
     /// 创 建 者    ：jinyu
@@ -38,7 +39,7 @@ namespace Hikari
         /// tick与毫秒的转化值
         /// 
         /// </summary>
-        private static int tickms = 10000;
+        private const int TicksMs = 10000;
         private KeepingExecutorService keepingExecutor;
         private ConnectionBucket<PoolEntry> connectionBag=null;
         
@@ -170,7 +171,7 @@ namespace Hikari
                         }
                     }
                     //计算获取的时间，转化成ms
-                    timeout=timeout- (DateTime.Now.Ticks - startTime) / tickms;
+                    timeout=timeout- (DateTime.Now.Ticks - startTime) / TicksMs;
                 } while (timeout > 0L);
             }
             catch (Exception e)
@@ -208,7 +209,7 @@ namespace Hikari
                         Logger.Singleton.DebugFormat("{0} - Added connection {1}", poolName, poolEntry);
                     }
                 }
-                startTime = (DateTime.Now.Ticks - startTime) / tickms;
+                startTime = (DateTime.Now.Ticks - startTime) / TicksMs;
             } while (startTime < initializationTimeout);
 
            

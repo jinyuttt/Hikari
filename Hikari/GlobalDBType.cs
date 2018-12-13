@@ -12,7 +12,7 @@ using System.Xml;
 namespace Hikari
 {
     /// <summary>
-    /// 功能描述    ：GlobalDBType  加载数据库信息配置
+    /// 功能描述    ：GlobalDBType  加载数据库驱动信息
     /// 创 建 者    ：jinyu
     /// 创建日期    ：2018/10/26 2:54:33 
     /// 最后修改者  ：jinyu
@@ -22,14 +22,23 @@ namespace Hikari
     {
         private static Dictionary<string, DriverDLL> dicDBType = new Dictionary<string, DriverDLL>();
 
-        private static object lock_obj = new object();
+        private static readonly object lock_obj = new object();
 
         /// <summary>
-        /// 已
+        /// 加载过的全局文件
+        /// </summary>
+        private static List<string> lstDBType = new List<string>();
+
+        /// <summary>
+        /// 是否已经初始化过
+        /// </summary>
+        private static volatile bool isInit = false;
+        /// <summary>
+        /// 
         /// </summary>
         private static void Init()
         {
-            //oralce
+           
             lock (lock_obj)
             {
                 //Oracle
@@ -64,24 +73,32 @@ namespace Hikari
         public static  void LoadXml(string dbXml)
         {
             //
-            Init();
-             XmlDocument doc = new XmlDocument();
-            doc.Load(dbXml);
-            foreach(XmlNode child in doc.DocumentElement.ChildNodes)
+            if (!isInit)
             {
-               
-               XmlNode dll= child.SelectSingleNode("DriverDLL");
-                XmlNode cls = child.SelectSingleNode("DriverClass");
-                DriverDLL driver = new DriverDLL();
-                driver.DBType = child.Name;
-                driver.DriverDLLName = dll == null ? "" : dll.OuterXml;
-              
-                dicDBType[driver.DBType] = driver;
+                Init();
+                isInit = true;
+            }
+            if (!lstDBType.Contains(dbXml))
+            {
+                //没有加载过的全局文件才加载
+                XmlDocument doc = new XmlDocument();
+                doc.Load(dbXml);
+                foreach (XmlNode child in doc.DocumentElement.ChildNodes)
+                {
+
+                    XmlNode dll = child.SelectSingleNode("DriverDLL");
+                    // XmlNode cls = child.SelectSingleNode("DriverClass");
+                    DriverDLL driver = new DriverDLL();
+                    driver.DBType = child.Name;
+                    driver.DriverDLLName = dll == null ? "" : dll.OuterXml;
+                    dicDBType[driver.DBType] = driver;
+                }
+                lstDBType.Add(dbXml);
             }
         }
 
         /// <summary>
-        /// 获取信息
+        /// 获取dll名称信息
         /// </summary>
         /// <param name="dbtype"></param>
         /// <returns></returns>

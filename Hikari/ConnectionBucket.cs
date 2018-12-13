@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hikari
 {
+    public delegate void BagEntryRemove<T>(object sender, T[] entrys);
     public class ConnectionBucket<T> where T : IConcurrentBagEntry
     {
         private ConcurrentStack<T> concurrentStack = null;
@@ -40,13 +41,13 @@ namespace Hikari
         public ConnectionBucket()
         {
             concurrentStack = new ConcurrentStack<T>();
-            
+
         }
 
         public ConnectionBucket(int capticty)
         {
             concurrentStack = new ConcurrentStack<T>();
-            
+
             T[] array = (T[])Array.CreateInstance(typeof(T), capticty);
             if (array != null)
             {
@@ -101,7 +102,8 @@ namespace Hikari
             }
             if (item != null)
             {
-                //设置状态
+                //设置状态;只有使用的更新
+                //其它例如删除的不需要
                 item.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_IN_USE);
                 return true;
             }
@@ -119,9 +121,9 @@ namespace Hikari
             item = null;
             while (true)
             {
-                if(!concurrentStack.TryPeek(out item))
+                if (!concurrentStack.TryPeek(out item))
                 {
-                    if(concurrentStack.IsEmpty)
+                    if (concurrentStack.IsEmpty)
                     {
                         break;
                     }
@@ -160,7 +162,7 @@ namespace Hikari
             }
             else
             {
-               
+
                 Check();//放入时监测，不影响业务
                 item.CompareAndSetState(IConcurrentBagEntry.STATE_IN_USE, IConcurrentBagEntry.STATE_NOT_IN_USE);
                 concurrentStack.Push(item);
@@ -196,15 +198,15 @@ namespace Hikari
         /// </summary>
         private bool Check()
         {
-            if((DateTime.Now-emptyTime).TotalMinutes>emptyTimeM)
+            if ((DateTime.Now - emptyTime).TotalMinutes > emptyTimeM)
             {
                 //说明超过emptyTimeM分钟都没有用完缓存
                 //准备自动移除现有缓存，重新建立新的缓存
                 //将现有缓存全部视为空闲的
                 T item = null;
-                while(!concurrentStack.IsEmpty)
+                while (!concurrentStack.IsEmpty)
                 {
-                    if(concurrentStack.TryPop(out item))
+                    if (concurrentStack.TryPop(out item))
                     {
                         item.SetState(IConcurrentBagEntry.STATE_REMOVED);
                         AddRemove(item);

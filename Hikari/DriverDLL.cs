@@ -13,7 +13,7 @@ using System.Text;
 namespace Hikari
 {
     /// <summary>
-    /// 功能描述    ：DriverDLL  
+    /// 功能描述    ：DriverDLL  真实驱动信息
     /// 创 建 者    ：jinyu
     /// 创建日期    ：2018/10/26 2:52:27 
     /// 最后修改者  ：jinyu
@@ -27,7 +27,7 @@ namespace Hikari
         public string DriverDLLName { get; set; }
 
         /// <summary>
-        /// 数据库类型
+        /// 数据库类型（Oracle，mysql等)
         /// </summary>
         public string DBType { get; set; }
     }

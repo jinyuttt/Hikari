@@ -11,10 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="DBType.xml">
+    <None Update="DBPoolCfg\DBType.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Hikari.txt">
+    <None Update="DBPoolCfg\Hikari.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

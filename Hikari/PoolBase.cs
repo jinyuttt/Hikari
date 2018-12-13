@@ -80,7 +80,7 @@ namespace Hikari
             {
                 if(string.IsNullOrEmpty(dllPath))
                 {
-                    dllPath = Path.Combine(config.DriverDir, config.DriverDLL);
+                    dllPath = Path.Combine(config.DriverDir, config.DriverDLLFile);
                 }
                 connection = ProxyLoad.GetConnection(dllPath);
                 if (connection == null)

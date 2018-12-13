@@ -22,6 +22,7 @@ namespace Hikari
     /// </summary>
    public class HikariConnection: ProxyConnection
     {
+      
         public HikariConnection(PoolEntry poolEntry, IDbConnection connection, long now):base(poolEntry,connection,now)
         {
 
