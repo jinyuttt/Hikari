@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="MySql.Data" Version="8.0.13" />
+    <PackageReference Include="Npgsql" Version="4.0.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +19,10 @@
     <None Update="DBPoolCfg\Hikari.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DBDirvers\" />
   </ItemGroup>
 
 </Project>

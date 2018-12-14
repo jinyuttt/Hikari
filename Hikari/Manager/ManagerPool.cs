@@ -81,7 +81,7 @@ namespace Hikari.Manager
         /// <summary>
         /// 统一设置驱动目录;
         /// 不会覆盖单个配置的设置
-        /// 默认：Dirvers
+        /// 默认：DBDirvers
         /// </summary>
         public string DirverDir { get; set; }
 
@@ -90,7 +90,7 @@ namespace Hikari.Manager
         {
             //默认
             PoolDriverXML = Path.Combine("DBPoolCfg", "DBType.xml");
-            DirverDir = "Dirvers";
+            DirverDir = "DBDirvers";
             CheckValiate();
         }
 
