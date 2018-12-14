@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-﻿---
-date:
-status: public
-title: '                               HiKari使用说明'
----
+
+                              'HiKari使用说明'
+                                ---
 
 # 程序初始化
   使用配置类
