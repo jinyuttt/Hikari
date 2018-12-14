@@ -3,7 +3,8 @@
 * 项目名称 ：Hikari.Manager
 * 项目描述 ：数据库连接池
 * 类 名 称 ：ManagerPool
-* 类 描 述 ：数据库连接池管理
+* 类 描 述 ：数据库连接池管理;允许多数据库配置，按照配置文件名称获取连接
+*            例如：MySql_Hikari.cfg
 * 命名空间 ：Hikari.Manager
 * CLR 版本 ：4.0.30319.42000
 * 作    者 ：jinyu
@@ -28,7 +29,7 @@ using System.Threading.Tasks;
 namespace Hikari.Manager
 {
     /* ============================================================================== 
-    * 功能描述：ManagerPool 线程池管理；允许多数据库配置，按照配置文件名称获取连接
+    * 功能描述：ManagerPool 线程池管理；按照配置文件名称获取连接
     * 创 建 者：jinyu 
     * 修 改 者：jinyu 
     * 创建日期：2018
@@ -41,11 +42,20 @@ namespace Hikari.Manager
         /// 单例
         /// </summary>
         public readonly static ManagerPool Instance = new ManagerPool();
-        private readonly object lock_obj = new object();
+        private readonly object lock_obj = new object();//全局锁
+
+        /// <summary>
+        /// 线程池
+        /// </summary>
         private Dictionary<string, HikariDataSource> dicSource = new Dictionary<string, HikariDataSource>();
-        private string cfgPath = "DBPoolCfg";
-        private readonly string cfgFile = "Hikari";//默认配置文件
+        private string cfgPath = "DBPoolCfg";//配置目录
+        private const string CfgFile = "Hikari";//默认配置文件
+        private const string PreCfg= "_Hikari";//配置文件后缀
         private const string CfgExtension = ".cfg";//配置文件后缀
+
+        /// <summary>
+        /// 线程连接
+        /// </summary>
         private ConcurrentDictionary<int, IDbConnection> dicCons = new ConcurrentDictionary<int, IDbConnection>();
 
         /// <summary>
@@ -64,6 +74,7 @@ namespace Hikari.Manager
 
         /// <summary>
         /// 同线程获取连接是否关闭前一个连接
+        /// 默认：false
         /// </summary>
         public  bool IsThreadClose { get; set; }
 
@@ -74,8 +85,10 @@ namespace Hikari.Manager
         /// </summary>
         public string DirverDir { get; set; }
 
+
         private ManagerPool()
         {
+            //默认
             PoolDriverXML = Path.Combine("DBPoolCfg", "DBType.xml");
             DirverDir = "Dirvers";
             CheckValiate();
@@ -138,6 +151,7 @@ namespace Hikari.Manager
         /// <returns></returns>
         private IDbConnection CreatePool(string name)
         {
+            //只是在加载配置文件时同步；其它不同步
             lock (lock_obj)
             {
                 HikariDataSource hikari = null;
@@ -183,21 +197,27 @@ namespace Hikari.Manager
 
         /// <summary>
         /// 获取连接
+        /// 例如：配置文件MySql_Hikari.cfg，name=MySql
+        /// 
         /// </summary>
-        /// <param name="name">配置文件名称</param>
+        /// <param name="name">配置文件名称，区分大小写</param>
         /// <returns></returns>
         public IDbConnection GetDbConnection(string name = null)
         {
             if (string.IsNullOrEmpty(name))
             {
-                name = cfgFile;//使用默认名称
+                name = CfgFile;//使用默认名称
+            }
+            else
+            {
+                name = name + PreCfg;//组合名称
             }
             HikariDataSource hikari = null;
             int threadid = Thread.CurrentThread.ManagedThreadId;
             if (dicSource.TryGetValue(name, out hikari))
             {
                 IDbConnection con = hikari.GetConnection();
-                if(IsThreadClose)
+                if (IsThreadClose)
                 {
                     IDbConnection connection = null;
                     if (dicCons.TryRemove(threadid, out connection))
@@ -227,7 +247,7 @@ namespace Hikari.Manager
         {
             if (string.IsNullOrEmpty(name))
             {
-                name = cfgFile;//使用默认名称
+                name = CfgFile;//使用默认名称
             }
             HikariDataSource hikari = null;
             if (dicSource.TryGetValue(name, out hikari))
@@ -256,11 +276,11 @@ namespace Hikari.Manager
         {
             if (string.IsNullOrEmpty(name))
             {
-                name = cfgFile;//使用默认名称
+                name = CfgFile;//使用默认名称
             }
             else
             {
-                name = name + "_" + cfgFile;
+                name = name + "_" + CfgFile;
             }
             name = name.Trim();
             HikariDataSource hikari = null;
@@ -290,7 +310,7 @@ namespace Hikari.Manager
         {
             if (string.IsNullOrEmpty(name))
             {
-                name = cfgFile;//使用默认名称
+                name = CfgFile;//使用默认名称
             }
             HikariDataSource hikari = null;
             if (dicSource.TryGetValue(name, out hikari))
@@ -319,7 +339,7 @@ namespace Hikari.Manager
         {
             if (string.IsNullOrEmpty(name))
             {
-                name = cfgFile;//使用默认名称
+                name = CfgFile;//使用默认名称
             }
             name = name.Trim();
             HikariDataSource hikari = null;
