@@ -1,8 +1,8 @@
-﻿                 HiKari使用说明
-                  =================================================
+﻿                # HiKari使用说明
    程序初始化
    -----------------------------------------------------------------------------------------------------------------
   使用配置类
+ ···
    HikariConfig hikariConfig = new HikariConfig();
                 hikariConfig.DBType = "PostgreSQL";
                 hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database =      postgres;Pooling=true; ";
@@ -11,23 +11,24 @@
             hikariConfig.DBTypeXml = "DBType.xml";
 
             HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-    》》》 》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
-
+  
+···
 直接使用
+···
   HikariDataSource hikariDataSource = new HikariDataSource();
                    hikariDataSource.DBType = "PostgreSQL";
             hikariDataSource.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
             hikariDataSource.DriverDir = "DBDrivers";
             hikariDataSource.DriverDLL = "XXXX.dll";
             hikariDataSource.DBTypeXml = "DBType.xml";
-            
-            
-            》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+···
 
 配置文件（推荐方式）
+···
 HikariConfig hikariConfig = new HikariConfig();
 hikariConfig.LoadConfig("Hikari.txt");
 HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+···
 使用l连接
 hikariDataSource.GetConnection();
 ----------------------------------------------------------------------------------------------------------------------------
@@ -41,7 +42,7 @@ hikariDataSource.GetConnection();
                                 2>DBType配置不是默认的4类，则需要BType.xml中的配置来获取DLL文件名称。因为程序不知道dll.
        其实这2种就是分散与汇总的区别。有的习惯每个配置文件配置dll,方便监测；有的习惯写在一起，方便管理。看自己情况。
        DBType程序中写死了4种，见附录。
- DBType.xml我称为全局配置文件，读取时的配置路径和名称可以设置HikariConfig或者HikariDataSource的DBTypeXml属性进行修改；默认就是DBType.xml
+ DBType.xml我称为全局配置文件，读取时的配置路径和名称可以设置HikariConfig或者HikariDataSource的DBTypeXml属性进行修改；默认就是D     BType.xml
  ------------------------------------------------------------------------------------------------------------------------------
  升级内容：
  2018-12-13
