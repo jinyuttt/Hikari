@@ -1,5 +1,5 @@
    # HiKari使用说明
-# 程序初始化
+## 程序初始化
   使用配置类
 ```
       HikariConfig hikariConfig = new HikariConfig();
@@ -29,7 +29,7 @@ HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 ```
 使用连接
 hikariDataSource.GetConnection();
-# 配置文件说明
+## 配置文件说明
 1.连接字符串必须要  
 2.驱动目录DriverDir项不配置则使用默认drivers目录  
 3.关于驱动dll有2种：  
@@ -41,7 +41,7 @@ hikariDataSource.GetConnection();
        其实这2种就是分散与汇总的区别。有的习惯每个配置文件配置dll,方便监测；有的习惯写在一起，方便管理。看自己情况。  
        DBType程序中写死了4种，见附录。  
  DBType.xml我称为全局配置文件，读取时的配置路径和名称可以设置HikariConfig或者HikariDataSource的DBTypeXml属性进行修改；默认就是DBType.xml
-# 升级内容
+## 升级内容
 2018-12-13  
 1.优化加载，对全局配置文件DBType.xml和默认项进行检查，已经加载过的就不加载了。  
 2.新增连接池管理。可以同时启用多个连接池。连接池使用和以前一样。但是可以同时使用多个。根据配置文件名称来获取不同的连接池连接。只是这个时候只能能够使用配置文件，而不能在使用配置类了。  
@@ -57,17 +57,17 @@ ManagerPool获取连接时传入一个名称（配置文件名称）来获取连
 -------------------------------------------------------------------------------------------------------
 
 
-# 源码简说
-## 基本内容
+## 源码简说
+### 基本内容
 HikariDataSource 对外提供连接  
 HikariConfig 对外配置  
 HikariPool 管理操作集合，连接来源  
 PoolBase 操作驱动连接，是HikariPool父类  
-## 新增扩展内容
+### 新增扩展内容
 2018-12-13  
 ManagerPool 线程池管理类，根据名称提供多线程连接  
 
-# 附录
+## 附录
 |数据库	|Dll名称|说明|
 |:-------:|:------:|:-----:|
 |Oracle	|Oracle.ManagedDataAccess	|以前不是这个dll|
