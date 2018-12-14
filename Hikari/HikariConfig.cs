@@ -39,9 +39,9 @@ namespace Hikari
         private string connectionInitSql = null;//初始化连接测试SQL
         private long validationTimeout = 5000;//验证时间，现在无用
         private long leakDetectionThreshold = 0;//离开池中时间
-        private string logConfig = "";
+        private string logConfig = "";//日志文件配置
         private int destroyInterval = 600000;//销毁驱动连接的时间间隔
-        private static int pool_number = 0;
+        private static int pool_number = 0;//线程池ID
         private const string prefix = "HikariPool-";
       
         /// <summary>
@@ -176,7 +176,6 @@ namespace Hikari
         public HikariConfig()
         {
             this.dbTypeXml = Path.Combine("DBPoolCfg", "DBType.xml");
-            
         }
         
         /// <summary>

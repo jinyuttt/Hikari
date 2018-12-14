@@ -1,9 +1,9 @@
 ﻿#region << 版 本 注 释 >>
 /*----------------------------------------------------------------
 * 项目名称 ：Hikari.Manager
-* 项目描述 ：
+* 项目描述 ：数据库连接池
 * 类 名 称 ：ManagerPool
-* 类 描 述 ：
+* 类 描 述 ：数据库连接池管理
 * 命名空间 ：Hikari.Manager
 * CLR 版本 ：4.0.30319.42000
 * 作    者 ：jinyu
@@ -31,7 +31,7 @@ namespace Hikari.Manager
     * 功能描述：ManagerPool 线程池管理；允许多数据库配置，按照配置文件名称获取连接
     * 创 建 者：jinyu 
     * 修 改 者：jinyu 
-    * 创建日期：2018 
+    * 创建日期：2018
     * 修改日期：2018 
     * ==============================================================================*/
 
@@ -44,8 +44,8 @@ namespace Hikari.Manager
         private readonly object lock_obj = new object();
         private Dictionary<string, HikariDataSource> dicSource = new Dictionary<string, HikariDataSource>();
         private string cfgPath = "DBPoolCfg";
-        private readonly string cfgFile = "Hikari";
-        private const string CfgExtension = ".cfg";
+        private readonly string cfgFile = "Hikari";//默认配置文件
+        private const string CfgExtension = ".cfg";//配置文件后缀
         private ConcurrentDictionary<int, IDbConnection> dicCons = new ConcurrentDictionary<int, IDbConnection>();
 
         /// <summary>
@@ -143,20 +143,23 @@ namespace Hikari.Manager
                 HikariDataSource hikari = null;
                 if (dicSource.TryGetValue(name, out hikari))
                 {
+                    //先取一次
                     return hikari.GetConnection();
                 }
                 else
                 {
+                    //配置文件
                     string file = Path.Combine(cfgPath, name + CfgExtension);
                     if (!File.Exists(file))
                     {
                         throw new Exception("没有配置文件" + file);
                     }
                     HikariConfig hikariConfig = new HikariConfig();
-                    hikariConfig.DriverDir = null;
+                    hikariConfig.DriverDir = null;//不再使用原来的默认
                     hikariConfig.LoadConfig(file);
                     if(string.IsNullOrEmpty(hikariConfig.DriverDir))
                     {
+                       //说明没有在文件中配置
                         hikariConfig.DriverDir = this.DirverDir;
                     }
                     hikariConfig.DBTypeXml = this.PoolDriverXML;
@@ -255,6 +258,11 @@ namespace Hikari.Manager
             {
                 name = cfgFile;//使用默认名称
             }
+            else
+            {
+                name = name + "_" + cfgFile;
+            }
+            name = name.Trim();
             HikariDataSource hikari = null;
             if (dicSource.TryGetValue(name, out hikari))
             {
@@ -303,12 +311,17 @@ namespace Hikari.Manager
         }
         #endregion 
 
+        /// <summary>
+        /// 清理连接池
+        /// </summary>
+        /// <param name="name"></param>
         public void ClearPool(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
                 name = cfgFile;//使用默认名称
             }
+            name = name.Trim();
             HikariDataSource hikari = null;
             lock (lock_obj)
             {

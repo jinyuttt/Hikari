@@ -181,12 +181,15 @@ namespace Hikari
         }
 
         #region ADO.NET对象
+
         public IDbDataAdapter DataAdapter { get {return pool.GetDataAdapter(); } }
 
         public IDbCommand DbCommand { get { return pool.GetDbCommand(); } }
 
         public IDbDataParameter DataParameter { get { return pool.GetDataParameter(); } }
+       
         #endregion
+
         public override string ToString()
         {
             return "HikariDataSource (" + pool + ")";
