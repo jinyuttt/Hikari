@@ -5,21 +5,21 @@
   使用配置类
 ```
       HikariConfig hikariConfig = new HikariConfig();
-                hikariConfig.DBType = "PostgreSQL";
-                hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database =      postgres;Pooling=true; ";
-            hikariConfig.DriverDir = "DBDrivers";
-            hikariConfig.DriverDLL = "XXXX.dll";
-            hikariConfig.DBTypeXml = "DBType.xml";
-           HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+                   hikariConfig.DBType = "PostgreSQL";
+                   hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database =      postgres;Pooling=true; ";
+                   hikariConfig.DriverDir = "DBDrivers";
+                   hikariConfig.DriverDLL = "XXXX.dll";
+                   hikariConfig.DBTypeXml = "DBType.xml";
+      HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 ```
 直接使用：
 ```
   HikariDataSource hikariDataSource = new HikariDataSource();
                    hikariDataSource.DBType = "PostgreSQL";
-            hikariDataSource.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
-            hikariDataSource.DriverDir = "DBDrivers";
-            hikariDataSource.DriverDLL = "XXXX.dll";
-            hikariDataSource.DBTypeXml = "DBType.xml";
+                   hikariDataSource.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
+                   hikariDataSource.DriverDir = "DBDrivers";
+                   hikariDataSource.DriverDLL = "XXXX.dll";
+                   hikariDataSource.DBTypeXml = "DBType.xml";
 ```
 配置文件（推荐方式):
 
@@ -61,10 +61,10 @@ ManagerPool获取连接时传入一个名称（配置文件名称）来获取连
 
 # 源码简说
 ## 基本内容
-HikariDataSource 对外提供连接
-HikariConfig 对外配置
-HikariPool 管理操作集合，连接来源
-PoolBase 操作驱动连接，是HikariPool父类
+HikariDataSource 对外提供连接  
+HikariConfig 对外配置  
+HikariPool 管理操作集合，连接来源  
+PoolBase 操作驱动连接，是HikariPool父类  
 ##新增扩展内容
 2018-12-13
 ManagerPool 线程池管理类，根据名称提供多线程连接
