@@ -1,6 +1,4 @@
-
-                                 ***HiKari使用说明***
-
+   # HiKari使用说明
 # 程序初始化
   使用配置类
 ```
@@ -65,9 +63,9 @@ HikariDataSource 对外提供连接
 HikariConfig 对外配置  
 HikariPool 管理操作集合，连接来源  
 PoolBase 操作驱动连接，是HikariPool父类  
-##新增扩展内容
-2018-12-13
-ManagerPool 线程池管理类，根据名称提供多线程连接
+## 新增扩展内容
+2018-12-13  
+ManagerPool 线程池管理类，根据名称提供多线程连接  
 
 # 附录
 |数据库	|Dll名称|说明|
