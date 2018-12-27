@@ -164,10 +164,10 @@ namespace Hikari
                                 keepingExecutor.ScheduleUse(poolEntry);
                                 return poolEntry.CreateProxyConnection(DateTime.Now.Ticks);
                             }
-                            else
-                            {
-                                continue;
-                            }
+                            //else
+                            //{
+                            //    continue;
+                            //}
                         }
                     }
                     //计算获取的时间，转化成ms
@@ -248,7 +248,7 @@ namespace Hikari
             {
                 if (poolState == POOL_NORMAL)
                 { // we check POOL_NORMAL to avoid a flood of messages if shutdown() is running concurrently
-                  //LOGGER.Error("{} - Error thrown while acquiring connection from data source", poolName, (e instanceof ConnectionSetupException ? e.getCause() : e));
+                    Logger.Singleton.ErrorFormat("{0} - Error thrown while acquiring connection from data source,{1}", poolName,e.Message);
 
                 }
                 return null;

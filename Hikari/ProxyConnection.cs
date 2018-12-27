@@ -34,7 +34,7 @@ namespace Hikari
         protected IDbConnection delegateCon = null;
         private  PoolEntry poolEntry = null;
 
-        private volatile bool isClosed = false;
+        private  bool isClosed = false;
 
         /// <summary>
         /// 关闭状态
@@ -62,7 +62,7 @@ namespace Hikari
         /// </summary>
         public void Close()
         {
-            if(IsClosed)
+            if(isClosed)
             {
                 //已经关闭的不再关闭
                 return;

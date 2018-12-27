@@ -225,12 +225,20 @@ namespace Hikari.Manager
                         connection.Close();
                     }
                 }
+                if(con==null)
+                {
+                    throw new Exception("连接为NULL，获取失败");
+                }
                 dicCons[threadid] = con;
                 return con;
             }
             else
             {
                 IDbConnection con = CreatePool(name);
+                if (con == null)
+                {
+                    throw new Exception("连接为NULL，获取失败");
+                }
                 dicCons[threadid] = con;
                 return con;
             }

@@ -288,7 +288,9 @@ namespace Hikari
                         for(int i=1;i<cof.Length;i++)
                         {
                             sbr.Append(cof[i]);
+                            sbr.Append("=");
                         }
+                        sbr.Remove(sbr.Length - 1, 1);
                         dic[cof[0].Trim().ToLower()] = sbr.ToString();
                     }
                 }
