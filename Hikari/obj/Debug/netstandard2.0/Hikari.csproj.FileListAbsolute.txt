@@ -18,4 +18,3 @@ E:\Study\vs\HiKari\Hikari\Hikari\obj\Debug\netstandard2.0\Hikari.dll
 E:\Study\vs\HiKari\Hikari\Hikari\obj\Debug\netstandard2.0\Hikari.pdb
 E:\Study\vs\Hikari\Hikari\Hikari\bin\Debug\netstandard2.0\DBPoolCfg\Hikari.cfg
 E:\Study\vs\Hikari\Hikari\Hikari\bin\Debug\netstandard2.0\DBPoolCfg\DBType.xml
-E:\Study\vs\Hikari\Hikari\Hikari\obj\Debug\netstandard2.0\Hikari.csprojAssemblyReference.cache

@@ -82,7 +82,7 @@ namespace Hikari
                 {
                     dllPath = Path.Combine(config.DriverDir, config.DriverDLLFile);
                 }
-                connection = ProxyLoad.GetConnection(dllPath);
+                connection = DbProviderFactories.GetConnection(dllPath);
                 if (connection == null)
                 {
                     throw new Exception("DataSource returned null unexpectedly");
@@ -176,17 +176,17 @@ namespace Hikari
         #region 数据库主要对象
         public IDbCommand  GetDbCommand()
         {
-            return ProxyLoad.GetDbCommand(dllPath);
+            return DbProviderFactories.GetDbCommand(dllPath);
         }
 
         public IDbDataParameter GetDataParameter()
         {
-            return ProxyLoad.GetDataParameter(dllPath);
+            return DbProviderFactories.GetDataParameter(dllPath);
         }
 
         public IDbDataAdapter GetDataAdapter()
         {
-            return ProxyLoad.GetDataAdapter(dllPath);
+            return DbProviderFactories.GetDataAdapter(dllPath);
         }
         #endregion
     }

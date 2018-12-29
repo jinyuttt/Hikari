@@ -17,13 +17,13 @@ using System.Threading;
 namespace Hikari
 {
     /// <summary>
-    /// 功能描述    ：ProxyLoad  加载驱动
+    /// 功能描述    ：DbProviderFactories  加载驱动
     /// 创 建 者    ：jinyu
     /// 创建日期    ：2018/10/24 22:49:18 
     /// 最后修改者  ：jinyu
     /// 最后修改日期：2018/10/24 22:49:18 
     /// </summary>
-   public class ProxyLoad
+    public class DbProviderFactories
     {
         private const string DllExtension = ".dll";
         private static readonly object lock_obj = new object();
