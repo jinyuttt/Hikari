@@ -11,13 +11,15 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Hikari")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Personal Contribution")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("2018")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("个人贡献，任意使用，希望保留版本和作者注释")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.3.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.3.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hikari")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hikari")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.3.0.0")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 
