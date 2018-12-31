@@ -21,12 +21,12 @@ namespace Hikari
     /// </summary>
     public abstract class ProxyConnection : IDbConnection
     {
-        static int DIRTY_BIT_READONLY = 0b000001;
-        static int DIRTY_BIT_AUTOCOMMIT = 0b000010;
-        static int DIRTY_BIT_ISOLATION = 0b000100;
-        static int DIRTY_BIT_CATALOG = 0b001000;
-        static int DIRTY_BIT_NETTIMEOUT = 0b010000;
-        static int DIRTY_BIT_SCHEMA = 0b100000;
+        //static int DIRTY_BIT_READONLY = 0b000001;
+        //static int DIRTY_BIT_AUTOCOMMIT = 0b000010;
+        //static int DIRTY_BIT_ISOLATION = 0b000100;
+        //static int DIRTY_BIT_CATALOG = 0b001000;
+        //static int DIRTY_BIT_NETTIMEOUT = 0b010000;
+        //static int DIRTY_BIT_SCHEMA = 0b100000;
        
         private static ISet<string> ERROR_STATES;
         private static ISet<int> ERROR_CODES;

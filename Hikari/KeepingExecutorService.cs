@@ -29,7 +29,7 @@ namespace Hikari
         /// <summary>
         /// tick与毫秒的转化值
         /// </summary>
-        private static int tickms = 10000;
+        private const int TickMS = 10000;
 
         /// <summary>
         /// 空闲时间
@@ -50,6 +50,12 @@ namespace Hikari
 
         public string PoolName { get; set; }
 
+        /// <summary>
+        /// 构造方法
+        /// </summary>
+        /// <param name="idleTime">空闲</param>
+        /// <param name="maxLeft">最大存活</param>
+        /// <param name="usetime">使用时间</param>
         public KeepingExecutorService(long idleTime,long maxLeft,long usetime)
         {
             this.idleTimeOut =(int) idleTime;
@@ -107,7 +113,7 @@ namespace Hikari
                         if (idleTimeQueue.TryDequeue(out poolEntry))
                         {
                             //超过空闲时间就不需要，标记移除
-                            if ((now - poolEntry.AccessedTime) / tickms > idleTimeOut)
+                            if ((now - poolEntry.AccessedTime) / TickMS > idleTimeOut)
                             {
                                 poolEntry.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_REMOVED);
                             }
@@ -137,7 +143,7 @@ namespace Hikari
                     {
                         if (maxLiveQueue.TryDequeue(out poolEntry))
                         {
-                            if ((now - poolEntry.CreateTime) / tickms > maxLeftTime)
+                            if ((now - poolEntry.CreateTime) / TickMS > maxLeftTime)
                             {
                                 poolEntry.CompareAndSetState(IConcurrentBagEntry.STATE_NOT_IN_USE, IConcurrentBagEntry.STATE_REMOVED);
                             }
@@ -181,7 +187,7 @@ namespace Hikari
                         {
                             if (poolEntry.State == IConcurrentBagEntry.STATE_IN_USE)
                             {
-                                if ((now - poolEntry.AccessedTime) / tickms > leakDetectionThreshold)
+                                if ((now - poolEntry.AccessedTime) / TickMS > leakDetectionThreshold)
                                 {
                                     Logger.Singleton.Warn(string.Format("{0}-可能泄露,实体:{1}",PoolName,poolEntry.ID));
                                 }

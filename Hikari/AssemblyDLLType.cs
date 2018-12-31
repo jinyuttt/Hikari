@@ -13,7 +13,7 @@ using System.Text;
 namespace Hikari
 {
     /// <summary>
-    /// 功能描述    ：AssemblyDLLType   
+    /// 功能描述    ：AssemblyDLLType   ADO.NET类型
     /// 创 建 者    ：jinyu
     /// 创建日期    ：2018/10/26 23:21:52 
     /// 最后修改者  ：jinyu

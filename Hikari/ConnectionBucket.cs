@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Hikari
 {
+    /// <summary>
+    /// 移除关闭委托
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="sender"></param>
+    /// <param name="entrys"></param>
     public delegate void BagEntryRemove<T>(object sender, T[] entrys);
+
+    /// <summary>
+    /// 连接池数据区
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ConnectionBucket<T> where T : IConcurrentBagEntry
     {
         private ConcurrentStack<T> concurrentStack = null;
@@ -34,7 +42,7 @@ namespace Hikari
         /// 监视空闲缓存时间长度
         /// 该时间段内没有出现空闲的情况，则清除现有缓存的数据
         /// 单位：分
-        /// 默认120分钟
+        /// 默认:120分钟
         /// </summary>
         public int EmptyTime { get { return emptyTimeM; } set { emptyTimeM = value; } }
 
@@ -44,7 +52,12 @@ namespace Hikari
 
         }
 
-        public ConnectionBucket(int capticty)
+        /// <summary>
+        /// 构造方法
+        /// 该功能不需要，无法初始化独立创建
+        /// </summary>
+        /// <param name="capticty">初始容量</param>
+        private ConnectionBucket(int capticty)
         {
             concurrentStack = new ConcurrentStack<T>();
 

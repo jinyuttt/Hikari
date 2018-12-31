@@ -43,6 +43,7 @@ namespace Hikari
         private int destroyInterval = 600000;//销毁驱动连接的时间间隔
         private static int pool_number = 0;//线程池ID
         private const string prefix = "HikariPool-";
+        private int logNumTime = 10;//10分钟一次Log
       
         /// <summary>
         /// 
@@ -166,6 +167,12 @@ namespace Hikari
         /// 日志配置文件
         /// </summary>
         public string LogConfig { get { return logConfig; } set { logConfig = value; LogConfiguration(); } }
+
+        /// <summary>
+        /// log日志输出池中个数的时间间隔
+        /// 该日志是DEBUG类型
+        /// </summary>
+        public int LogNumberTime { get { return logNumTime; } set { logNumTime = value; } }
 
         /// <summary>
         /// 销毁驱动连接的时间间隔

@@ -82,12 +82,17 @@ namespace Hikari
                 {
                     dllPath = Path.Combine(config.DriverDir, config.DriverDLLFile);
                 }
+                
                 connection = DbProviderFactories.GetConnection(dllPath);
                 if (connection == null)
                 {
                     throw new Exception("DataSource returned null unexpectedly");
                 }
                 SetupConnection(connection);
+                if(connection==null)
+                {
+                    throw new Exception("Open Connection returned null unexpectedly");
+                }
                 return connection;
             }
             catch (Exception e)
@@ -113,7 +118,6 @@ namespace Hikari
 
                 connection.ConnectionString = config.ConnectString;
                 ExecuteSql(connection, config.ConnectionInitSql, true);
-
                 SetNetworkTimeout(connection, config.ConnectionTimeout);
             }
             catch (SQLException e)
@@ -136,18 +140,26 @@ namespace Hikari
                 return;
             }
             var cts = new CancellationTokenSource(validationTimeout);
-           var cancell=  cts.Token.Register(() => Logger.Singleton.Warn("当前连接执行测试超时,SQL:"+sql));
-           Task result=  Task.Factory.StartNew(() =>
-            {
-               
-                IDbCommand command = connection.CreateCommand();
-                command.CommandText = sql;
-                int r = command.ExecuteNonQuery();
-                command.Dispose();
+            var cancell = cts.Token.Register(() => Logger.Singleton.Warn("当前连接执行测试超时,SQL:" + sql));
+            var result = Task.Factory.StartNew(() =>
+             {
+                 try
+                 {
+                     IDbCommand command = connection.CreateCommand();
+                     command.CommandText = sql;
+                     int r = command.ExecuteNonQuery();
+                     command.Dispose();
+                 }
+                 catch(Exception ex)
+                 {
+                     connection.Close();
+                     connection.Dispose();
+                     connection = null;
+                     Logger.Singleton.Error("执行验证SQL失败,连接关闭!,原因："+ex.Message);
+                 }
 
-            }, cts.Token
-                );
-            result.Wait(validationTimeout,cts.Token);
+             }, cts.Token
+                 );
             cancell.Dispose();
             cts.Dispose();
 
@@ -155,19 +167,20 @@ namespace Hikari
 
        /// <summary>
        /// 验证网络
-       /// c#全部放在了驱动上面
+       /// c#全部放在了驱动连接上面
        /// 这里只是演示一个流程
        /// </summary>
        /// <param name="connection"></param>
        /// <param name="validationTimeout"></param>
         private void SetNetworkTimeout(IDbConnection connection, long validationTimeout)
         {
-
+           
         }
         public override string ToString()
         {
             return poolName;
         }
+
         private void SetLoginTimeout(IDbConnection connection)
         {
 

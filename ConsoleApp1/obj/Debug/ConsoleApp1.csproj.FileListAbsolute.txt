@@ -123,9 +123,7 @@ E:\Study\vs\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.CopyComplete
 E:\Study\vs\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.exe
 E:\Study\vs\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
 E:\Study\vs\Hikari\ConsoleApp1\bin\Debug\Hikari.txt
-E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\Hikari.txt
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\log4net.config
-E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\DBType.xml
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\ConsoleApp1.exe
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
@@ -248,3 +246,8 @@ E:\Study\vs\HiKari\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.CoreCompileIn
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.CopyComplete
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.exe
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Debug\DBPoolCfg\Hikari.cfg
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Debug\DBPoolCfg\DBType.xml
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Debug\DBDirvers\MySql.Data.dll
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Debug\DBDirvers\Npgsql.dll
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Debug\DBDirvers\Oracle.ManagedDataAccess.dll

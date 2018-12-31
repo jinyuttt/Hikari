@@ -16,7 +16,7 @@ namespace Hikari
         /// <summary>
         /// 驱动连接
         /// </summary>
-        private  IDbConnection connection;
+        private readonly IDbConnection connection;
 
         private long createTime = 0;
         private long lastAccessed = 0;

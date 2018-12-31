@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading;
-
+using System.Data.SqlClient;
 /**
 * 命名空间: Hikari 
 * 类 名： ProxyLoad
@@ -76,15 +75,17 @@ namespace Hikari
             }
         }
 
+
         /// <summary>
-        /// 获取驱动对象
+        /// 获取驱动连接对象
         /// </summary>
-        /// <param name="path">驱动路径</param>
+        /// <param name="path">路径</param>
         /// <returns></returns>
         public static IDbConnection GetConnection(string path)
         {
             Type type = null;
             AssemblyDLLType assemblyDLLType = null;
+            
             if (dicAssemblyDLLType.TryGetValue(path, out assemblyDLLType))
             {
                 IDbConnection connection = (IDbConnection)Activator.CreateInstance(assemblyDLLType.ConnectType);
@@ -109,6 +110,15 @@ namespace Hikari
                     FileInfo fileInfo = new FileInfo(dllPath);
                     if(!fileInfo.Exists)
                     {
+                        //
+                        if(LoadSqlServer(path))
+                        {
+                            if (dicAssemblyDLLType.TryGetValue(path, out assemblyDLLType))
+                            {
+                                IDbConnection con = (IDbConnection)Activator.CreateInstance(assemblyDLLType.ConnectType);
+                                return con;
+                            }
+                        }
                         Logger.Singleton.Error("没有找到驱动程序集！路径："+path);
                     }
                     Assembly assembly = Assembly.LoadFrom(dllPath); //利用dll的路径加载,同时将此程序集所依赖的程序集加载进来,需后辍名.dll
@@ -170,6 +180,38 @@ namespace Hikari
             }
         }
 
+        /// <summary>
+        /// 加载允许环境中的驱动SqlServer
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private static bool LoadSqlServer(string path)
+        {
+            string dllPath = path;
+            if (!path.ToLower().Trim().EndsWith(DllExtension))
+            {
+                dllPath = path + DllExtension;
+            }
+            if (!dllPath.EndsWith("System.Data" + DllExtension))
+            {
+                return false;
+            }
+            string dir = System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory();
+            string[] file = Directory.GetFiles(dir, "System.Data" + DllExtension);
+            if (file.Length != 0)
+            {
+                Assembly assembly = Assembly.LoadFrom(file[0]);
+                Type con = assembly.GetType("System.Data.SqlClient.SqlConnection");
+                Type cmd = assembly.GetType("System.Data.SqlClient.SqlCommand");
+                Type param = assembly.GetType("System.Data.SqlClient.SqlParameter");
+                Type adapter = assembly.GetType("System.Data.SqlClient.SqlDataAdapter");
+                AssemblyDLLType dLLType = new AssemblyDLLType() { CommandType = cmd, ConnectType = con, DataAdapterType = adapter, ParameterType = param };
+                dicAssemblyDLLType[path] = dLLType;
+                return true;
+            }
+           
+            return false;
+        }
         /// <summary>
         /// 创建无参构造函数对象
         /// </summary>

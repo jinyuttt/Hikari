@@ -13,6 +13,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DBDirvers\MySql.Data.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DBDirvers\Npgsql.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DBDirvers\Oracle.ManagedDataAccess.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="DBPoolCfg\DBType.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

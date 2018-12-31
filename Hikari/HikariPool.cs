@@ -30,10 +30,10 @@ namespace Hikari
         public static  int POOL_SHUTDOWN = 2;//关闭
         public volatile int poolState=0;//当前状态
         private AutoResetEvent resetEvent = null;
-        private object lock_obj = new object();
-        //private volatile bool isWaitClose = true;//是否启动验证关闭
+        private readonly object lock_obj = new object();
         private volatile bool isWaitAdd = true;//快速添加
-
+        private int logNumTime = 0;
+       
         /// <summary>
         /// 
         /// tick与毫秒的转化值
@@ -42,6 +42,7 @@ namespace Hikari
         private const int TicksMs = 10000;
         private KeepingExecutorService keepingExecutor;
         private ConnectionBucket<PoolEntry> connectionBag=null;
+
         
         public HikariPool(HikariDataSource hikariDataSource) : base(hikariDataSource)
         {
@@ -50,6 +51,8 @@ namespace Hikari
             resetEvent = new AutoResetEvent(true);
             CheckFailFast();//初始化创建
             connectionBag.ArrayEntryRemove += ConnectionBag_ArrayEntryRemove;
+            this.logNumTime = hikariDataSource.LogNumberTime;
+            LogPoolNumber();
         }
 
         /// <summary>
@@ -374,12 +377,39 @@ namespace Hikari
             }
         }
 
+
+        /// <summary>
+        /// 输出线程池状态
+        /// DEBUG日志
+        /// </summary>
+        /// <param name="v"></param>
         private void LogPoolState(params string[] v)
         {
                 Logger.Singleton.DebugFormat("{0} - {1}stats (total={2}, active={3}, idle={4}, waiting={5})",
                              poolName,poolState, (v.Length > 0 ? v[0] : ""),
                              connectionBag.Count, 0, 0);
-            
+        }
+
+
+        /// <summary>
+        /// 输出DEBUG日志，显示池中数据量
+        /// </summary>
+        private void LogPoolNumber()
+        {
+            if(logNumTime<=0)
+            {
+                return;
+            }
+            Task.Factory.StartNew(() =>
+            {
+                //分钟缓存毫秒
+                Thread.Sleep(logNumTime *60* 1000);
+                Logger.Singleton.DebugFormat("PoolConnection {0} - bag:{1}-total:{2})",
+                          poolName,
+                          connectionBag.Count,size);
+                LogPoolNumber();//递归线程
+            });
+          
         }
     }
 }
