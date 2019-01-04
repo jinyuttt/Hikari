@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Hikari/1.0.0": {
+      "Hikari/2.0.0": {
         "dependencies": {
           "MySql.Data": "8.0.13",
           "NETStandard.Library": "2.0.3",
@@ -988,7 +988,7 @@
     }
   },
   "libraries": {
-    "Hikari/1.0.0": {
+    "Hikari/2.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1528,7 +1528,7 @@
     "System.ValueTuple/4.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-xZtSZNEHGa+tGsKuP4sh257vxJ/yemShz4EusmomkynMzuEDDjVaErBNewpzEF6swUgbcrSQAX3ELsEp1zCOwA==",
+      "sha512": "sha512-fa3P1cPe2SlrjCjJ/yc3mcXkDj4GQORmileNFYBtBZh2qddzwRubagAkj8yz/yF9oLvJVqaZYar9l2SCqNKDJg==",
       "path": "system.valuetuple/4.5.0",
       "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
     },
