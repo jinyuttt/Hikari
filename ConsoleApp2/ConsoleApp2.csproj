@@ -51,10 +51,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EmitConvert\Hikari.Integration.Models.Emit.csproj">
-      <Project>{6571fc6d-71be-4d9e-a1f1-a28844d7ac69}</Project>
-      <Name>Hikari.Integration.Models.Emit</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Hikari.Integration.Models\Hikari.Integration.Models.csproj">
       <Project>{77510f36-8d22-48f6-8897-7a5edaabb94a}</Project>
       <Name>Hikari.Integration.Models</Name>

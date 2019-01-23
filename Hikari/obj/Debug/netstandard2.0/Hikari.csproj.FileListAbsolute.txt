@@ -21,4 +21,3 @@ E:\Study\vs\Hikari\Hikari\Hikari\obj\Debug\netstandard2.0\Hikari.AssemblyInfoInp
 E:\Study\vs\Hikari\Hikari\Hikari\obj\Debug\netstandard2.0\Hikari.AssemblyInfo.cs
 E:\Study\vs\Hikari\Hikari\Hikari\obj\Debug\netstandard2.0\Hikari.dll
 E:\Study\vs\Hikari\Hikari\Hikari\obj\Debug\netstandard2.0\Hikari.pdb
-E:\Study\vs\Hikari\Hikari\Hikari\obj\Debug\netstandard2.0\Hikari.csprojAssemblyReference.cache
