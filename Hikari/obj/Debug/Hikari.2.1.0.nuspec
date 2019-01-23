@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Hikari</id>
+    <version>2.1.0</version>
+    <authors>jinyu</authors>
+    <owners>jinyu</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/jinyuttt/Hikari.git</projectUrl>
+    <description>c#数据库连接池   个人贡献，任意使用，希望保留版本和作者注释</description>
+    <copyright>2019</copyright>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="MySql.Data" version="8.0.13" exclude="Build,Analyzers" />
+        <dependency id="Npgsql" version="4.0.4" exclude="Build,Analyzers" />
+        <dependency id="log4net" version="2.0.8" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="E:\Study\vs\Hikari\Hikari\Hikari\bin\Debug\netstandard2.0\Hikari.dll" target="lib\netstandard2.0\Hikari.dll" />
+  </files>
+</package>

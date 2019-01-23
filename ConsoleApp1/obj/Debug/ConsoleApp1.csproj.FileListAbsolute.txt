@@ -231,7 +231,6 @@ E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\Oracle.ManagedDataAccess.dll
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\System.Threading.Tasks.Extensions.dll
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\System.ValueTuple.dll
-E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\Hikari.pdb
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\Google.Protobuf.xml
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\log4net.xml
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\MySql.Data.xml
@@ -240,14 +239,8 @@ E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\Npgsql.xml
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\System.Threading.Tasks.Extensions.xml
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\bin\Debug\System.ValueTuple.xml
-E:\Study\vs\HiKari\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.csprojAssemblyReference.cache
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.exe.config
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.CoreCompileInputs.cache
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.CopyComplete
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.exe
 E:\Study\vs\HiKari\Hikari\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Debug\DBPoolCfg\Hikari.cfg
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Debug\DBPoolCfg\DBType.xml
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Debug\DBDirvers\MySql.Data.dll
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Debug\DBDirvers\Npgsql.dll
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Debug\DBDirvers\Oracle.ManagedDataAccess.dll
