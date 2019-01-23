@@ -17,10 +17,7 @@
 
 
 
-using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace Hikari.Integration.Models
 {
@@ -31,10 +28,17 @@ namespace Hikari.Integration.Models
 * 更新时间 ：2019
 * ==============================================================================*/
 
-   public class MapColumn
+    public class MapColumn
     {
+
+        /// <summary>
+        /// 使用的属性
+        /// </summary>
         public PropertyInfo Property { get; set; }
 
+       /// <summary>
+       /// 对应的列名称
+       /// </summary>
        public string ColumnName { get; set; }
 
     }
