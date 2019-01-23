@@ -4,6 +4,10 @@ using Hikari;
 
 namespace ConsoleApp1
 {
+
+    /// <summary>
+    /// 数据库连接池测试
+    /// </summary>
     class Program
     {
         static void Main(string[] args)

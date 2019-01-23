@@ -26,7 +26,7 @@ using System.Text;
 namespace Hikari.Integration.Models
 {
     /* ============================================================================== 
-* 功能描述：DataReaderExtension DataReader 转 Model
+* 功能描述：DataReaderExtension DataReader 反射转 Model
 * 创 建 者：jinyu 
 * 创建日期：2019 
 * 更新时间 ：2019
@@ -64,20 +64,7 @@ namespace Hikari.Integration.Models
 
                         
                     }
-                    //for (int i = 0; i < objReader.FieldCount; i++)
-                    //{
-                    //    //判断字段值是否为空或不存在的值
-                    //    if (!IsNullOrDBNull(objReader[i]))
-                    //    {
-                    //        //匹配字段名
-                    //        PropertyInfo pi = modelType.GetProperty(objReader.GetName(i), BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-                    //        if (pi != null)
-                    //        {
-                    //            //绑定实体对象中同名的字段  
-                    //            pi.SetValue(model, CheckType(objReader[i], pi.PropertyType), null);
-                    //        }
-                    //    }
-                    //}
+                  
                     list.Add(model);
                 }
                 return list;
@@ -145,7 +132,7 @@ namespace Hikari.Integration.Models
         /// <typeparam name="T"></typeparam>
         /// <param name="objReader"></param>
         /// <returns></returns>
-        public static T ReaderToModel<T>(this IDataReader objReader)
+        private static T ReaderToModel<T>(this IDataReader objReader) where T:new()
         {
 
             using (objReader)
@@ -154,7 +141,7 @@ namespace Hikari.Integration.Models
                 {
                     Type modelType = typeof(T);
                     int count = objReader.FieldCount;
-                    T model = Activator.CreateInstance<T>();
+                    T model = new T();
                     for (int i = 0; i < count; i++)
                     {
                         if (!IsNullOrDBNull(objReader[i]))

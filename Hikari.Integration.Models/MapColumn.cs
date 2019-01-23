@@ -31,7 +31,7 @@ namespace Hikari.Integration.Models
 * 更新时间 ：2019
 * ==============================================================================*/
 
-   internal class MapColumn
+   public class MapColumn
     {
         public PropertyInfo Property { get; set; }
 

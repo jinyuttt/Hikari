@@ -26,7 +26,7 @@ using System.Data;
 namespace Hikari.Integration.Models
 {
     /* ============================================================================== 
-* 功能描述：EntityExpressionConverter 通过表达式树转换Model
+* 功能描述：EntityExpressionConverter 通过表达式树转换实体(datatable,datareader)
 * 创 建 者：jinyu 
 * 创建日期：2019 
 * 更新时间 ：2019
@@ -58,15 +58,17 @@ namespace Hikari.Integration.Models
             
             return result;
         }
+
+
         /// <summary>
         /// 检查列
         /// </summary>
         /// <param name="dt"></param>
         /// <param name="Properties"></param>
         /// <returns></returns>
-        private static PropertyInfo[] CheckProperty(DataTable dt, PropertyInfo[] Properties)
+        private static MapColumn[] CheckProperty(DataTable dt, PropertyInfo[] Properties)
         {
-            List<PropertyInfo> lst = new List<PropertyInfo>(Properties.Length);
+            List<MapColumn> lst = new List<MapColumn>(Properties.Length);
             foreach (var property in Properties)
             {
                 string colName = property.Name;
@@ -77,14 +79,20 @@ namespace Hikari.Integration.Models
                 }
                 if (dt.Columns.Contains(colName))
                 {
-
-                    lst.Add(property);
+                    MapColumn column = new MapColumn() { ColumnName = colName, Property = property };
+                    lst.Add(column);
                 }
             }
             return lst.ToArray();
 
         }
 
+        /// <summary>
+        /// 检查可匹配的列
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="Properties"></param>
+        /// <returns></returns>
         private static MapColumn[] CheckProperty(IDataReader reader, PropertyInfo[] Properties)
         {
             List<MapColumn> lst = new List<MapColumn>(Properties.Length);
@@ -111,7 +119,13 @@ namespace Hikari.Integration.Models
             return lst.ToArray();
         }
 
-        public static List<T> ToEntityList<T>(DataTable dt) where T : new()
+        /// <summary>
+        /// 表达式树转换实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static List<T> ToEntityList<T>(this DataTable dt) where T : new()
         {
             List<T> list = new List<T>();
             if (dt == null || dt.Rows.Count == 0)
@@ -119,14 +133,14 @@ namespace Hikari.Integration.Models
                 return list;
             }
             var Properties = typeof(T).GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-            Properties = CheckProperty(dt, Properties);
+            var mapColumns = CheckProperty(dt, Properties);
             foreach (DataRow dr in dt.Rows)
             {
                 T t = new T();
-                foreach (PropertyInfo prop in Properties)
+                foreach (var prop in mapColumns)
                 {
                   
-                        GetSetter<T>(prop)(t, dr[prop.Name]);
+                    GetSetter<T>(prop.Property)(t, dr[prop.ColumnName]);
                     
                 }
                 list.Add(t);
@@ -135,7 +149,13 @@ namespace Hikari.Integration.Models
             return list;
         }
 
-        public static List<T> ToEntityList<T>(IDataReader objReader) where T : new()
+        /// <summary>
+        /// 表达式树转换实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objReader"></param>
+        /// <returns></returns>
+        public static List<T> ToEntityList<T>(this IDataReader objReader) where T : new()
         {
             List<T> list = new List<T>();
             var Properties = typeof(T).GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);

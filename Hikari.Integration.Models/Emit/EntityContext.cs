@@ -1,6 +1,6 @@
 ﻿namespace Hikari.Integration.Models
 {
-    internal class EntityContext
+    public class EntityContext
     {
     }
 }

@@ -6,7 +6,9 @@
     <authors>Hikari.Integration.Models</authors>
     <owners>Hikari.Integration.Models</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Package Description</description>
+    <projectUrl>https://github.com/jinyuttt/Hikari.git</projectUrl>
+    <description>c#数据库查询扩展，实体转换   个人贡献，任意使用，希望保留版本和作者注释</description>
+    <copyright>2019</copyright>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />
     </dependencies>

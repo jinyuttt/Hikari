@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageProjectUrl>https://github.com/jinyuttt/Hikari.git</PackageProjectUrl>
+    <Copyright>2019</Copyright>
+    <Description>c#数据库查询扩展，实体转换   个人贡献，任意使用，希望保留版本和作者注释</Description>
   </PropertyGroup>
 
 </Project>

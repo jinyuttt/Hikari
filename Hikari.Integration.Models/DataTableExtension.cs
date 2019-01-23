@@ -27,7 +27,7 @@ using System.Text;
 namespace Hikari.Integration.Models
 {
     /* ============================================================================== 
-* 功能描述：DataTableExtension 
+* 功能描述：DataTableExtension DataTable反射转实体
 * 创 建 者：jinyu 
 * 创建日期：2019 
 * 更新时间 ：2019
@@ -45,10 +45,10 @@ namespace Hikari.Integration.Models
         {
             List<T> entity_list = new List<T>();
             var Properties = typeof(T).GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-            Properties= CheckProperty(dt, Properties);
+            var mapColumns= CheckProperty(dt, Properties);
             foreach (DataRow row in dt.Rows)
             {
-                ToList(entity_list, Properties, row);
+                ToList(entity_list, mapColumns, row);
             }
             return entity_list;
         }
@@ -59,9 +59,9 @@ namespace Hikari.Integration.Models
         /// <param name="dt"></param>
         /// <param name="Properties"></param>
         /// <returns></returns>
-        private static PropertyInfo[] CheckProperty(DataTable dt, PropertyInfo[] Properties)
+        private static MapColumn[] CheckProperty(DataTable dt, PropertyInfo[] Properties)
         {
-            List<PropertyInfo> lst = new List<PropertyInfo>(Properties.Length);
+            List<MapColumn> lst = new List<MapColumn>(Properties.Length);
             foreach (var property in Properties)
             {
                 string colName = property.Name;
@@ -72,8 +72,8 @@ namespace Hikari.Integration.Models
                 }
                 if (dt.Columns.Contains(colName))
                 {
-                    
-                    lst.Add(property);
+                    MapColumn column = new MapColumn() { ColumnName = colName, Property = property };
+                    lst.Add(column);
                 }
             }
             return lst.ToArray();
@@ -87,29 +87,20 @@ namespace Hikari.Integration.Models
         /// <param name="entity_list"></param>
         /// <param name="Properties"></param>
         /// <param name="row"></param>
-        private static void ToList<T>(List<T> entity_list, PropertyInfo[] Properties, DataRow row) where T : new()
+        private static void ToList<T>(List<T> entity_list, MapColumn[] Properties, DataRow row) where T : new()
         {
             try
             {
                 var entity = new T();
                 foreach (var property in Properties)
                 {
-                    string colName = property.Name;
-                    DataFieldAttribute aliasAttr = property.GetCustomAttribute<DataFieldAttribute>();
-                    if (aliasAttr != null)
+                    if (row[property.ColumnName] == DBNull.Value)
                     {
-                        colName = aliasAttr.ColumnName;
-                    }
-
-                    if (row[colName] == DBNull.Value)
-                    {
-                        property.SetValue(entity, " ", null);
-                      
+                        property.Property.SetValue(entity, " ", null);
                     }
                     else
                     {
-                        property.SetValue(entity, CheckType(row[colName], property.PropertyType), null);
-                      
+                        property.Property.SetValue(entity, CheckType(row[property.ColumnName], property.Property.PropertyType), null);
                     }
                     entity_list.Add(entity);
                 }
