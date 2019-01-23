@@ -208,3 +208,14 @@ E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\obj\Debug\Hikari.Integr
 E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\obj\Debug\Hikari.Integration.Models.Emit.csproj.CopyComplete
 E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\obj\Debug\Hikari.Integration.Models.Emit.dll
 E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\obj\Debug\Hikari.Integration.Models.Emit.pdb
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.MSXML.dll
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.VisualStudio.OLE.Interop.xml
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.VisualStudio.Shell.Interop.xml
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.xml
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.xml
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Emit\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.xml

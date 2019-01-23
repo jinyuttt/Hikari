@@ -208,7 +208,7 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Hikari.Integration.Models/1.0.0": {
+      "Hikari.Integration.Models/1.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -222,7 +222,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "Hikari.Integration.Models": "1.0.0"
+          "Hikari.Integration.Models": "1.1.0"
         },
         "compile": {
           "bin/placeholder/Hikari.Integration.Models.Core.dll": {}
@@ -704,7 +704,7 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Hikari.Integration.Models/1.0.0": {
+    "Hikari.Integration.Models/1.1.0": {
       "type": "project",
       "path": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj",
       "msbuildProject": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj"

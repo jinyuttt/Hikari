@@ -1,0 +1,1065 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NuGet.VisualStudio</name>
+    </assembly>
+    <members>
+        <member name="T:NuGet.VisualStudio.IVsCredentialProvider">
+            <summary>
+            Contains methods to get credentials for NuGet operations.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsCredentialProvider.GetCredentialsAsync(System.Uri,System.Net.IWebProxy,System.Boolean,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Get credentials for the supplied package source Uri.
+            </summary>
+            <param name="uri">The NuGet package source Uri for which credentials are being requested. Implementors are
+            expected to first determine if this is a package source for which they can supply credentials.
+            If not, then Null should be returned.</param>
+            <param name="proxy">Web proxy to use when comunicating on the network.  Null if there is no proxy
+            authentication configured.</param>
+            <param name="isProxyRequest">True if if this request is to get proxy authentication
+            credentials. If the implementation is not valid for acquiring proxy credentials, then
+            null should be returned.</param>
+            <param name="isRetry">True if credentials were previously acquired for this uri, but
+            the supplied credentials did not allow authorized access.</param>
+            <param name="nonInteractive">If true, then interactive prompts must not be allowed.</param>
+            <param name="cancellationToken">This cancellation token should be checked to determine if the
+            operation requesting credentials has been cancelled.</param>
+            <returns>Credentials acquired by this provider for the given package source uri.
+            If the provider does not handle requests for the input parameter set, then null should be returned.
+            If the provider does handle the request, but cannot supply credentials, an exception should be thrown.</returns>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsFrameworkCompatibility">
+            <summary>
+            Contains methods to discover frameworks and compatibility between frameworks.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsFrameworkCompatibility.GetNetStandardFrameworks">
+            <summary>
+            Gets all .NETStandard frameworks currently supported, in ascending order by version.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsFrameworkCompatibility.GetFrameworksSupportingNetStandard(System.Runtime.Versioning.FrameworkName)">
+            <summary>
+            Gets frameworks that support packages of the provided .NETStandard version.
+            </summary>
+            <remarks>
+            The result list is not exhaustive as it is meant to human-readable. For example,
+            equivalent frameworks are not returned. Additionally, a framework name with version X
+            in the result implies that framework names with versions greater than or equal to X
+            but having the same <see cref="P:System.Runtime.Versioning.FrameworkName.Identifier" /> are also supported.
+            </remarks>
+            <param name="frameworkName">The .NETStandard version to get supporting frameworks for.</param>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsFrameworkCompatibility.GetNearest(System.Runtime.Versioning.FrameworkName,System.Collections.Generic.IEnumerable{System.Runtime.Versioning.FrameworkName})">
+            <summary>
+            Selects the framework from <paramref name="frameworks" /> that is nearest
+            to the <paramref name="targetFramework" />, according to NuGet's framework
+            compatibility rules. <c>null</c> is returned of none of the frameworks
+            are compatible.
+            </summary>
+            <param name="targetFramework">The target framework.</param>
+            <param name="frameworks">The list of frameworks to choose from.</param>
+            <exception cref="T:System.ArgumentException">If any of the arguments are <c>null</c>.</exception>
+            <returns>The nearest framework.</returns>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsFrameworkCompatibility2">
+            <summary>
+            Contains methods to discover frameworks and compatibility between frameworks.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsFrameworkCompatibility2.GetNearest(System.Runtime.Versioning.FrameworkName,System.Collections.Generic.IEnumerable{System.Runtime.Versioning.FrameworkName},System.Collections.Generic.IEnumerable{System.Runtime.Versioning.FrameworkName})">
+            <summary>
+            Selects the framework from <paramref name="frameworks" /> that is nearest
+            to the <paramref name="targetFramework" />, according to NuGet's framework
+            compatibility rules. <c>null</c> is returned of none of the frameworks
+            are compatible.
+            </summary>
+            <param name="targetFramework">The target framework.</param>
+            <param name="fallbackTargetFrameworks">
+            Target frameworks to use if the provided <paramref name="targetFramework" /> is not compatible.
+            These fallback frameworks are attempted in sequence after <paramref name="targetFramework" />.
+            </param>
+            <param name="frameworks">The list of frameworks to choose from.</param>
+            <exception cref="T:System.ArgumentException">If any of the arguments are <c>null</c>.</exception>
+            <returns>The nearest framework.</returns>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsFrameworkParser">
+            <summary>
+            An interface for dealing with the conversion between strings and <see cref="T:System.Runtime.Versioning.FrameworkName" />
+            instances.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsFrameworkParser.ParseFrameworkName(System.String)">
+            <summary>
+            Parses a short framework name (e.g. "net45") or a full framework name
+            (e.g. ".NETFramework,Version=v4.5") into a <see cref="T:System.Runtime.Versioning.FrameworkName" />
+            instance.
+            </summary>
+            <param name="shortOrFullName">The framework string.</param>
+            <exception cref="T:System.ArgumentNullException">If the provided string is null.</exception>
+            <exception cref="T:System.ArgumentException">If the provided string cannot be parsed.</exception>
+            <returns>The parsed framework.</returns>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsFrameworkParser.GetShortFrameworkName(System.Runtime.Versioning.FrameworkName)">
+            <summary>
+            Gets the shortened version of the framework name from a <see cref="T:System.Runtime.Versioning.FrameworkName" />
+            instance.
+            </summary>
+            <remarks>
+            For example, ".NETFramework,Version=v4.5" is converted to "net45". This is the value
+            used inside of .nupkg folder structures as well as in project.json files.
+            </remarks>
+            <param name="frameworkName">The framework name.</param>
+            <exception cref="T:System.ArgumentNullException">If the input is null.</exception>
+            <exception cref="T:System.ArgumentException">
+            If the provided framework name cannot be converted to a short name.
+            </exception>
+            <returns>The short framework name. </returns>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsGlobalPackagesInitScriptExecutor">
+            <summary>
+            Execute powershell scripts from package(s) in a solution
+            </summary>
+            <remarks>Intended for internal use only.</remarks>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsGlobalPackagesInitScriptExecutor.ExecuteInitScriptAsync(System.String,System.String)">
+            <summary>
+            Executes the init script of the given package if available.
+            1) If the init.ps1 script has already been executed by the powershell host, it will not be executed again.
+            True is returned.
+            2) If the package is found in the global packages folder it will be used.
+            If not, it will return false and do nothing.
+            3) Also, note if other scripts are executing while this call was made, it will wait for them to complete.
+            </summary>
+            <param name="packageId">Id of the package whose init.ps1 will be executed.</param>
+            <param name="packageVersion">Version of the package whose init.ps1 will be executed.</param>
+            <returns>Returns true if the script was executed or has been executed already.</returns>
+            <remarks>This method throws if the init.ps1 being executed throws.</remarks>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageInstaller">
+            <summary>
+            Contains methods to install packages into a project within the current solution.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstaller.InstallPackage(System.String,EnvDTE.Project,System.String,System.Version,System.Boolean)">
+            <summary>
+            Installs a single package from the specified package source.
+            </summary>
+            <param name="source">
+            The package source to install the package from. This value can be <c>null</c>
+            to indicate that the user's configured sources should be used. Otherwise,
+            this should be the source path as a string. If the user has credentials
+            configured for a source, this value must exactly match the configured source
+            value.
+            </param>
+            <param name="project">The target project for package installation.</param>
+            <param name="packageId">The package ID of the package to install.</param>
+            <param name="version">
+            The version of the package to install. <c>null</c> can be provided to
+            install the latest version of the package.
+            </param>
+            <param name="ignoreDependencies">
+            A boolean indicating whether or not to ignore the package's dependencies
+            during installation.
+            </param>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstaller.InstallPackage(System.String,EnvDTE.Project,System.String,System.String,System.Boolean)">
+            <summary>
+            Installs a single package from the specified package source.
+            </summary>
+            <param name="source">
+            The package source to install the package from. This value can be <c>null</c>
+            to indicate that the user's configured sources should be used. Otherwise,
+            this should be the source path as a string. If the user has credentials
+            configured for a source, this value must exactly match the configured source
+            value.
+            </param>
+            <param name="project">The target project for package installation.</param>
+            <param name="packageId">The package ID of the package to install.</param>
+            <param name="version">
+            The version of the package to install. <c>null</c> can be provided to
+            install the latest version of the package.
+            </param>
+            <param name="ignoreDependencies">
+            A boolean indicating whether or not to ignore the package's dependencies
+            during installation.
+            </param>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstaller.InstallPackage(NuGet.IPackageRepository,EnvDTE.Project,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Installs a single package from the specified package source.
+            </summary>
+            <param name="repository">The package repository to install the package from.</param>
+            <param name="project">The target project for package installation.</param>
+            <param name="packageId">The package id of the package to install.</param>
+            <param name="version">
+            The version of the package to install. <c>null</c> can be provided to
+            install the latest version of the package.
+            </param>
+            <param name="ignoreDependencies">
+            A boolean indicating whether or not to ignore the package's dependencies
+            during installation.
+            </param>
+            <param name="skipAssemblyReferences">
+            A boolean indicating if assembly references from the package should be
+            skipped.
+            </param>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstaller.InstallPackagesFromRegistryRepository(System.String,System.Boolean,System.Boolean,EnvDTE.Project,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Installs one or more packages that exist on disk in a folder defined in the registry.
+            </summary>
+            <param name="keyName">
+            The registry key name (under NuGet's repository key) that defines the folder on disk
+            containing the packages.
+            </param>
+            <param name="isPreUnzipped">
+            A boolean indicating whether the folder contains packages that are
+            pre-unzipped.
+            </param>
+            <param name="skipAssemblyReferences">
+            A boolean indicating whether the assembly references from the packages
+            should be skipped.
+            </param>
+            <param name="project">The target project for package installation.</param>
+            <param name="packageVersions">
+            A dictionary of packages/versions to install where the key is the package id
+            and the value is the version.
+            </param>
+            <remarks>
+            If any version of the package is already installed, no action will be taken.
+            <para>
+            Dependencies are always ignored.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstaller.InstallPackagesFromRegistryRepository(System.String,System.Boolean,System.Boolean,System.Boolean,EnvDTE.Project,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Installs one or more packages that exist on disk in a folder defined in the registry.
+            </summary>
+            <param name="keyName">
+            The registry key name (under NuGet's repository key) that defines the folder on disk
+            containing the packages.
+            </param>
+            <param name="isPreUnzipped">
+            A boolean indicating whether the folder contains packages that are
+            pre-unzipped.
+            </param>
+            <param name="skipAssemblyReferences">
+            A boolean indicating whether the assembly references from the packages
+            should be skipped.
+            </param>
+            <param name="ignoreDependencies">A boolean indicating whether the package's dependencies should be ignored</param>
+            <param name="project">The target project for package installation.</param>
+            <param name="packageVersions">
+            A dictionary of packages/versions to install where the key is the package id
+            and the value is the version.
+            </param>
+            <remarks>
+            If any version of the package is already installed, no action will be taken.
+            </remarks>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstaller.InstallPackagesFromVSExtensionRepository(System.String,System.Boolean,System.Boolean,EnvDTE.Project,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Installs one or more packages that are embedded in a Visual Studio Extension Package.
+            </summary>
+            <param name="extensionId">The Id of the Visual Studio Extension Package.</param>
+            <param name="isPreUnzipped">
+            A boolean indicating whether the folder contains packages that are
+            pre-unzipped.
+            </param>
+            <param name="skipAssemblyReferences">
+            A boolean indicating whether the assembly references from the packages
+            should be skipped.
+            </param>
+            <param name="project">The target project for package installation</param>
+            <param name="packageVersions">
+            A dictionary of packages/versions to install where the key is the package id
+            and the value is the version.
+            </param>
+            <remarks>
+            If any version of the package is already installed, no action will be taken.
+            <para>
+            Dependencies are always ignored.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstaller.InstallPackagesFromVSExtensionRepository(System.String,System.Boolean,System.Boolean,System.Boolean,EnvDTE.Project,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Installs one or more packages that are embedded in a Visual Studio Extension Package.
+            </summary>
+            <param name="extensionId">The Id of the Visual Studio Extension Package.</param>
+            <param name="isPreUnzipped">
+            A boolean indicating whether the folder contains packages that are
+            pre-unzipped.
+            </param>
+            <param name="skipAssemblyReferences">
+            A boolean indicating whether the assembly references from the packages
+            should be skipped.
+            </param>
+            <param name="ignoreDependencies">A boolean indicating whether the package's dependencies should be ignored</param>
+            <param name="project">The target project for package installation</param>
+            <param name="packageVersions">
+            A dictionary of packages/versions to install where the key is the package id
+            and the value is the version.
+            </param>
+            <remarks>
+            If any version of the package is already installed, no action will be taken.
+            </remarks>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageInstaller2">
+            <summary>
+            Contains method to install latest version of a single package into a project within the current solution.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstaller2.InstallLatestPackage(System.String,EnvDTE.Project,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Installs the latest version of a single package from the specified package source.
+            </summary>
+            <param name="source">
+            The package source to install the package from. This value can be <c>null</c>
+            to indicate that the user's configured sources should be used. Otherwise,
+            this should be the source path as a string. If the user has credentials
+            configured for a source, this value must exactly match the configured source
+            value.
+            </param>
+            <param name="project">The target project for package installation.</param>
+            <param name="packageId">The package ID of the package to install.</param>
+            <param name="includePrerelease">
+            Whether or not to consider prerelease versions when finding the latest version
+            to install.
+            </param>
+            <param name="ignoreDependencies">
+            A boolean indicating whether or not to ignore the package's dependencies
+            during installation.
+            </param>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown when <see paramref="includePrerelease" /> is <c>false</c> and no stable version
+            of the package exists.
+            </exception>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageInstallerEvents">
+            <summary>
+            Contains events which are raised when packages are installed or uninstalled from projects and the current
+            solution.
+            </summary>
+        </member>
+        <member name="E:NuGet.VisualStudio.IVsPackageInstallerEvents.PackageInstalling">
+            <summary>
+            Raised when a package is about to be installed into the current solution.
+            </summary>
+        </member>
+        <member name="E:NuGet.VisualStudio.IVsPackageInstallerEvents.PackageInstalled">
+            <summary>
+            Raised after a package has been installed into the current solution.
+            </summary>
+        </member>
+        <member name="E:NuGet.VisualStudio.IVsPackageInstallerEvents.PackageUninstalling">
+            <summary>
+            Raised when a package is about to be uninstalled from the current solution.
+            </summary>
+        </member>
+        <member name="E:NuGet.VisualStudio.IVsPackageInstallerEvents.PackageUninstalled">
+            <summary>
+            Raised after a package has been uninstalled from the current solution.
+            </summary>
+        </member>
+        <member name="E:NuGet.VisualStudio.IVsPackageInstallerEvents.PackageReferenceAdded">
+            <summary>
+            Raised after a package has been installed into a project within the current solution.
+            </summary>
+        </member>
+        <member name="E:NuGet.VisualStudio.IVsPackageInstallerEvents.PackageReferenceRemoved">
+            <summary>
+            Raised after a package has been uninstalled from a project within the current solution.
+            </summary>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageInstallerProjectEvents">
+            <summary>
+            Contains batch events which are raised when packages are installed or uninstalled from projects with packages.config
+            and the current solution.
+            </summary>
+        </member>
+        <member name="E:NuGet.VisualStudio.IVsPackageInstallerProjectEvents.BatchStart">
+            <summary>
+            Raised before any IVsPackageInstallerEvents events are raised for a project.
+            </summary>
+        </member>
+        <member name="E:NuGet.VisualStudio.IVsPackageInstallerProjectEvents.BatchEnd">
+            <summary>
+            Raised after all IVsPackageInstallerEvents events are raised for a project.
+            </summary>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageInstallerServices">
+            <summary>
+            Contains methods to query for installed packages within the current solution.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstallerServices.GetInstalledPackages">
+            <summary>
+            Get the list of NuGet packages installed in the current solution.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstallerServices.IsPackageInstalled(EnvDTE.Project,System.String)">
+            <summary>
+            Checks if a NuGet package with the specified Id is installed in the specified project.
+            </summary>
+            <param name="project">The project to check for NuGet package.</param>
+            <param name="id">The id of the package to check.</param>
+            <returns><c>true</c> if the package is install. <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstallerServices.IsPackageInstalled(EnvDTE.Project,System.String,NuGet.SemanticVersion)">
+            <summary>
+            Checks if a NuGet package with the specified Id and version is installed in the specified project.
+            </summary>
+            <param name="project">The project to check for NuGet package.</param>
+            <param name="id">The id of the package to check.</param>
+            <param name="version">The version of the package to check.</param>
+            <returns><c>true</c> if the package is install. <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstallerServices.IsPackageInstalledEx(EnvDTE.Project,System.String,System.String)">
+            <summary>
+            Checks if a NuGet package with the specified Id and version is installed in the specified project.
+            </summary>
+            <param name="project">The project to check for NuGet package.</param>
+            <param name="id">The id of the package to check.</param>
+            <param name="versionString">The version of the package to check.</param>
+            <returns><c>true</c> if the package is install. <c>false</c> otherwise.</returns>
+            <remarks>
+            The reason this method is named IsPackageInstalledEx, instead of IsPackageInstalled, is that
+            when client project compiles against this assembly, the compiler would attempt to bind against
+            the other overload which accepts SemanticVersion and would require client project to reference NuGet.Core.
+            </remarks>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageInstallerServices.GetInstalledPackages(EnvDTE.Project)">
+            <summary>
+            Get the list of NuGet packages installed in the specified project.
+            </summary>
+            <param name="project">The project to get NuGet packages from.</param>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageMetadata">
+            <summary>
+            Contains information about an installed package.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageMetadata.Id">
+            <summary>
+            Id of the package.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageMetadata.Version">
+            <summary>
+            Version of the package.
+            </summary>
+            <remarks>
+            Do not use this property because it will require referencing NuGet.Core.dll assembly. Use the VersionString
+            property instead.
+            </remarks>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageMetadata.Title">
+            <summary>
+            Title of the package.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageMetadata.Description">
+            <summary>
+            Description of the package.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageMetadata.Authors">
+            <summary>
+            The authors of the package.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageMetadata.InstallPath">
+            <summary>
+            The location where the package is installed on disk.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageMetadata.VersionString">
+            <summary>
+            The version of the package.
+            </summary>
+            <remarks>
+            Use this property instead of the Version property becase with the type string,
+            it doesn't require referencing NuGet.Core.dll assembly.
+            </remarks>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageProjectMetadata">
+            <summary>
+            Contains information about project with packages.config where we're executing nuget actions.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageProjectMetadata.BatchId">
+            <summary>
+            Unique batch id for batch start/end events of the project.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageProjectMetadata.ProjectName">
+            <summary>
+            Name of the project.
+            </summary>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageRestorer">
+            <summary>
+            Contains methods to restore packages installed in a project within the current solution.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageRestorer.IsUserConsentGranted">
+            <summary>
+            Returns a value indicating whether the user consent to download NuGet packages
+            has been granted.
+            </summary>
+            <returns>true if the user consent has been granted; otherwise, false.</returns>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageRestorer.RestorePackages(EnvDTE.Project)">
+            <summary>
+            Restores NuGet packages installed in the given project within the current solution.
+            </summary>
+            <param name="project">The project whose NuGet packages to restore.</param>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageSourceProvider">
+            <summary>
+            A public API for retrieving the list of NuGet package sources.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageSourceProvider.GetSources(System.Boolean,System.Boolean)">
+            <summary>
+            Provides the list of package sources.
+            </summary>
+            <param name="includeUnOfficial">Unofficial sources will be included in the results</param>
+            <param name="includeDisabled">Disabled sources will be included in the results</param>
+            <returns>Key: source name Value: source URI</returns>
+        </member>
+        <member name="E:NuGet.VisualStudio.IVsPackageSourceProvider.SourcesChanged">
+            <summary>
+            Raised when sources are added, removed, disabled, or modified.
+            </summary>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageUninstaller">
+            <summary>
+            Contains methods to uninstall packages from a project within the current solution.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageUninstaller.UninstallPackage(EnvDTE.Project,System.String,System.Boolean)">
+            <summary>
+            Uninstall the specified package from a project and specify whether to uninstall its dependency packages
+            too.
+            </summary>
+            <param name="project">The project from which the package is uninstalled.</param>
+            <param name="packageId">The package to be uninstalled</param>
+            <param name="removeDependencies">
+            A boolean to indicate whether the dependency packages should be
+            uninstalled too.
+            </param>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPathContext">
+            <summary>
+            NuGet path information specific to the current context (e.g. project context).
+            Represents captured snapshot associated with current project/solution settings.
+            Should be discarded immediately after all queries are done.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPathContext.UserPackageFolder">
+            <summary>
+            User package folder directory. The path returned is an absolute path.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPathContext.FallbackPackageFolders">
+            <summary>
+            Fallback package folder locations. The paths (if any) in the returned list are absolute paths. If no
+            fallback package folders are configured, an empty list is returned. The item type of this sequence is
+            <see cref="T:System.String" />.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPathContext.TryResolvePackageAsset(System.String,System.String@)">
+            <summary>
+            Fetch a package directory containing the provided asset path.
+            </summary>
+            <param name="packageAssetPath">Absolute path to package asset file.</param>
+            <param name="packageDirectoryPath">Full path to a package directory. 
+            <code>null</code> if returned falue is <code>false</code>.</param>
+            <returns>
+            <code>true</code> when a package containing the given file was found, <code>false</code> - otherwise.
+            </returns>
+            <example>
+            Suppose the project is a packages.config project and the following asset paths are provided:
+            
+            - C:\src\MyProject\packages\NuGet.Versioning.3.5.0-rc1-final\lib\net45\NuGet.Versioning.dll
+            - C:\path\to\non\package\assembly\Newtonsoft.Json.dll
+            - C:\src\MyOtherProject\packages\NuGet.Core.2.12.0\lib\net40\NuGet.Core.dll
+            - C:\src\MyProject\packages\Autofac.3.5.2\lib\net40\Autofac.dll
+            - C:\src\MyProject\packages\Autofac.3.5.2\lib\net40\Autofac.Fake.dll
+            
+            The result will be:
+            
+            - C:\src\MyProject\packages\NuGet.Versioning.3.5.0-rc1-final
+            - null
+            - null
+            - C:\src\MyProject\packages\Autofac.3.5.2
+            - C:\src\MyProject\packages\Autofac.3.5.2
+            </example>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPathContext2">
+            <summary>
+            NuGet path information specific to the current context (e.g. project context) or solution context
+            Represents captured snapshot associated with current project/solution settings.
+            Should be discarded immediately after all queries are done.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPathContext2.SolutionPackageFolder">
+            <summary>
+            Solution packages folder directory. This will always be set irrespective if folder actually exists or not.
+            The path returned is an absolute path.
+            </summary>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPathContextProvider">
+            <summary>
+            A factory to initialize <see cref="T:NuGet.VisualStudio.IVsPathContext" /> instances.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPathContextProvider.TryCreateContext(System.String,NuGet.VisualStudio.IVsPathContext@)">
+            <summary>
+            Attempts to create an instance of <see cref="T:NuGet.VisualStudio.IVsPathContext" />.
+            </summary>
+            <param name="projectUniqueName">
+            Unique identificator of the project. Should be a full path to project file.
+            </param>
+            <param name="context">The path context associated with given project.</param>
+            <returns>
+            <code>True</code> if operation has succeeded and context was created.
+            False, otherwise, e.g. when provided project is not managed by NuGet.
+            </returns>
+            <throws>
+            <code>ArgumentNullException</code> if projectUniqueName is passed as null.
+            <code>InvalidOperationException</code> when it fails to create a context and return appropriate error message.
+            </throws>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPathContextProvider2">
+            <summary>
+            A factory to initialize <see cref="T:NuGet.VisualStudio.IVsPathContext2" /> instances.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPathContextProvider2.TryCreateSolutionContext(NuGet.VisualStudio.IVsPathContext2@)">
+            <summary>
+            Attempts to create an instance of <see cref="T:NuGet.VisualStudio.IVsPathContext2" /> for the solution.
+            </summary>
+            <param name="context">The path context associated with this solution.</param>
+            <returns>
+            <code>True</code> if operation has succeeded and context was created.
+            <code>False</code> otherwise.
+            </returns>
+            <throws>
+            <code>InvalidOperationException</code> when it fails to create a context and return appropriate error message.
+            </throws>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPathContextProvider2.TryCreateSolutionContext(System.String,NuGet.VisualStudio.IVsPathContext2@)">
+            <summary>
+            Attempts to create an instance of <see cref="T:NuGet.VisualStudio.IVsPathContext2" /> for the solution.
+            </summary>
+            <param name="solutionDirectory">
+            path to the solution directory. Must be an absolute path.
+            It will be performant to pass the solution directory if it's available.
+            </param>
+            <param name="context">The path context associated with this solution.</param>
+            <returns>
+            <code>True</code> if operation has succeeded and context was created.
+            <code>False</code> otherwise.
+            </returns>
+            <throws>
+            <code>ArgumentNullException</code> if solutionDirectory is passed as null.
+            <code>InvalidOperationException</code> when it fails to create a context and return appropriate error message.
+            </throws>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsProjectJsonToPackageReferenceMigrateResult">
+            <summary>
+            Contains the result of the migrate operation on a legacy project.json project
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsProjectJsonToPackageReferenceMigrateResult.IsSuccess">
+            <summary>
+            Returns the success value of the migration operation.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsProjectJsonToPackageReferenceMigrateResult.ErrorMessage">
+            <summary>
+            If migrate operation was unsuccessful, stores the error message in the exception.
+            </summary>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsProjectJsonToPackageReferenceMigrator">
+            <summary>
+            Contains methods to migrate a project.json based legacy project to PackageReference based project.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsProjectJsonToPackageReferenceMigrator.MigrateProjectJsonToPackageReferenceAsync(System.String)">
+            <summary>
+            Migrates a legacy Project.json based project to Package Reference based project. The result 
+            should be casted to type <see cref="T:NuGet.VisualStudio.IVsProjectJsonToPackageReferenceMigrateResult" />
+            The backup of the original project file and project.json file is created in the Backup folder
+            in the root of the project directory.
+            </summary>
+            <param name="projectUniqueName">The full path to the project that needs to be migrated</param>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsSemanticVersionComparer">
+            <summary>
+            An interface for comparing two opaque version strings by treating them as NuGet semantic
+            versions.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsSemanticVersionComparer.Compare(System.String,System.String)">
+            <summary>
+            Compares two version strings as if they were NuGet semantic version
+            strings. Returns a number less than zero if <paramref name="versionA" />
+            is less than <paramref name="versionB" />. Returns zero if the two versions 
+            are equivalent. Returns a number greater than zero if <paramref name="versionA" />
+            is greater than <paramref name="versionB" />.
+            </summary>
+            <param name="versionA">The first version string.</param>
+            <param name="versionB">The second version string.</param>
+            <exception cref="T:System.ArgumentNullException">If either version string is null.</exception>
+            <exception cref="T:System.ArgumentException">If either string cannot be parsed.</exception>
+            <returns>
+            A standard comparison integer based on the relationship between the
+            two provided versions.
+            </returns>
+        </member>
+        <member name="T:NuGet.VisualStudio.VsPackageEventHandler">
+            <summary>
+            Defines an event handler delegate for package related events.
+            </summary>
+            <param name="metadata">Description of the package.</param>
+        </member>
+        <member name="T:NuGet.VisualStudio.VsPackageProjectEventHandler">
+            <summary>
+            Defines an event handler delegate for nuget batch events with projects with packages.config file.
+            </summary>
+            <param name="metadata">Description of the package.</param>
+        </member>
+        <member name="T:NuGet.VisualStudio.IRegistryKey">
+            <summary>
+            Specifies methods for manipulating a key in the Windows registry.
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IRegistryKey.OpenSubKey(System.String)">
+            <summary>
+            Retrieves the specified subkey for read or read/write access.
+            </summary>
+            <param name="name">The name or path of the subkey to create or open.</param>
+            <returns>The subkey requested, or null if the operation failed.</returns>
+        </member>
+        <member name="M:NuGet.VisualStudio.IRegistryKey.GetValue(System.String)">
+            <summary>
+            Retrieves the value associated with the specified name.
+            </summary>
+            <param name="name">The name of the value to retrieve. This string is not case-sensitive.</param>
+            <returns>The value associated with name, or null if name is not found.</returns>
+        </member>
+        <member name="M:NuGet.VisualStudio.IRegistryKey.Close">
+            <summary>
+            Closes the key and flushes it to disk if its contents have been modified.
+            </summary>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsPackageManagerProvider">
+            <summary>
+            Interface allowing integration of alternate package manager suggestion for a NuGet package. 
+            For example jQuery may appear on Bower and npm,
+            it might be more appropriate to install a package from them for certain projects. 
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageManagerProvider.PackageManagerName">
+            <summary>
+            Localized display package manager name.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageManagerProvider.PackageManagerId">
+            <summary>
+            Package manager unique id.
+            </summary>
+        </member>
+        <member name="P:NuGet.VisualStudio.IVsPackageManagerProvider.Description">
+            <summary>
+            The tool tip description for the package
+            </summary>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageManagerProvider.CheckForPackageAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Check if a recommendation should be surfaced for an alternate package manager. 
+            This code should not rely on slow network calls, and should return rapidly.
+            </summary>
+            <param name="packageId">Current package id</param>
+            <param name="projectName">Unique project name for finding the project through VS dte</param>
+            <param name="token">Cancellation Token</param>
+            <returns>return true if need to direct to integrated package manager for this package</returns>
+        </member>
+        <member name="M:NuGet.VisualStudio.IVsPackageManagerProvider.GoToPackage(System.String,System.String)">
+            <summary>
+            This Action should take the user to the other package manager.
+            </summary>
+            <param name="packageId">Current package id</param>
+            <param name="projectName">Unique project name for finding the project through VS dte</param>
+        </member>
+        <member name="T:NuGet.VisualStudio.IVsTemplateWizard">
+            <summary>
+            Defines the logic for a template wizard extension.
+            </summary>
+        </member>
+        <member name="T:NuGet.IFileSystem">
+            <summary>
+            Legacy
+            </summary>
+            <remarks>Do not use!</remarks>
+        </member>
+        <member name="T:NuGet.IPackage">
+            <summary>
+            Legacy
+            </summary>
+            <remarks>Do not use!</remarks>
+        </member>
+        <member name="P:NuGet.IPackage.IsAbsoluteLatestVersion">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="P:NuGet.IPackage.IsLatestVersion">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="P:NuGet.IPackage.Listed">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="P:NuGet.IPackage.Published">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="P:NuGet.IPackage.AssemblyReferences">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="M:NuGet.IPackage.GetFiles">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="M:NuGet.IPackage.GetSupportedFrameworks">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="M:NuGet.IPackage.GetStream">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="M:NuGet.IPackage.ExtractContents(NuGet.IFileSystem,System.String)">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="T:NuGet.IPackageAssemblyReference">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="P:NuGet.IPackageAssemblyReference.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="T:NuGet.IPackageFile">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="P:NuGet.IPackageFile.Path">
+            <summary>
+            Gets the full path of the file inside the package.
+            </summary>
+        </member>
+        <member name="P:NuGet.IPackageFile.EffectivePath">
+            <summary>
+            Gets the path that excludes the root folder (content/lib/tools) and framework folder (if present).
+            </summary>
+            <example>
+            If a package has the Path as 'content\[net40]\scripts\jQuery.js', the EffectivePath 
+            will be 'scripts\jQuery.js'.
+            
+            If it is 'tools\init.ps1', the EffectivePath will be 'init.ps1'.
+            </example>
+        </member>
+        <member name="P:NuGet.IPackageFile.TargetFramework">
+            <summary>
+            Framework
+            </summary>
+        </member>
+        <member name="M:NuGet.IPackageFile.GetStream">
+            <summary>
+            Returns package file stream
+            </summary>
+            <returns>Package file stream</returns>
+        </member>
+        <member name="T:NuGet.IPackageRepository">
+            <summary>
+            Legacy IPackageRepository
+            </summary>
+            <remarks>Do not use!</remarks>
+        </member>
+        <member name="P:NuGet.IPackageRepository.Source">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="P:NuGet.IPackageRepository.PackageSaveMode">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="P:NuGet.IPackageRepository.SupportsPrereleasePackages">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="M:NuGet.IPackageRepository.GetPackages">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="M:NuGet.IPackageRepository.AddPackage(NuGet.IPackage)">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="M:NuGet.IPackageRepository.RemovePackage(NuGet.IPackage)">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="T:NuGet.PackageSaveModes">
+            <summary>
+            Legacy
+            </summary>
+        </member>
+        <member name="F:NuGet.PackageSaveModes.None">
+            <summary>
+            None
+            </summary>
+        </member>
+        <member name="F:NuGet.PackageSaveModes.Nuspec">
+            <summary>
+            Nuspec
+            </summary>
+        </member>
+        <member name="F:NuGet.PackageSaveModes.Nupkg">
+            <summary>
+            Nupkg
+            </summary>
+        </member>
+        <member name="T:NuGet.SemanticVersion">
+            <summary>
+            This is the legacy implementation of the semantic version class. NuGet 2.x implemented this
+            under the <code>NuGet</code> namespace. In NuGet 3.x, we moved <code>SemanticVersion</code>
+            to <code>NuGet.Versioning.SemanticVersion</code>. We exposed multiple public APIs that have
+            the type <code>NuGet.SemanticVersion</code>. Therefore, we still need to have a semantic
+            version class implemented at the old location.
+            </summary>
+        </member>
+        <member name="P:NuGet.SemanticVersion.Version">
+            <summary>
+            Gets the normalized version portion.
+            </summary>
+        </member>
+        <member name="P:NuGet.SemanticVersion.SpecialVersion">
+            <summary>
+            Gets the optional special version.
+            </summary>
+        </member>
+        <member name="M:NuGet.SemanticVersion.Parse(System.String)">
+            <summary>
+            Parses a version string using loose semantic versioning rules that allows 2-4 version components followed by an optional special version.
+            </summary>
+        </member>
+        <member name="M:NuGet.SemanticVersion.TryParse(System.String,NuGet.SemanticVersion@)">
+            <summary>
+            Parses a version string using loose semantic versioning rules that allows 2-4 version components followed by an optional special version.
+            </summary>
+        </member>
+        <member name="M:NuGet.SemanticVersion.TryParseStrict(System.String,NuGet.SemanticVersion@)">
+            <summary>
+            Parses a version string using strict semantic versioning rules that allows exactly 3 components and an optional special version.
+            </summary>
+        </member>
+        <member name="M:NuGet.SemanticVersion.ParseOptionalVersion(System.String)">
+            <summary>
+            Attempts to parse the version token as a SemanticVersion.
+            </summary>
+            <returns>An instance of SemanticVersion if it parses correctly, null otherwise.</returns>
+        </member>
+        <member name="M:NuGet.SemanticVersion.ToNormalizedString">
+            <summary>
+            Returns the normalized string representation of this instance of <see cref="T:NuGet.SemanticVersion" />.
+            If the instance can be strictly parsed as a <see cref="T:NuGet.SemanticVersion" />, the normalized version
+            string if of the format {major}.{minor}.{build}[-{special-version}]. If the instance has a non-zero
+            value for <see cref="P:System.Version.Revision" />, the format is {major}.{minor}.{build}.{revision}[-{special-version}].
+            </summary>
+            <returns>The normalized string representation.</returns>
+        </member>
+        <member name="M:NuGet.Shared.EqualityUtility.OrderedEquals``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Compares two enumberables for equality, ordered according to the specified key and optional comparer. Handles null values gracefully.
+            </summary>
+            <typeparam name="TSource">The type of the list</typeparam>
+            <typeparam name="TKey">The type of the sorting key</typeparam>
+            <param name="self">This list</param>
+            <param name="other">The other list</param>
+            <param name="keySelector">The function to extract the key from each item in the list</param>
+            <param name="orderComparer">An optional comparer for comparing keys</param>
+            <param name="sequenceComparer">An optional comparer for sequences</param>
+        </member>
+        <member name="M:NuGet.Shared.EqualityUtility.SequenceEqualWithNullCheck``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Compares two sequence for equality, allowing either sequence to be null. If one is null, both have to be
+            null for equality.
+            </summary>
+        </member>
+        <member name="M:NuGet.Shared.EqualityUtility.SetEqualsWithNullCheck``1(System.Collections.Generic.ISet{``0},System.Collections.Generic.ISet{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Compares two sets for equality, allowing either sequence to be null.
+            If one is null, both have to be null for equality.
+            </summary>
+        </member>
+        <member name="T:NuGet.Shared.HashCodeCombiner">
+            <summary>
+            Hash code creator, based on the original NuGet hash code combiner/ASP hash code combiner implementations
+            </summary>
+        </member>
+        <member name="M:NuGet.Shared.HashCodeCombiner.GetHashCode``2(``0,``1)">
+            <summary>
+            Create a unique hash code for the given set of items
+            </summary>
+        </member>
+        <member name="M:NuGet.Shared.HashCodeCombiner.GetHashCode``3(``0,``1,``2)">
+            <summary>
+            Create a unique hash code for the given set of items
+            </summary>
+        </member>
+        <member name="M:NuGet.Shared.Extensions.AsList``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Return the enumerable as a List of T, copying if required. Optimized for common case where it is an List of T.
+            Avoid mutating the return value.
+            </summary>
+            <remarks>https://aspnetwebstack.codeplex.com/SourceControl/latest#src/Common/CollectionExtensions.cs</remarks>
+        </member>
+        <member name="M:NuGet.Shared.Extensions.AsHashSet``1(System.Collections.Generic.ISet{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Return the ISet as a HashSet of T, copying if required. Optimized for common case where it is a HashSet of T.
+            Avoid mutating the return value.
+            </summary>
+        </member>
+    </members>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>pONxHyrB5yuZZMFLswJbE0iL7sQ=</DigestValue></Reference></SignedInfo><SignatureValue>BQ8+WF/cGoRclYezEYUV3sFX04l27KwX89s/jjtN/fVfzYUGzFom3I0qFh3XRH+AnzoWWDk1s3lKJNcDuyG7gzvsMgtCPGCG3l6h0UkmwvJpmKR7PoelQbrGSb9QGw7lqGVhT2Kh4kH/Txo6ejMet15X1qTMiiKFyHEfMhc0wJFqqt6uCap8AbgmaJw/vgXEojavaQmDLdfg2czhKE3SeTlbgFhM2oj6+XLX9h41S2h2ruc7gzihRhOcWFxbmE3e28NZLB4lV/8PWMbPitctFe0ChqHMGK51p3uiW4EMyQbkqjI0E7zvKIsW/iDZojPlOfaol7/Ov1maBXuE7nfcpg==</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>m1K+Tyy0HVPLPV0jHraDo5/A5UrgV7PC+C3WipFfzBLODN0Ct0Z49Gub3ufLICGP1D4OJZRyOnhjZi61X+Hbl/2IjqiIl1VMHR4+qWlJLRNj+X7DparTv3/CBzkhMGY2lZdvp96rpRL2heloKGkmmxqet6/sU3hvw8wxMIf29zYrMEBZSEaAUajNDIDd40qeLXRV7OanRHrVE770wiR9DP0zzeYjX5rN1CltAtUyWmonz7DJAYuUr+UMi3offSITg4byWkvThGNXGmtJeDpU6Y/hhcblP5Yl5175yMvHofLyGw0iW7kv/Izp2yjEVRe26PTXes/9nNOP7ul2KoKMoQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIE2zCCA8OgAwIBAgITMwAAAbHd7bpU6WW4XwABAAABsTANBgkqhkiG9w0BAQUFADB5MQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSMwIQYDVQQDExpNaWNyb3NvZnQgQ29kZSBTaWduaW5nIFBDQTAeFw0xODA3MTIyMDExMTlaFw0xOTA3MjYyMDExMTlaMHQxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xHjAcBgNVBAMTFU1pY3Jvc29mdCBDb3Jwb3JhdGlvbjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJtSvk8stB1Tyz1dIx62g6OfwOVK4Fezwvgt1oqRX8wSzgzdArdGePRrm97nyyAhj9Q+DiWUcjp4Y2YutV/h25f9iI6oiJdVTB0ePqlpSS0TY/l+w6Wq079/wgc5ITBmNpWXb6feq6US9oXpaChpJpsanrev7FN4b8PMMTCH9vc2KzBAWUhGgFGozQyA3eNKni10Vezmp0R61RO+9MIkfQz9M83mI1+azdQpbQLVMlpqJ8+wyQGLlK/lDIt6H30iE4OG8lpL04RjVxprSXg6VOmP4YXG5T+WJede+cjLx6Hy8hsNIlu5L/yM6dsoxFUXtuj013rP/ZzTj+7pdiqCjKECAwEAAaOCAV8wggFbMBMGA1UdJQQMMAoGCCsGAQUFBwMDMB0GA1UdDgQWBBREE7QCnXc+kFVx9eQcf6wXFM8+czBQBgNVHREESTBHpEUwQzEpMCcGA1UECxMgTWljcm9zb2Z0IE9wZXJhdGlvbnMgUHVlcnRvIFJpY28xFjAUBgNVBAUTDTIyOTgwMys0Mzc5NTAwHwYDVR0jBBgwFoAUyxHoytK0FlgByTcuMxYWuUyaCh8wVgYDVR0fBE8wTTBLoEmgR4ZFaHR0cDovL2NybC5taWNyb3NvZnQuY29tL3BraS9jcmwvcHJvZHVjdHMvTWljQ29kU2lnUENBXzA4LTMxLTIwMTAuY3JsMFoGCCsGAQUFBwEBBE4wTDBKBggrBgEFBQcwAoY+aHR0cDovL3d3dy5taWNyb3NvZnQuY29tL3BraS9jZXJ0cy9NaWNDb2RTaWdQQ0FfMDgtMzEtMjAxMC5jcnQwDQYJKoZIhvcNAQEFBQADggEBAIOp8qYzxaF7HNJegK7spKbD6ShdVyUjjd0lCWlw6E1pFi+UuwXZm4DsWdBoZBuDNKjcz2ONnWt2APV7r0J0B8X8kcDirEUzll2x/fqORrJJ4kMGGZiFcXjTnunblRZBMTRwLEOWogJ3qS89YUpjWfGXfdFSlWCFqLwbRQc/2cGP91D1uX4IieRCxFiOQcCVOEkf1x34ME8pLztHWZI37pch7RdmkBwvLW1r/wt15aoS3fqvxBG04CEyWr8FzkX5P41Wrs5R1syufQQZMBLyv59IJpwOAA0oraXeRC3M1If/lEmVVwxNNJwjCt3DjTIJ9L01KMXe0Ig/qRIToTBwoBE=</X509Certificate><X509Certificate>MIIFvDCCA6SgAwIBAgIKYTMmGgAAAAAAMTANBgkqhkiG9w0BAQUFADBfMRMwEQYKCZImiZPyLGQBGRYDY29tMRkwFwYKCZImiZPyLGQBGRYJbWljcm9zb2Z0MS0wKwYDVQQDEyRNaWNyb3NvZnQgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkwHhcNMTAwODMxMjIxOTMyWhcNMjAwODMxMjIyOTMyWjB5MQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSMwIQYDVQQDExpNaWNyb3NvZnQgQ29kZSBTaWduaW5nIFBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALJyWVwZMGS/HZpgICBCmXZTbD4b1m/My/Hqa/6XFhDg3zp0gxq3L6Ay7P/ewkJOI9VyANs1VwqJyq4gSfTwaKxNS42lvXlLcZtHB9r9Jd+ddYjPqnNEf9eB2/O98jakyVxF3K+tPeAoaJcap6Vyc1bxF5Tk/TWUcqDWdl8ed0WDhTgW0HNbBbpnUo2lsmkv2hkL/pJ0KeJ2L1TdFDBZ+NKNYv3LyV9GMVC5JxPkQDDPcikQKCLHN049oDI9kM2hOAaFXE5WgigqBTK3S9dPY+fSLWLxRT3nrAgA9kahntFbjCZT6HqqSvJGzzc8OJ60d1ylF56NyxGPVjzBrAlfA9MCAwEAAaOCAV4wggFaMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFMsR6MrStBZYAck3LjMWFrlMmgofMAsGA1UdDwQEAwIBhjASBgkrBgEEAYI3FQEEBQIDAQABMCMGCSsGAQQBgjcVAgQWBBT90TFO0yaKleGYYDuoMW+mPLzYLTAZBgkrBgEEAYI3FAIEDB4KAFMAdQBiAEMAQTAfBgNVHSMEGDAWgBQOrIJgQFYnl+UlE/wq4QpTlVnkpDBQBgNVHR8ESTBHMEWgQ6BBhj9odHRwOi8vY3JsLm1pY3Jvc29mdC5jb20vcGtpL2NybC9wcm9kdWN0cy9taWNyb3NvZnRyb290Y2VydC5jcmwwVAYIKwYBBQUHAQEESDBGMEQGCCsGAQUFBzAChjhodHRwOi8vd3d3Lm1pY3Jvc29mdC5jb20vcGtpL2NlcnRzL01pY3Jvc29mdFJvb3RDZXJ0LmNydDANBgkqhkiG9w0BAQUFAAOCAgEAWTk+fyZGr+tvQLEytWrrDi9uqEn361917Uw7LddDrQv+y+ktMaMjzHxQmIAhXaw9L0y6oqhWnONwu7i0+Hm1SXL3PupBf8rhDBdpy6WcIC36C1DEVs0t40rSvHDnqA2iA6VW4LiKS1fylUKc8fPv7uOGHzQ8uFaa8FMjhSqkghyT4pQHHfLiTviMocroE6WRTsgb0o9ylSpxbZsa+BzwU9ZnzCL/XB3Nooy9J7J5Y1ZEolHN+emjWFbdmwJFRC9f9Nqu1IIybvyklRPk62nnqaIsvsgrEA5ljpnb9aL6EiYJZTiU8XofSrvR4Vbo0HiWGFzJNRZf3ZMdSY4tvq00RBzuEBUaAF3dNVshzpjHCe6FDoxPbQ4TTj18KUicctHzbMrB7HCjV5JXfZSNoBtIA1r3z6NnCnSlNu0tLxfI5nI3EvRvsTxngvlSso0zFmUeDordEN5k9G/ORtTTF+l5xAS00/ss3x+KnqwK+xMnQK3k+eGpf0a7B2BHZWBATrBC7E7ts3Z52Ao0CW0cgDEf4g5U3eWh++VHEK1kmP9QFi58vwUheuKVQSdpw5OPlcmN2Jshrg1cnPCiroZogwxqLbt2awAdlq3yFnv2FoMkuYjPaqhHMS+a3ONxPdcAfmJH0c6IybgY+g5yjcGjPa8CQGr/aZuW4hCoELQ3UAjWwz0=</X509Certificate><X509Certificate>MIIFmTCCA4GgAwIBAgIQea0WoUqgpa1Mc1j0BxMuZTANBgkqhkiG9w0BAQUFADBfMRMwEQYKCZImiZPyLGQBGRYDY29tMRkwFwYKCZImiZPyLGQBGRYJbWljcm9zb2Z0MS0wKwYDVQQDEyRNaWNyb3NvZnQgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkwHhcNMDEwNTA5MjMxOTIyWhcNMjEwNTA5MjMyODEzWjBfMRMwEQYKCZImiZPyLGQBGRYDY29tMRkwFwYKCZImiZPyLGQBGRYJbWljcm9zb2Z0MS0wKwYDVQQDEyRNaWNyb3NvZnQgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDzXfqAZ9Rap6kMLJAg0DUIPHWEzbcHiZyJ2t7Ow2D6kWhanpRxKRh2fMLgyCV2lA5Y+gQ0Nubfr/eAuulYCyuT5Z0F43cikfc0ZDwikR1e4QmQvBT+/HVYGeF5tweSo66IWQjYnwfKA1j8aCltMtfSqMtL/OELSDJP5uu4rU/kXG8TlJnbldV126gat5SRtHdb9UgMj2p5fRRwBH1tr5D12nDYR7e/my9s5wW34RFgrHmRFHzF1qbk4X7Vw37lktI8ALU2gt554W3ztW74nzPJy1J9c5g224uha6KVl5uj3sJNJv8GlmclBsjnrOTuEjOVMZnINQhONMp5U9W1vmMyWUA2wKVOBE0921sHM+RYv+8/U2TYQlk1V/0PRXwkBE2e1jh0EZcikM5oRHSSb9VLb7CG48c2QqDQ/MHAWvmjYbkwR3GWChawkcBCle8Qfyhq4yofseTNAz93cQTHIPxJDx1FiKTXy36IrY4t7EXbxFEEySr87IaemhGXW97OU4jm4rf9rJXCKEDb7wSQ34EzOdmyRaUjhwalVYkxuwYtYA5BGH0fLrWXyxHrFdUkpZTvFRSJ/Utz+jJb/NEzAPlZYnAHMuouq0Ate8rdIWcbMJmPFqojqEHRsG4RmzbE3kB0nOFYZcFgHnpbOMiPuwQmfNQWQOW2a2yqhv0Av87BNQIDAQABo1EwTzALBgNVHQ8EBAMCAcYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUDqyCYEBWJ5flJRP8KuEKU5VZ5KQwEAYJKwYBBAGCNxUBBAMCAQAwDQYJKoZIhvcNAQEFBQADggIBAMURTQM6YN1dUhF3j7K7NsiyBb+0t6jYIJ1cEwO2HCL6BhM1tshj1JpHbyZX0lXxBLEmX9apUGigvNK4bszD6azfGc14rFl0rGY0NsQbPmw4TDMOMBINoyb+UVMA/69aToQNDx/kbQUuToVLjWwzb1TSZKu/UK99ejmgN+1jAw/8EwbOFjbUVDuVG1FiOuVNF9QFOZKaJ6hbqr3su77jIIlgcWxWs6UT0G0OI36VA+1oPfLYY7hrTbboMLXhypRL96KqXZkwsj2nwlFsKCABJCcrSwC3nRFrcL6yEIK8DJto0I07JIeqmShynTNfWZC99d6TnjpiWjQ54ohVHbkGsMGJay3XacMZEjaE0Mmg2v8vaXiy5Xra69cMwPe9Yxe4ORM4ojZbe/KFVmodZGLBOOKqv1FmopT1EpxmIhBr8rcwki3yKfA9OxRDaKLxnCk3y844ICVtfGfzfiQSJAMIgUfspZ6X9RjXz7vV73aW7/3O21adlaBC+ZdY4dcxItNfWeY+biIA6kOEtiXb2fMIVmjAZGsdfOy2k6JiV24u2OdYj8QxSSbd3ik1h/UwcXBbFDxpvYkSfesuo/7Yf56CWlIKK8FDK9kwiJ/IEPuJjeahhXUzfmye23MTZGJppS99ypZtn/gETTCSPW4hFCHJPeDD/YprnUr90aGdmUN3P7Da</X509Certificate></X509Data></KeyInfo><Object Id="ts-countersig"><X509Data><X509Certificate>MIIE2jCCA8KgAwIBAgITMwAAAQJSCNjfQc3ntgAAAAABAjANBgkqhkiG9w0BAQUFADB3MQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSEwHwYDVQQDExhNaWNyb3NvZnQgVGltZS1TdGFtcCBQQ0EwHhcNMTgwODIzMjAyMDIyWhcNMTkxMTIzMjAyMDIyWjCByjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xLTArBgNVBAsTJE1pY3Jvc29mdCBJcmVsYW5kIE9wZXJhdGlvbnMgTGltaXRlZDEmMCQGA1UECxMdVGhhbGVzIFRTUyBFU046MkFENC00QjkyLUZBMDExJTAjBgNVBAMTHE1pY3Jvc29mdCBUaW1lLVN0YW1wIHNlcnZpY2UwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC2TCUV6nZ6x6RdQhK0FefmGN60tvnJGam2IH0rI75ZRJd+ku+ozhQ5XW1soJo71KGZV9Lg3/K+cG/7alMsuVTelwPVrFIYTZy/oA0AT9PgHpiUDwUlm4HYqdxZsM0/id69PhJsCtEIJp3Npcc1HWbXX4oACsRQtLzDgo1sU+Ze1+UkaTsWObxQbg6YuOkv04Dst4vGfbY+2vDeuRdadizN38Xx5wyLF1nXtsLGE9x6oRm5e5BihTGmnaoE5MtP5qX2ltdLfuamXlQnbGB3pmAfv7FyqNedCHJ816NIut+YjzMce3zbz4PwLCmsn9y3gncAgk/wOphNZsZxf4CVd4pvAgMBAAGjggEJMIIBBTAdBgNVHQ4EFgQUqeK8hE8b0+/EfF+ECVsQiAFdNnQwHwYDVR0jBBgwFoAUIzT42VJGcArtQPt2+7MrsMM1sw8wVAYDVR0fBE0wSzBJoEegRYZDaHR0cDovL2NybC5taWNyb3NvZnQuY29tL3BraS9jcmwvcHJvZHVjdHMvTWljcm9zb2Z0VGltZVN0YW1wUENBLmNybDBYBggrBgEFBQcBAQRMMEowSAYIKwYBBQUHMAKGPGh0dHA6Ly93d3cubWljcm9zb2Z0LmNvbS9wa2kvY2VydHMvTWljcm9zb2Z0VGltZVN0YW1wUENBLmNydDATBgNVHSUEDDAKBggrBgEFBQcDCDANBgkqhkiG9w0BAQUFAAOCAQEAFBWJj8orBQx/GeoXfUASC5yKFR3HAUNr0sL+a3V3ToU7quCp7AS7ZZnVmab/GxRojTArJmpi09WP0fsjnX5A36PnYSe2wRXQ81GVxhxHzMHp+fwsnAGtfq6rfR7M5ShjZBmo3R0gaqno9i0JiAC6qXqzmzI33k43QAFCS//lRbuTgl6KXEhDTqDjuLPd8bDJnDH1X6JbL8SelGi1a9/h3KqHGGYEUjWNq8uB5UGuCMZgpIfObW9ocuGVN1s6ZHuD1Hf/PpVB8u+nkwEsNwmEhZuZbWMd/4TnkQD54Tjw9GfFSLc8qWhl7C3oktJPlqS4oTqvAszGqjykBIQwteG3+g==</X509Certificate><X509Certificate>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</X509Certificate></X509Data><CounterSignature ts-format="cms-timestamp-message" xmlns="http://schemas.microsoft.com/xmldsig/timestamp/2003">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</CounterSignature></Object></Signature></doc>
