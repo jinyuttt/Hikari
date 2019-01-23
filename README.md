@@ -77,7 +77,15 @@ ManagerPool 线程池管理类，根据名称提供多线程连接
 
 2018-12-32  
 增加SqlServer连接从运行时环境中加载。因为sqlserver的驱动连接包含在.NET类库中，所以加载了一次运行时环境。
-如果你使用没有提供。根据DBType或者dll名称判断是SqlServer连接，则会去查找一次.NET按照目录获取客户端驱动。
+如果你使用没有提供。根据DBType或者dll名称判断是SqlServer连接，则会去查找一次.NET按照目录获取客户端驱动。  
+2019-01-23
+Hikari.Integration.Models 新增
+  扩展对datatable,datareader转换List<T>,支持反射，表达式转换  
+Hikari.Integration.Models.Core 新增
+  扩展.net core库emit方法对datatable,datareader转换List<T>
+Hikari.Integration.Models.Emit 新增 
+    扩展.net framework库emit方法对datatable,datareader转换List<T>
+ 
 
 ## 附录
 |数据库	|Dll名称|说明|
