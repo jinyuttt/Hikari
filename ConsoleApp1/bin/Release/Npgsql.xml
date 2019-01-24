@@ -5459,6 +5459,12 @@
             <param name="bytesNeeded"></param>
             <returns></returns>
         </member>
+        <member name="M:Npgsql.TypeHandlers.ArrayHandler.CreateArrayHandler(Npgsql.PostgresTypes.PostgresType)">
+            <inheritdoc />
+        </member>
+        <member name="M:Npgsql.TypeHandlers.ArrayHandler.CreateRangeHandler(Npgsql.PostgresTypes.PostgresType)">
+            <inheritdoc />
+        </member>
         <member name="T:Npgsql.TypeHandlers.ArrayHandler`1">
             <summary>
             Base class for all type handlers which handle PostgreSQL arrays.
@@ -5718,6 +5724,17 @@
             The CLR type mapped to the PostgreSQL composite type.
             </summary>
         </member>
+        <member name="T:Npgsql.TypeHandlers.IMappedCompositeTypeHandlerFactory">
+            <summary>
+            Interface implemented by all mapped composite handler factories.
+            Used to expose the name translator for those reflecting enum mappings (e.g. EF Core).
+            </summary>
+        </member>
+        <member name="P:Npgsql.TypeHandlers.IMappedCompositeTypeHandlerFactory.NameTranslator">
+            <summary>
+            The name translator used for this enum.
+            </summary>
+        </member>
         <member name="P:Npgsql.TypeHandlers.IMappedEnumHandler.EnumType">
             <summary>
             The CLR type mapped to the PostgreSQL composite type.
@@ -5793,10 +5810,13 @@
             </remarks>
             <typeparam name="TElement">the range subtype</typeparam>
         </member>
-        <member name="P:Npgsql.TypeHandlers.RangeHandler`1.ElementHandler">
+        <member name="F:Npgsql.TypeHandlers.RangeHandler`1._elementHandler">
             <summary>
             The type handler for the element that this range type holds
             </summary>
+        </member>
+        <member name="M:Npgsql.TypeHandlers.RangeHandler`1.CreateArrayHandler(Npgsql.PostgresTypes.PostgresType)">
+            <inheritdoc />
         </member>
         <member name="T:Npgsql.TypeHandlers.RecordHandler">
              <summary>
@@ -6147,9 +6167,7 @@
             </param>
         </member>
         <member name="M:Npgsql.TypeHandling.NpgsqlSimpleTypeHandlerWithPsv`2.CreateArrayHandler(Npgsql.PostgresTypes.PostgresType)">
-            <summary>
-            Creates a type handler for arrays of this handler's type.
-            </summary>
+            <inheeritdoc />
         </member>
         <member name="T:Npgsql.TypeHandling.NpgsqlTypeHandler">
             <summary>
@@ -6392,9 +6410,10 @@
             </summary>
         </member>
         <member name="M:Npgsql.TypeHandling.NpgsqlTypeHandler`1.CreateArrayHandler(Npgsql.PostgresTypes.PostgresType)">
-            <summary>
-            Creates a type handler for arrays of this handler's type.
-            </summary>
+            <inheritdoc />
+        </member>
+        <member name="M:Npgsql.TypeHandling.NpgsqlTypeHandler`1.CreateRangeHandler(Npgsql.PostgresTypes.PostgresType)">
+            <inheritdoc />
         </member>
         <member name="F:Npgsql.TypeMapping.ConnectorTypeMapper._connector">
             <summary>

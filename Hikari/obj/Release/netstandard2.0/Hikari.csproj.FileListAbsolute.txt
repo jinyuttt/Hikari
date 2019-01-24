@@ -1,6 +1,6 @@
-E:\Study\vs\Hikari\Hikari\Hikari\bin\Release\netstandard2.0\DBDirvers\MySql.Data.dll
-E:\Study\vs\Hikari\Hikari\Hikari\bin\Release\netstandard2.0\DBDirvers\Npgsql.dll
-E:\Study\vs\Hikari\Hikari\Hikari\bin\Release\netstandard2.0\DBDirvers\Oracle.ManagedDataAccess.dll
+E:\Study\vs\Hikari\Hikari\Hikari\bin\Release\netstandard2.0\DBDrivers\MySql.Data.dll
+E:\Study\vs\Hikari\Hikari\Hikari\bin\Release\netstandard2.0\DBDrivers\Npgsql.dll
+E:\Study\vs\Hikari\Hikari\Hikari\bin\Release\netstandard2.0\DBDrivers\Oracle.ManagedDataAccess.dll
 E:\Study\vs\Hikari\Hikari\Hikari\bin\Release\netstandard2.0\DBPoolCfg\Hikari.cfg
 E:\Study\vs\Hikari\Hikari\Hikari\bin\Release\netstandard2.0\DBPoolCfg\DBType.xml
 E:\Study\vs\Hikari\Hikari\Hikari\bin\Release\netstandard2.0\Hikari.deps.json
@@ -11,4 +11,3 @@ E:\Study\vs\Hikari\Hikari\Hikari\obj\Release\netstandard2.0\Hikari.AssemblyInfoI
 E:\Study\vs\Hikari\Hikari\Hikari\obj\Release\netstandard2.0\Hikari.AssemblyInfo.cs
 E:\Study\vs\Hikari\Hikari\Hikari\obj\Release\netstandard2.0\Hikari.dll
 E:\Study\vs\Hikari\Hikari\Hikari\obj\Release\netstandard2.0\Hikari.pdb
-E:\Study\vs\Hikari\Hikari\Hikari\obj\Release\netstandard2.0\Hikari.csprojAssemblyReference.cache

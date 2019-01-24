@@ -221,6 +221,7 @@ namespace Hikari
             try
             {
                 PoolEntry poolEntry = NewPoolEntry();
+               
                 long maxLifetime = config.MaxLifetime;
                 if (maxLifetime > 0&&poolEntry!=null)
                 {
@@ -230,10 +231,12 @@ namespace Hikari
                     long lifetime = maxLifetime - variance;
                     keepingExecutor.ScheduleMaxLive(poolEntry);
                 }
+              
                 return poolEntry;
             }
             catch (SQLException e)
             {
+               
                 if (poolState == POOL_NORMAL)
                 { // we check POOL_NORMAL to avoid a flood of messages if shutdown() is running concurrently
                     Logger.Singleton.DebugFormat("{0} - Cannot acquire connection from data source", poolName);

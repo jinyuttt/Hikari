@@ -105,3 +105,5 @@ E:\Study\vs\Hikari\Hikari\ConsoleApp2\bin\Release\System.Xml.XmlSerializer.dll
 E:\Study\vs\Hikari\Hikari\ConsoleApp2\bin\Release\System.Xml.XPath.dll
 E:\Study\vs\Hikari\Hikari\ConsoleApp2\bin\Release\System.Xml.XPath.XDocument.dll
 E:\Study\vs\Hikari\Hikari\ConsoleApp2\obj\Release\ConsoleApp2.exe.config
+E:\Study\vs\Hikari\Hikari\ConsoleApp2\bin\Release\Hikari.Integration.Models.Emit.dll
+E:\Study\vs\Hikari\Hikari\ConsoleApp2\bin\Release\Hikari.Integration.Models.Emit.pdb

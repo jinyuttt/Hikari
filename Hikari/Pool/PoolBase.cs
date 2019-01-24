@@ -78,8 +78,17 @@ namespace Hikari
             IDbConnection connection = null;
             try
             {
-                if(string.IsNullOrEmpty(dllPath))
+              
+                if (string.IsNullOrEmpty(dllPath))
                 {
+                    if(config.DriverDir==null)
+                    {
+                        throw new Exception("config DriverDir null unexpectedly");
+                    }
+                    if(config.DriverDLLFile==null)
+                    {
+                        throw new Exception("config DriverDLLFile null unexpectedly");
+                    }
                     dllPath = Path.Combine(config.DriverDir, config.DriverDLLFile);
                 }
                 connection = DbProviderFactories.GetConnection(dllPath);
