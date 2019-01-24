@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ApplicationIcon />
     <Win32Resource />
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <Authors>jinyu</Authors>
     <Company>Personal Contribution</Company>
     <Copyright>2019</Copyright>

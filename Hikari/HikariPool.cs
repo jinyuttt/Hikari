@@ -33,6 +33,7 @@ namespace Hikari
         private readonly object lock_obj = new object();
         private volatile bool isWaitAdd = true;//快速添加
         private int logNumTime = 0;
+        public string ConnectStr { get; set; }
        
         /// <summary>
         /// 
@@ -53,6 +54,7 @@ namespace Hikari
             connectionBag.ArrayEntryRemove += ConnectionBag_ArrayEntryRemove;
             this.logNumTime = hikariDataSource.LogNumberTime;
             LogPoolNumber();
+            ConnectStr = config.ConnectString;
         }
 
         /// <summary>
@@ -95,12 +97,6 @@ namespace Hikari
                 keepingExecutor.ScheduleIdleTimeout(poolEntry);
             }
         }
-       
-
-        //internal void ResetConnectionState(IDbConnection connection, ProxyConnection proxyConnection, int dirtyBits)
-        //{
-            
-        //}
  
         /// <summary>
         /// 获取连接
@@ -167,10 +163,7 @@ namespace Hikari
                                 keepingExecutor.ScheduleUse(poolEntry);
                                 return poolEntry.CreateProxyConnection(DateTime.Now.Ticks);
                             }
-                            //else
-                            //{
-                            //    continue;
-                            //}
+                          
                         }
                     }
                     //计算获取的时间，转化成ms

@@ -1398,7 +1398,7 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
-      "Hikari/2.1.0": {
+      "Hikari/2.2.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -5122,7 +5122,7 @@
         "system.xml.xmldocument.nuspec"
       ]
     },
-    "Hikari/2.1.0": {
+    "Hikari/2.2.0": {
       "type": "project",
       "path": "../Hikari/Hikari.csproj",
       "msbuildProject": "../Hikari/Hikari.csproj"
@@ -5135,7 +5135,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "Hikari >= 2.1.0",
+      "Hikari >= 2.2.0",
       "Hikari.Integration.Models >= 1.1.0",
       "NETStandard.Library >= 2.0.3"
     ]
