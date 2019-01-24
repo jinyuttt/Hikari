@@ -14,7 +14,7 @@ using System.Text;
 namespace Hikari
 {
     /// <summary>
-    /// 功能描述    ：HikariConnect  
+    /// 功能描述    ：HikariConnect 对外代理类
     /// 创 建 者    ：jinyu
     /// 创建日期    ：2018/10/25 1:55:36 
     /// 最后修改者  ：jinyu

@@ -12,7 +12,7 @@ using System.Xml;
 namespace Hikari
 {
     /// <summary>
-    /// 功能描述    ：GlobalDBType  加载数据库驱动信息
+    /// 功能描述    ：GlobalDBType  加载数据库驱动全局信息
     /// 创 建 者    ：jinyu
     /// 创建日期    ：2018/10/26 2:54:33 
     /// 最后修改者  ：jinyu
@@ -33,8 +33,10 @@ namespace Hikari
         /// 是否已经初始化过
         /// </summary>
         private static volatile bool isInit = false;
+
+
         /// <summary>
-        /// 
+        /// 初始化已经存在的信息
         /// </summary>
         private static void Init()
         {

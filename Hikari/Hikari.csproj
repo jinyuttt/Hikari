@@ -21,13 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="DBDirvers\MySql.Data.dll">
+    <None Update="DBDrivers\MySql.Data.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="DBDirvers\Npgsql.dll">
+    <None Update="DBDrivers\Npgsql.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="DBDirvers\Oracle.ManagedDataAccess.dll">
+    <None Update="DBDrivers\Oracle.ManagedDataAccess.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="DBPoolCfg\DBType.xml">
@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DBDirvers\" />
+    <Folder Include="DBDrivers\" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Hikari.Integration.Models.Emit")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription(".Net FrameWork对数据库查询扩展，支持EMIT转Model")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Hikari.Integration.Models.Emit")]

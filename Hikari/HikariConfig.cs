@@ -15,7 +15,7 @@ using System.Threading;
 namespace Hikari
 {
     /// <summary>
-    /// 功能描述    ：HikariConfig  配置
+    /// 功能描述    ：HikariConfig   链接池配置配置
     /// 创 建 者    ：jinyu
     /// 创建日期    ：2018/10/24 15:20:48 
     /// 最后修改者  ：jinyu
