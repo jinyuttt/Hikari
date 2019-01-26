@@ -60,7 +60,7 @@ ManagerPool获取连接时传入一个名称（配置文件名称）来获取连
 
 连接池管理管理类使用：
 例如：配置文件MySql_HiKari.cfg  
-ManagerPool.Instance.GetDbConnection(MySql);
+ManagerPool.Singleton.GetDbConnection(MySql);
 
 -------------------------------------------------------------------------------------------------------
 
