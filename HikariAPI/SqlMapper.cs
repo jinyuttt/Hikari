@@ -43,9 +43,9 @@ namespace HikariAPI
         }
         public int Execute<P>(string sql, P param = default(P))
         {
-            using (var con = ManagerPool.Instance.GetDbConnection(CfgName))
+            using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
             {
-                var cmd = ManagerPool.Instance.CreateDbCommand(CfgName);
+                var cmd = ManagerPool.Singleton.CreateDbCommand(CfgName);
                 cmd.Connection = con;
                 cmd.CommandText = sql;
 
@@ -53,7 +53,7 @@ namespace HikariAPI
                 {
                     foreach (var p in typeof(P).GetProperties())
                     {
-                        IDataParameter parameter = ManagerPool.Instance.CreateDataParameter(CfgName);
+                        IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
                         parameter.Value = p.GetValue(param);
                         parameter.ParameterName = "@" + p.Name;
                         cmd.Parameters.Add(parameter);
@@ -65,9 +65,9 @@ namespace HikariAPI
 
         public object ExecuteScalar<T, P>(string sql, P param = default(P))
         {
-            using (var con = ManagerPool.Instance.GetDbConnection(CfgName))
+            using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
             {
-                var cmd = ManagerPool.Instance.CreateDbCommand(CfgName);
+                var cmd = ManagerPool.Singleton.CreateDbCommand(CfgName);
                 cmd.Connection = con;
                 cmd.CommandText = sql;
 
@@ -75,7 +75,7 @@ namespace HikariAPI
                 {
                     foreach (var p in typeof(P).GetProperties())
                     {
-                        IDataParameter parameter = ManagerPool.Instance.CreateDataParameter(CfgName);
+                        IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
                         parameter.Value = p.GetValue(param);
                         parameter.ParameterName = "@" + p.Name;
                         cmd.Parameters.Add(parameter);
@@ -87,7 +87,7 @@ namespace HikariAPI
 
         public List<T> Query<T, P>(string sql, P param = default(P)) where T:new ()
         {
-            using (var con = ManagerPool.Instance.GetDbConnection(CfgName))
+            using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
             {
                 var cmd = con.CreateCommand();
                 //cmd.Connection = con;
@@ -97,7 +97,7 @@ namespace HikariAPI
                 {
                     foreach (var p in typeof(P).GetProperties())
                     {
-                        IDataParameter parameter = ManagerPool.Instance.CreateDataParameter(CfgName);
+                        IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
                         parameter.Value = p.GetValue(param);
                         parameter.ParameterName = "@" + p.Name;
                         cmd.Parameters.Add(parameter);
@@ -112,10 +112,10 @@ namespace HikariAPI
         {
             try
             {
-                using (var con = ManagerPool.Instance.GetDbConnection(CfgName))
+                using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
                 {
                     var tran = con.BeginTransaction();
-                    var cmd = ManagerPool.Instance.CreateDbCommand(CfgName);
+                    var cmd = ManagerPool.Singleton.CreateDbCommand(CfgName);
                     cmd.Connection = con;
                     cmd.CommandText = sql;
                     cmd.Transaction = tran;

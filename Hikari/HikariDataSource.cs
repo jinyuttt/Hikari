@@ -23,7 +23,7 @@ namespace Hikari
     {
        
         /// <summary>
-        /// 连接池
+        /// 连接池，初始化时使用，用于锁定
         /// </summary>
         private HikariPool pool = null;
 
@@ -33,7 +33,7 @@ namespace Hikari
         private volatile  bool isShutdown = false;
 
         /// <summary>
-        /// 连接池
+        /// 连接池,常用对象
         /// </summary>
         private  HikariPool fastPathPool;
 
@@ -63,8 +63,6 @@ namespace Hikari
             Logger.Singleton.InfoFormat("{0} - Starting...", configuration.PoolName);
             pool = fastPathPool = new HikariPool(this);
             Logger.Singleton.InfoFormat("{0} - Start completed.", configuration.PoolName);
-
-           // this.seal();
         }
 
         /// <summary>
@@ -130,7 +128,6 @@ namespace Hikari
                         try
                         {
                             pool = result = new HikariPool(this);
-                           
                         }
                         catch (Exception ex)
                         {

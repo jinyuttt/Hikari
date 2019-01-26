@@ -41,11 +41,16 @@ namespace Hikari.Manager
         /// <summary>
         /// 单例
         /// </summary>
-        public readonly static ManagerPool Instance = new ManagerPool();
+        private  static ManagerPool Instance = new ManagerPool();
+
+
         private readonly object lock_obj = new object();//全局锁
 
+        private static readonly object lock_gobj = new object();//初始化锁
+
+
         /// <summary>
-        /// 线程池
+        /// 线程池连接源
         /// </summary>
         private Dictionary<string, HikariDataSource> dicSource = new Dictionary<string, HikariDataSource>();
         private string cfgPath = "DBPoolCfg";//配置目录
@@ -54,7 +59,7 @@ namespace Hikari.Manager
         private const string CfgExtension = ".cfg";//配置文件后缀
 
         /// <summary>
-        /// 线程连接
+        /// 连接池数据源
         /// </summary>
         private ConcurrentDictionary<int, IDbConnection> dicCons = new ConcurrentDictionary<int, IDbConnection>();
 
@@ -85,6 +90,25 @@ namespace Hikari.Manager
         /// </summary>
         public string DirverDir { get; set; }
 
+
+        /// <summary>
+        /// 单例
+        /// </summary>
+        public static ManagerPool Singleton
+        {
+            get
+            {
+                if (Instance == null)
+                {
+                    lock (lock_gobj)
+                    {
+                        if(Instance==null)
+                        Instance = new ManagerPool();
+                    }
+                }
+                return Instance;
+            }
+        }
 
         private ManagerPool()
         {
