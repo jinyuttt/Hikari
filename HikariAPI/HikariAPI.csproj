@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>c# 提供Hikari实现ORM样例；只有2个类，需要查看源码</Description>
+    <PackageProjectUrl>https://github.com/jinyuttt/Hikari.git</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
