@@ -8,20 +8,20 @@
     ".NETCoreApp,Version=v2.1": {
       "ConsoleApp3/1.0.0": {
         "dependencies": {
-          "Hikari.Integration.Models.Core": "1.0.0"
+          "Hikari.Integration.Models.Core": "1.1.0"
         },
         "runtime": {
           "ConsoleApp3.dll": {}
         }
       },
-      "Hikari.Integration.Models/1.1.0": {
+      "Hikari.Integration.Models/1.2.0": {
         "runtime": {
           "Hikari.Integration.Models.dll": {}
         }
       },
-      "Hikari.Integration.Models.Core/1.0.0": {
+      "Hikari.Integration.Models.Core/1.1.0": {
         "dependencies": {
-          "Hikari.Integration.Models": "1.1.0"
+          "Hikari.Integration.Models": "1.2.0"
         },
         "runtime": {
           "Hikari.Integration.Models.Core.dll": {}
@@ -35,12 +35,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Hikari.Integration.Models/1.1.0": {
+    "Hikari.Integration.Models/1.2.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Hikari.Integration.Models.Core/1.0.0": {
+    "Hikari.Integration.Models.Core/1.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

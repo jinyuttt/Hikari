@@ -1398,7 +1398,7 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
-      "Hikari/2.4.0": {
+      "Hikari/2.6.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -1413,7 +1413,7 @@
           "bin/placeholder/Hikari.dll": {}
         }
       },
-      "Hikari.Integration.Models/1.1.0": {
+      "Hikari.Integration.Models/1.2.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -5122,12 +5122,12 @@
         "system.xml.xmldocument.nuspec"
       ]
     },
-    "Hikari/2.4.0": {
+    "Hikari/2.6.0": {
       "type": "project",
       "path": "../Hikari/Hikari.csproj",
       "msbuildProject": "../Hikari/Hikari.csproj"
     },
-    "Hikari.Integration.Models/1.1.0": {
+    "Hikari.Integration.Models/1.2.0": {
       "type": "project",
       "path": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj",
       "msbuildProject": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj"
@@ -5135,8 +5135,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "Hikari >= 2.4.0",
-      "Hikari.Integration.Models >= 1.1.0",
+      "Hikari >= 2.6.0",
+      "Hikari.Integration.Models >= 1.2.0",
       "NETStandard.Library >= 2.0.3"
     ]
   },
@@ -5145,7 +5145,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "restore": {
       "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\HikariAPI\\HikariAPI.csproj",
       "projectName": "HikariAPI",

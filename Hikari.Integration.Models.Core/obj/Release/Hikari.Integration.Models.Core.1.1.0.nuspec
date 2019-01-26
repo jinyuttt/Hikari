@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Hikari.Integration.Models.Core</id>
+    <version>1.1.0</version>
+    <authors>Hikari.Integration.Models.Core</authors>
+    <owners>Hikari.Integration.Models.Core</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/jinyuttt/Hikari.git</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/2019Hikari64.ico</iconUrl>
+    <description>.net core库对数据库查询扩展，实体转换（采用Emit）   个人贡献，任意使用，希望保留版本和作者注释</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp2.1">
+        <dependency id="Hikari.Integration.Models" version="1.2.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models.Core\bin\Release\netcoreapp2.1\Hikari.Integration.Models.Core.dll" target="lib\netcoreapp2.1\Hikari.Integration.Models.Core.dll" />
+  </files>
+</package>

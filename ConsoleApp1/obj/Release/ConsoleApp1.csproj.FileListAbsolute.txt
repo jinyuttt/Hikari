@@ -1,3 +1,6 @@
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBDrivers\MySql.Data.dll
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBDrivers\Npgsql.dll
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBDrivers\Oracle.ManagedDataAccess.dll
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBPoolCfg\Hikari.cfg
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\log4net.config
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBPoolCfg\DBType.xml
@@ -123,6 +126,3 @@ E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.csproj.CoreCompile
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.csproj.CopyComplete
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.exe
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.pdb
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBDrivers\MySql.Data.dll
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBDrivers\Npgsql.dll
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBDrivers\Oracle.ManagedDataAccess.dll
