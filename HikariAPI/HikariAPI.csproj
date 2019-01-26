@@ -4,8 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>c# 提供Hikari实现ORM样例；只有2个类，需要查看源码</Description>
     <PackageProjectUrl>https://github.com/jinyuttt/Hikari.git</PackageProjectUrl>
-    <Version>1.1.0</Version>
-    <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/2019Hikari64.ico</PackageIconUrl>
+    <Version>1.1.2</Version>
+    <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/ICON/Hikari.ico</PackageIconUrl>
     <Authors>jinyu成都</Authors>
   </PropertyGroup>
 

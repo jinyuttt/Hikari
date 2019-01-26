@@ -208,7 +208,7 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Hikari.Integration.Models/1.2.0": {
+      "Hikari.Integration.Models/1.2.2": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -691,7 +691,7 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Hikari.Integration.Models/1.2.0": {
+    "Hikari.Integration.Models/1.2.2": {
       "type": "project",
       "path": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj",
       "msbuildProject": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj"
@@ -699,7 +699,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "Hikari.Integration.Models >= 1.2.0",
+      "Hikari.Integration.Models >= 1.2.2",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
   },
@@ -708,7 +708,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.1.0",
+    "version": "1.1.2",
     "restore": {
       "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models.Core\\Hikari.Integration.Models.Core.csproj",
       "projectName": "Hikari.Integration.Models.Core",

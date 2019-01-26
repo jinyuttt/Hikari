@@ -5047,7 +5047,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "2.6.1",
+    "version": "2.6.2",
     "restore": {
       "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\Hikari.csproj",
       "projectName": "Hikari",
