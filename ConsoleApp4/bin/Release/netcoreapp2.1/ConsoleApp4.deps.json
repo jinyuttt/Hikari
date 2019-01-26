@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v2.1": {
       "ConsoleApp4/1.0.0": {
         "dependencies": {
-          "Hikari": "2.2.0",
+          "Hikari": "2.3.0",
           "HikariAPI": "1.0.0"
         },
         "runtime": {
@@ -939,7 +939,7 @@
           "System.Xml.ReaderWriter": "4.0.11"
         }
       },
-      "Hikari/2.2.0": {
+      "Hikari/2.3.0": {
         "dependencies": {
           "MySql.Data": "8.0.13",
           "Npgsql": "4.0.4",
@@ -956,7 +956,7 @@
       },
       "HikariAPI/1.0.0": {
         "dependencies": {
-          "Hikari": "2.2.0",
+          "Hikari": "2.3.0",
           "Hikari.Integration.Models": "1.1.0"
         },
         "runtime": {
@@ -1503,7 +1503,7 @@
       "path": "system.xml.xmldocument/4.0.1",
       "hashPath": "system.xml.xmldocument.4.0.1.nupkg.sha512"
     },
-    "Hikari/2.2.0": {
+    "Hikari/2.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

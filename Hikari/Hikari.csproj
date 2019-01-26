@@ -4,14 +4,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ApplicationIcon />
     <Win32Resource />
-    <Version>2.2.0</Version>
+    <Version>2.3.0</Version>
     <Authors>jinyu</Authors>
     <Company>Personal Contribution</Company>
     <Copyright>2019</Copyright>
     <Description>c#数据库连接池   个人贡献，任意使用，希望保留版本和作者注释</Description>
     <PackageProjectUrl>https://github.com/jinyuttt/Hikari.git</PackageProjectUrl>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <FileVersion>2.1.0.0</FileVersion>
+    <AssemblyVersion>2.3.0.0</AssemblyVersion>
+    <FileVersion>2.3.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -6,3 +6,4 @@ E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models\obj\Release\netstandard2.0\H
 E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models\obj\Release\netstandard2.0\Hikari.Integration.Models.AssemblyInfo.cs
 E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models\obj\Release\netstandard2.0\Hikari.Integration.Models.dll
 E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models\obj\Release\netstandard2.0\Hikari.Integration.Models.pdb
+E:\Study\vs\Hikari\Hikari\Hikari.Integration.Models\obj\Release\netstandard2.0\Hikari.Integration.Models.csprojAssemblyReference.cache
