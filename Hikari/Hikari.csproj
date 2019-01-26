@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <ApplicationIcon>Resources\2019Hikari.ico</ApplicationIcon>
+    <ApplicationIcon></ApplicationIcon>
     <Win32Resource></Win32Resource>
-    <Version>2.6.0</Version>
+    <Version>2.6.1</Version>
     <Authors>jinyu成都</Authors>
     <Company>个人贡献</Company>
     <Copyright>2019</Copyright>
     <Description>c#数据库连接池   个人贡献，任意使用，希望保留版本和作者注释</Description>
     <PackageProjectUrl>https://github.com/jinyuttt/Hikari.git</PackageProjectUrl>
-    <AssemblyVersion>2.6.0.0</AssemblyVersion>
-    <FileVersion>2.6.0.0</FileVersion>
+    <AssemblyVersion>2.6.1.0</AssemblyVersion>
+    <FileVersion>2.6.1.0</FileVersion>
     <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/2019Hikari64.ico</PackageIconUrl>
   </PropertyGroup>
 

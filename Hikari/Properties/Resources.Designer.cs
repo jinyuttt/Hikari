@@ -59,25 +59,5 @@ namespace Hikari.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] _2019Hikari {
-            get {
-                object obj = ResourceManager.GetObject("_2019Hikari", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
-        /// </summary>
-        internal static byte[] _2019Hikari64 {
-            get {
-                object obj = ResourceManager.GetObject("_2019Hikari64", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

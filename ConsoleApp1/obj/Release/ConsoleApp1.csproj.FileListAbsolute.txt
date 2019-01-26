@@ -1,9 +1,7 @@
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBDrivers\MySql.Data.dll
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBDrivers\Npgsql.dll
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBDrivers\Oracle.ManagedDataAccess.dll
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBPoolCfg\Hikari.cfg
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.csprojAssemblyReference.cache
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.exe.config
+E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.csproj.CoreCompileInputs.cache
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\log4net.config
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\DBPoolCfg\DBType.xml
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\ConsoleApp1.exe.config
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\ConsoleApp1.exe
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\ConsoleApp1.pdb
@@ -111,7 +109,6 @@ E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\Oracle.ManagedDataAccess.dll
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\System.Threading.Tasks.Extensions.dll
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\System.ValueTuple.dll
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\Hikari.pdb
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\Google.Protobuf.xml
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\log4net.xml
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\MySql.Data.xml
@@ -120,9 +117,6 @@ E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\Npgsql.xml
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\System.Threading.Tasks.Extensions.xml
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\bin\Release\System.ValueTuple.xml
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.csprojAssemblyReference.cache
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.exe.config
-E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.csproj.CoreCompileInputs.cache
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.csproj.CopyComplete
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.exe
 E:\Study\vs\Hikari\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.pdb

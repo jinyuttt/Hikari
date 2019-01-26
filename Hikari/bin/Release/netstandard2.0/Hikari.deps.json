@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Hikari/2.6.0": {
+      "Hikari/2.6.1": {
         "dependencies": {
           "MySql.Data": "8.0.13",
           "NETStandard.Library": "2.0.3",
@@ -988,7 +988,7 @@
     }
   },
   "libraries": {
-    "Hikari/2.6.0": {
+    "Hikari/2.6.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
