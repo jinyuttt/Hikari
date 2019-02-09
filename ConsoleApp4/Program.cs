@@ -7,8 +7,8 @@ namespace ConsoleApp4
     {
         static void Main(string[] args)
          {
-          var orm=  ORMFactory.Create();
-           var lst=  orm.Query<Product,Product>("SELECT * FROM \"Product\" ");
+           var orm=  ORMFactory.Create();
+            var lst=  orm.Query<Product>("SELECT * FROM \"Product\" ");
             Console.WriteLine(lst.Count);
             Console.ReadKey();
         }

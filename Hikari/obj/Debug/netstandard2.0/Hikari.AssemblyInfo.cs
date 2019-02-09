@@ -11,15 +11,17 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Personal Contribution")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("个人贡献")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("2019")]
-[assembly: System.Reflection.AssemblyDescriptionAttribute("c#数据库连接池   个人贡献，任意使用，希望保留版本和作者注释")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("2.1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.2.0")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("c#数据库连接池   个人贡献，任意使用，希望保留作者及注释;\r\n郑重说明：本库定位于数据库连接池，源码GitHub开源公开，欢迎大家修改提交，但是不得对本库扩展" +
+    "，所有修改仅限于修改bug,性能优化，存储数据结构优化重构等。一切需要扩展的功能都需要您单独建库（项目)，建议以Hikari.Integration.XXXX(" +
+    "名称)库，引用当前库进行扩展。")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("2.6.3.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.6.3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hikari")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hikari")]
-[assembly: System.Reflection.AssemblyVersionAttribute("2.1.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("2.6.3.0")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 

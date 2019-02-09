@@ -11,14 +11,14 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Hikari.Integration.Models.Core")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("jinyu成都")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyDescriptionAttribute(".net core库对数据库查询扩展，实体转换   个人贡献，任意使用，希望保留版本和作者注释")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute(".net core库对数据库查询扩展，实体转换（采用Emit）   个人贡献，任意使用，希望保留版本和作者注释")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.1.2.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.1.2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hikari.Integration.Models.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hikari.Integration.Models.Core")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.1.2.0")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 

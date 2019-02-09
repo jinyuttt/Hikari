@@ -35,35 +35,97 @@ namespace HikariAPI
 
     public class SqlMapper : IORM
     {
-        private string CfgName = null;
+        private readonly string CfgName = null;
         public SqlMapper(string name=null)
         {
             CfgName = name;
            
         }
-        public int Execute<P>(string sql, P param = default(P))
+        //public int Execute<P>(string sql, P param = default(P))
+        //{
+        //    using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
+        //    {
+        //        var cmd = ManagerPool.Singleton.CreateDbCommand(CfgName);
+        //        cmd.Connection = con;
+        //        cmd.CommandText = sql;
+
+        //        if (param != null)
+        //        {
+        //            foreach (var p in typeof(P).GetProperties())
+        //            {
+        //                IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
+        //                parameter.Value = p.GetValue(param);
+        //                parameter.ParameterName = "@" + p.Name;
+        //                cmd.Parameters.Add(parameter);
+        //            }
+        //        }
+        //       return cmd.ExecuteNonQuery();
+        //    }
+        //}
+
+        public int Execute<P>(string sql, params dynamic[] param)
         {
             using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
             {
-                var cmd = ManagerPool.Singleton.CreateDbCommand(CfgName);
-                cmd.Connection = con;
+                var cmd = con.CreateCommand();
                 cmd.CommandText = sql;
 
                 if (param != null)
                 {
-                    foreach (var p in typeof(P).GetProperties())
+                    int index = 0;
+                    foreach (dynamic p in param)
                     {
-                        IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
-                        parameter.Value = p.GetValue(param);
-                        parameter.ParameterName = "@" + p.Name;
-                        cmd.Parameters.Add(parameter);
+                        if (p is ValueType)
+                        {
+                            object obj = p;
+                            var parameter = cmd.CreateParameter();
+                            parameter.Value = obj;
+                            parameter.ParameterName = "@" + ValueTypeParam.ParamArray[index++];
+                            cmd.Parameters.Add(parameter);
+                        }
+                        else if (p is object)
+                        {
+                            object obj = p;
+                            var properties = obj.GetType().GetProperties();
+                            foreach (var py in properties)
+                            {
+                                var parameter = cmd.CreateParameter();
+                                parameter.Value = py.GetValue(obj);
+                                parameter.ParameterName = "@" + py.Name;
+                                cmd.Parameters.Add(parameter);
+
+                            }
+                        }
                     }
                 }
-               return cmd.ExecuteNonQuery();
+                return cmd.ExecuteNonQuery();
             }
-        }
+            
+            }
 
-        public object ExecuteScalar<T, P>(string sql, P param = default(P))
+        //public object ExecuteScalar<T, P>(string sql, P param = default(P))
+        //{
+        //    using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
+        //    {
+        //        var cmd = ManagerPool.Singleton.CreateDbCommand(CfgName);
+        //        cmd.Connection = con;
+        //        cmd.CommandText = sql;
+
+        //        if (param != null)
+        //        {
+        //            foreach (var p in typeof(P).GetProperties())
+        //            {
+        //                IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
+        //                parameter.Value = p.GetValue(param);
+        //                parameter.ParameterName = "@" + p.Name;
+        //                cmd.Parameters.Add(parameter);
+        //            }
+        //        }
+        //        return cmd.ExecuteScalar();
+        //    }
+        //}
+
+        public object ExecuteScalar<T>(string sql, params dynamic[] param)
         {
             using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
             {
@@ -73,38 +135,96 @@ namespace HikariAPI
 
                 if (param != null)
                 {
-                    foreach (var p in typeof(P).GetProperties())
+                    int index = 0;
+                    foreach (dynamic p in param)
                     {
-                        IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
-                        parameter.Value = p.GetValue(param);
-                        parameter.ParameterName = "@" + p.Name;
-                        cmd.Parameters.Add(parameter);
+                        if (p is ValueType)
+                        {
+                            object obj = p;
+                            var parameter = cmd.CreateParameter();
+                            parameter.Value = obj;
+                            parameter.ParameterName = "@" + ValueTypeParam.ParamArray[index++];
+                            cmd.Parameters.Add(parameter);
+                        }
+                        else if (p is object)
+                        {
+                            object obj = p;
+                            var properties = obj.GetType().GetProperties();
+                            foreach (var py in properties)
+                            {
+                                var parameter = cmd.CreateParameter();
+                                parameter.Value = py.GetValue(obj);
+                                parameter.ParameterName = "@" + py.Name;
+                                cmd.Parameters.Add(parameter);
+
+                            }
+                        }
                     }
                 }
                 return cmd.ExecuteScalar();
             }
         }
 
-        public List<T> Query<T, P>(string sql, P param = default(P)) where T:new ()
+        //public List<T> Query<T, P>(string sql, P param = default(P)) where T:new ()
+        //{
+        //    using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
+        //    {
+        //        var cmd = con.CreateCommand();
+        //        //cmd.Connection = con;
+        //        cmd.CommandText = sql;
+
+        //        if (param != null)
+        //        {
+        //            foreach (var p in typeof(P).GetProperties())
+        //            {
+        //                IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
+        //                parameter.Value = p.GetValue(param);
+        //                parameter.ParameterName = "@" + p.Name;
+        //                cmd.Parameters.Add(parameter);
+        //            }
+        //        }
+        //        var reader = cmd.ExecuteReader();
+        //       return   reader.ToEntityList<T>();
+        //    }
+        //}
+
+        public List<T> Query<T>(string sql, params dynamic[] param) where T : new()
         {
             using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
             {
                 var cmd = con.CreateCommand();
-                //cmd.Connection = con;
                 cmd.CommandText = sql;
 
                 if (param != null)
                 {
-                    foreach (var p in typeof(P).GetProperties())
+                    int index = 0;
+                    foreach(dynamic p in param)
                     {
-                        IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
-                        parameter.Value = p.GetValue(param);
-                        parameter.ParameterName = "@" + p.Name;
-                        cmd.Parameters.Add(parameter);
+                        if(p is ValueType)
+                        {
+                            object obj = p;
+                            var parameter = cmd.CreateParameter();
+                            parameter.Value =obj;
+                            parameter.ParameterName = "@" + ValueTypeParam.ParamArray[index++];
+                            cmd.Parameters.Add(parameter);  
+                        }
+                        else if(p is object)
+                        {
+                            object obj = p;
+                            var properties = obj.GetType().GetProperties();
+                            foreach (var py in properties)
+                            {
+                                var parameter = cmd.CreateParameter();
+                                parameter.Value = py.GetValue(obj);
+                                parameter.ParameterName = "@" + py.Name;
+                                cmd.Parameters.Add(parameter);
+                               
+                            }
+                        }
                     }
                 }
                 var reader = cmd.ExecuteReader();
-               return   reader.ToEntityList<T>();
+                return reader.ToEntityList<T>();
             }
         }
 

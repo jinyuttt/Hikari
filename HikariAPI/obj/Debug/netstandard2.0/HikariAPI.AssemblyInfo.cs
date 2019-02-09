@@ -11,13 +11,14 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("HikariAPI")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("jinyu成都")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("c# 提供Hikari实现ORM样例；只有2个类，需要查看源码")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.1.2.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.1.2")]
 [assembly: System.Reflection.AssemblyProductAttribute("HikariAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HikariAPI")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.1.2.0")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 
