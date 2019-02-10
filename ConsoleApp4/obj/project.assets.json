@@ -1608,7 +1608,7 @@
           "bin/placeholder/Hikari.Integration.Models.dll": {}
         }
       },
-      "HikariAPI/1.1.2": {
+      "HikariAPI/1.2.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -5638,7 +5638,7 @@
       "path": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj",
       "msbuildProject": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj"
     },
-    "HikariAPI/1.1.2": {
+    "HikariAPI/1.2.0": {
       "type": "project",
       "path": "../HikariAPI/HikariAPI.csproj",
       "msbuildProject": "../HikariAPI/HikariAPI.csproj"
@@ -5647,7 +5647,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Hikari >= 2.6.3",
-      "HikariAPI >= 1.1.2",
+      "HikariAPI >= 1.2.0",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
   },

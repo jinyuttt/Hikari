@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "HikariAPI/1.1.2": {
+      "HikariAPI/1.2.0": {
         "dependencies": {
           "Hikari": "2.6.3",
           "Hikari.Integration.Models": "1.2.2",
@@ -1002,7 +1002,7 @@
     }
   },
   "libraries": {
-    "HikariAPI/1.1.2": {
+    "HikariAPI/1.2.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

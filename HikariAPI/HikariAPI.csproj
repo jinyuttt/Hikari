@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>c# 提供Hikari实现ORM样例；只有2个类，需要查看源码</Description>
+    <Description>c# 提供Hikari实现ORM样例；只有2个类，需要查看源码和测试样例，支持匿名类参数</Description>
     <PackageProjectUrl>https://github.com/jinyuttt/Hikari.git</PackageProjectUrl>
-    <Version>1.1.2</Version>
+    <Version>1.2.0</Version>
     <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/ICON/Hikari.ico</PackageIconUrl>
     <Authors>jinyu成都</Authors>
+    <PackageReleaseNotes>支持匿名类</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
