@@ -9,7 +9,13 @@ using System.Threading;
 
 namespace Hikari.BulkCopy
 {
-
+    /*
+     * 说明：当前该类是用反射实现，这样可以不引用具体的数据库客户端
+     * 但是反射会慢，后期会修改成EMIT方式
+     * 当前.NETStandard2.0不支持EMIT，所以等新版发布后再修改
+     * 如果你打算使用并且无法满足你的需求，请自己下载版本修改，不要提交
+     * 
+     * */
     public delegate void WriteRow(params object[] values);
 
     /// <summary>
