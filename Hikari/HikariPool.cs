@@ -1,5 +1,4 @@
-﻿using log4net.Core;
-using System;
+﻿using System;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Hikari
 {
-  //  public delegate void BagEntryRemove<T>(object sender, T[] entrys);
+    //  public delegate void BagEntryRemove<T>(object sender, T[] entrys);
     /// <summary>
     /// 功能描述    ：HikariPool  
     /// 创 建 者    ：jinyu
@@ -72,8 +71,6 @@ namespace Hikari
                 }
             }
         }
-
-
 
         /// <summary>
         /// 释放使用
@@ -221,7 +218,6 @@ namespace Hikari
             try
             {
                 PoolEntry poolEntry = NewPoolEntry();
-               
                 long maxLifetime = config.MaxLifetime;
                 if (maxLifetime > 0&&poolEntry!=null)
                 {

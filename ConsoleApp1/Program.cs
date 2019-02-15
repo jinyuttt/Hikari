@@ -63,11 +63,11 @@ namespace ConsoleApp1
         private static void TestConnect()
         {
 
-            System.Data.SqlClient.SqlConnection connection3 = new System.Data.SqlClient.SqlConnection();
-            connection3.Close();
+         
+          
              HikariConfig hikariConfig = new HikariConfig();
-            hikariConfig.DBType = "SqlServer";
-            //hikariConfig.DBType = "PostgreSQL";
+          //  hikariConfig.DBType = "SqlServer";
+            hikariConfig.DBType = "PostgreSQL";
             hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
             //hikariConfig.DriverDir = "DBDrivers";
             //hikariConfig.DriverDLL = "XXXX.dll";
@@ -91,21 +91,23 @@ namespace ConsoleApp1
             if (connection1 != null)
             {
                 var cmd = connection1.CreateCommand();
-                cmd.CommandText = "select * from student";
-                var rd = cmd.ExecuteReader();
-                int datanum = 0;
-                string data = "";
-                while (rd.Read())
-                {
-                    data += "ID:" + rd.GetInt32(0);
-                    data += ",Name:" + rd.GetString(1);
-                    Console.WriteLine(data);
-                    datanum++;
-                }
-                rd.Close();
+                cmd.CommandText = "select * from \"Student\"";
+                cmd.CommandText = "COPY \"Student\" FROM 'd:/test.csv'  WITH CSV  HEADER";
+                cmd.ExecuteNonQuery();
+                //var rd = cmd.ExecuteReader();
+                //int datanum = 0;
+                //string data = "";
+                //while (rd.Read())
+                //{
+                //    data += "ID:" + rd.GetInt32(0);
+                //    data += ",Name:" + rd.GetString(1);
+                //    Console.WriteLine(data);
+                //    datanum++;
+                //}
+                //rd.Close();
                 cmd.Dispose();
                 connection1.Close();
-                Console.WriteLine(datanum);
+               // Console.WriteLine(datanum);
             }
                 //
                 int num = 1000;

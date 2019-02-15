@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hikari.BulkCopy;
+using System;
 using System.Data;
 using System.Threading;
 /**
@@ -178,6 +179,23 @@ namespace Hikari
             throw new Exception("不允许使用该方法");
         }
 
+
+        /// <summary>
+        /// 获取Bulk处理接口对象
+        /// </summary>
+        /// <returns></returns>
+        public IBulkCopy GetBulkCopy()
+        {
+            HikariConnection con =(HikariConnection)GetConnection();
+            var cls = pool.GetBulkCopy();
+            if(cls==null)
+            {
+                throw new Exception("驱动不支持，没有找到Bulk类");
+            }
+            return  new DBBulkCopy() { BulkCls = cls, Connection=con};
+        }
+       
+        
         #region ADO.NET对象
 
         public IDbDataAdapter DataAdapter { get {return pool.GetDataAdapter(); } }

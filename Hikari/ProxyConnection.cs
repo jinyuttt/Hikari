@@ -99,6 +99,7 @@ namespace Hikari
         public string Database { get { return delegateCon.Database; }  }
 
         public ConnectionState State { get { return delegateCon.State; } }
+
         public ProxyConnection(PoolEntry poolEntry,  IDbConnection connection,  long now)
         {
             try

@@ -25,6 +25,7 @@ using System.IO;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
+using Hikari.BulkCopy;
 
 namespace Hikari.Manager
 {
@@ -363,6 +364,26 @@ namespace Hikari.Manager
         }
         #endregion 
 
+
+        /// <summary>
+        /// 获取Bulk接口
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public IBulkCopy GetBulkCopy(string name)
+        {
+            using (var con = GetDbConnection(name))
+            {
+                HikariDataSource hikari = null;
+                if(dicSource.TryGetValue(name,out hikari))
+                {
+                   return hikari.GetBulkCopy();
+                }
+            }
+            return null;
+        }
+      
+        
         /// <summary>
         /// 清理连接池
         /// </summary>

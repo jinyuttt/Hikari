@@ -78,14 +78,14 @@ namespace Hikari
             IDbConnection connection = null;
             try
             {
-              
+
                 if (string.IsNullOrEmpty(dllPath))
                 {
-                    if(config.DriverDir==null)
+                    if (config.DriverDir == null)
                     {
                         throw new Exception("config DriverDir null unexpectedly");
                     }
-                    if(config.DriverDLLFile==null)
+                    if (config.DriverDLLFile == null)
                     {
                         throw new Exception("config DriverDLLFile null unexpectedly");
                     }
@@ -97,7 +97,7 @@ namespace Hikari
                     throw new Exception("DataSource returned null unexpectedly");
                 }
                 SetupConnection(connection);
-                if(connection==null)
+                if (connection == null)
                 {
                     throw new Exception("Open Connection returned null unexpectedly");
                 }
@@ -110,7 +110,7 @@ namespace Hikari
             }
             finally
             {
-               
+
 
             }
         }
@@ -203,6 +203,11 @@ namespace Hikari
         public IDbDataAdapter GetDataAdapter()
         {
             return DbProviderFactories.GetDataAdapter(dllPath);
+        }
+
+        public Type GetBulkCopy()
+        {
+            return DbProviderFactories.GetBulkCopyClass(dllPath);
         }
         #endregion
     }

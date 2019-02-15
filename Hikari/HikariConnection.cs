@@ -27,5 +27,10 @@ namespace Hikari
         {
 
         }
+
+        /// <summary>
+        /// 底层驱动类对象
+        /// </summary>
+        public IDbConnection DbConnection { get { return delegateCon; } }
     }
 }

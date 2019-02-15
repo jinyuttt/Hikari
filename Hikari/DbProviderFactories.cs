@@ -28,6 +28,8 @@ namespace Hikari
         private static readonly object lock_obj = new object();
         private static Dictionary<string, Type> dic_ConnectType = new Dictionary<string, Type>();
         private static Dictionary<string, AssemblyDLLType> dicAssemblyDLLType = new Dictionary<string, AssemblyDLLType>();
+        private static Dictionary<string, Type> dic_BulkCopy = new Dictionary<string, Type>();
+
         private static IDbConnection GetConnection(string path,string clazz)
         {
             Type type = null;
@@ -74,7 +76,6 @@ namespace Hikari
                 return null;
             }
         }
-
 
         /// <summary>
         /// 获取驱动连接对象
@@ -165,6 +166,11 @@ namespace Hikari
                         Logger.Singleton.ErrorFormat("{0}-程序集，类型没有找到", path);
                     }
                     dicAssemblyDLLType[path] = dLLType;
+                    var lst = IsBulkType(allTypes, type.Name.Substring(0, type.Name.Length - 10));
+                    if (lst.Count > 1)
+                    {
+                        dic_BulkCopy[path] = lst[0];
+                    }
                     IDbConnection connection = (IDbConnection)Activator.CreateInstance(type);
                     return connection;
                 }
@@ -212,6 +218,46 @@ namespace Hikari
            
             return false;
         }
+
+
+        /// <summary>
+        /// 获取Bulk对象
+        /// </summary>
+        /// <param name="allTypes"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private static List<Type> IsBulkType(Type[] allTypes, string name)
+        {
+            List<Type> lst = new List<Type>();
+            foreach (Type tmp in allTypes)
+            {
+                if (tmp.IsClass && tmp.Name.EndsWith(name + "Bulk"))
+                {
+                    lst.Add(tmp);
+                }
+            }
+            if(lst.Count>1)
+            {
+                //再次筛选
+                foreach(var item in lst)
+                {
+                    var member= item.GetMember("WriteToServer");
+                    var size = item.GetProperty("BatchSize");
+                    var DestinationTableName = item.GetProperty("DestinationTableName");
+                    var ColumnMappings = item.GetProperty("ColumnMappings");
+                    if(member!=null&&member.Length>0&&size!=null&&DestinationTableName!=null&&ColumnMappings!=null)
+                    {
+                        //找到
+                        lst.Clear();
+                        lst.Add(item);
+                        break;
+                    }
+                }
+            }
+            return lst;
+        }
+
+
         /// <summary>
         /// 创建无参构造函数对象
         /// </summary>
@@ -259,5 +305,19 @@ namespace Hikari
             }
             return null;
         }
+
+        /// <summary>
+        /// 获取Bulk对象
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static Type GetBulkCopyClass(string path)
+        {
+            Type cls = null;
+            dic_BulkCopy.TryGetValue(path, out cls);
+            return cls;
+        }
+
+
     }
 }

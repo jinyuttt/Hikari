@@ -85,5 +85,11 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hikari\Hikari.csproj">
+      <Project>{6B3BB1E8-CC33-40F7-9BC4-38811F4FF794}</Project>
+      <Name>Hikari</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
