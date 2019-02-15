@@ -89,7 +89,8 @@ namespace ConsoleApp1
             //hikariDataSource.DBTypeXml = "DBType.xml";
             //
             var connection1 = hikariDataSource.GetConnection();
-           
+            hikariDataSource.GetBulkCopy();
+            ManagerPool.Singleton.GetBulkCopy();
             if (connection1 != null)
             {
                 var cmd = connection1.CreateCommand();
