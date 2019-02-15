@@ -370,7 +370,7 @@ namespace Hikari.Manager
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IBulkCopy GetBulkCopy(string name)
+        public IBulkCopy GetBulkCopy(string name=null)
         {
             using (var con = GetDbConnection(name))
             {

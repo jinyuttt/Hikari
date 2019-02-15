@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Hikari;
+using Hikari.Manager;
 
 namespace ConsoleApp1
 {
@@ -88,6 +89,7 @@ namespace ConsoleApp1
             //hikariDataSource.DBTypeXml = "DBType.xml";
             //
             var connection1 = hikariDataSource.GetConnection();
+           
             if (connection1 != null)
             {
                 var cmd = connection1.CreateCommand();
