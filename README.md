@@ -37,7 +37,7 @@ var bulk= hikariDataSource.GetBulkCopy();
 说明：我的博文中总结了几种批量处理的方式，唯独数据库提供的专门用于批量插入的类需要底层客户端驱动提供，所以增加了接口，满足调用这些类处理批量插入  
 
 使用多库管理类
-ManagerPool.Singleton.GetDbConnection(MySql);
+ManagerPool.Singleton.GetDbConnection(MySql); 
 ManagerPool.Singleton.GetBulkCopy(MySql);  
 
 ## 配置文件说明
@@ -100,9 +100,9 @@ Hikari.Integration.Models.Emit 新增
  
 2019-02-15
 
- 新增数据库驱动批量处理类的接口
-           var bulk=   hikariDataSource.GetBulkCopy();
-            bulk.BulkCopy(dt);  
+ 新增数据库驱动批量处理类的接口  
+           var bulk=   hikariDataSource.GetBulkCopy();  
+            bulk.BulkCopy(dt);    
 
 ## 附录
 |数据库	|Dll名称|说明|
