@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using Hikari;
 using Hikari.Manager;
@@ -89,8 +90,10 @@ namespace ConsoleApp1
             //hikariDataSource.DBTypeXml = "DBType.xml";
             //
             var connection1 = hikariDataSource.GetConnection();
-            hikariDataSource.GetBulkCopy();
-            ManagerPool.Singleton.GetBulkCopy();
+            var bulk= hikariDataSource.GetBulkCopy();
+            DataTable dt = new DataTable();
+            dt.TableName = "\"Student\"";
+            bulk.BulkCopy(dt);
             if (connection1 != null)
             {
                 var cmd = connection1.CreateCommand();

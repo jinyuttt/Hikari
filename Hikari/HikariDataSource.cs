@@ -188,10 +188,6 @@ namespace Hikari
         {
             HikariConnection con =(HikariConnection)GetConnection();
             var cls = pool.GetBulkCopy();
-            if(cls==null)
-            {
-                throw new Exception("驱动不支持，没有找到Bulk类");
-            }
             return  new DBBulkCopy() { BulkCls = cls, Connection=con};
         }
        

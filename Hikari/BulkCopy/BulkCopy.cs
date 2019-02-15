@@ -54,7 +54,7 @@ namespace Hikari.BulkCopy
                 if (BulkCls == null)
                 {
                     //说明不支持，监测是否是NpgsqlCopy
-                    if (Connection.GetType().Name.StartsWith("Npgsql"))
+                    if (Connection.DbConnection.GetType().Name.StartsWith("Npgsql"))
                     {
                         NpgsqlCopy(dt);
                     }
@@ -224,7 +224,7 @@ namespace Hikari.BulkCopy
             }
             if (con != null)
             {
-                con.SetValue(bulk, Convert.ChangeType(Connection, con.PropertyType));
+                con.SetValue(bulk, Convert.ChangeType(Connection.DbConnection, con.PropertyType));
             }
             if (FileName != null)
             {
@@ -262,7 +262,7 @@ namespace Hikari.BulkCopy
             if (Import != null)
             {
                 var commandFormat = string.Format(CultureInfo.InvariantCulture, "COPY {0} FROM STDIN BINARY", dt.TableName);
-                object writer = Import.Invoke(Connection, new object[] { commandFormat });
+                object writer = Import.Invoke(Connection.DbConnection, new object[] { commandFormat });
                 var writeFun = writer.GetType().GetMethod("WriteRow");
                 var del = (WriteRow)Delegate.CreateDelegate(typeof(WriteRow), writer, writeFun);
                 foreach (DataRow item in dt.Rows)
