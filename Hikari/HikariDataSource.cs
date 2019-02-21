@@ -202,6 +202,33 @@ namespace Hikari
        
         #endregion
 
+        /// <summary>
+        /// 验证SQL
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckSQL()
+        {
+            using (var con = GetConnection())
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(this.ConnectionInitSql))
+                    {
+                        var cmd = con.CreateCommand();
+                        cmd.CommandText = ConnectionInitSql;
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    Logger.Singleton.Info("验证SQL有异常");
+                    return false;
+                }
+            }
+        }
+
         public override string ToString()
         {
             return "HikariDataSource (" + pool + ")";

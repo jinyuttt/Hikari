@@ -103,6 +103,9 @@ Hikari.Integration.Models.Emit 新增
  新增数据库驱动批量处理类的接口  
            var bulk=   hikariDataSource.GetBulkCopy();  
             bulk.BulkCopy(dt);    
+2019-02-21  
+    新增CheckSQL方法，执行ConnectionInitSql配置的SQL语句
+    在HikariDataSource和ManagerPool都有该方法
 
 ## 附录
 |数据库	|Dll名称|说明|

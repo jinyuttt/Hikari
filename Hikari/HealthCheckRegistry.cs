@@ -74,6 +74,7 @@ namespace Hikari
                     List<string> lst = new List<string>();
                     foreach (var kv in dicPool)
                     {
+                        
                         var con = kv.Value.Pool.GetConnection(ConnectTime);
                         if (con == null)
                         {
@@ -110,6 +111,9 @@ namespace Hikari
         }
     }
 
+    /// <summary>
+    /// 连接池存储项
+    /// </summary>
     public class HealthItem
     {
         private const int TickS = 10000000;

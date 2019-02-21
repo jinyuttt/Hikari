@@ -383,6 +383,20 @@ namespace Hikari.Manager
             return null;
         }
       
+
+        /// <summary>
+        /// 用初始化SQL验证连接
+        /// </summary>
+        public void CheckSql()
+        {
+            foreach(var kv in dicSource)
+            {
+                if(!kv.Value.CheckSQL())
+                {
+                    Logger.Singleton.Info(kv.Key + "验证SQL有异常");
+                }
+            }
+        }
         
         /// <summary>
         /// 清理连接池
