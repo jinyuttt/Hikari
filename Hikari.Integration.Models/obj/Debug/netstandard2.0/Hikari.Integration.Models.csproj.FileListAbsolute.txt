@@ -1,0 +1,9 @@
+E:\Study\vs\Hikari3.0\Hikari\Hikari.Integration.Models\bin\Debug\netstandard2.0\Hikari.Integration.Models.deps.json
+E:\Study\vs\Hikari3.0\Hikari\Hikari.Integration.Models\bin\Debug\netstandard2.0\Hikari.Integration.Models.dll
+E:\Study\vs\Hikari3.0\Hikari\Hikari.Integration.Models\bin\Debug\netstandard2.0\Hikari.Integration.Models.pdb
+E:\Study\vs\Hikari3.0\Hikari\Hikari.Integration.Models\obj\Debug\netstandard2.0\Hikari.Integration.Models.csprojAssemblyReference.cache
+E:\Study\vs\Hikari3.0\Hikari\Hikari.Integration.Models\obj\Debug\netstandard2.0\Hikari.Integration.Models.csproj.CoreCompileInputs.cache
+E:\Study\vs\Hikari3.0\Hikari\Hikari.Integration.Models\obj\Debug\netstandard2.0\Hikari.Integration.Models.AssemblyInfoInputs.cache
+E:\Study\vs\Hikari3.0\Hikari\Hikari.Integration.Models\obj\Debug\netstandard2.0\Hikari.Integration.Models.AssemblyInfo.cs
+E:\Study\vs\Hikari3.0\Hikari\Hikari.Integration.Models\obj\Debug\netstandard2.0\Hikari.Integration.Models.dll
+E:\Study\vs\Hikari3.0\Hikari\Hikari.Integration.Models\obj\Debug\netstandard2.0\Hikari.Integration.Models.pdb

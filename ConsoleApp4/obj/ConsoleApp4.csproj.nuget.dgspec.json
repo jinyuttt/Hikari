@@ -1,0 +1,249 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj": {}
+  },
+  "projects": {
+    "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj",
+        "projectName": "ConsoleApp4",
+        "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj",
+        "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
+        "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\jinyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "d:\\Program Files\\DevExpress 18.1\\Components\\System\\Components\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj": {
+                "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj"
+              },
+              "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj": {
+                "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
+      "version": "1.2.3",
+      "restore": {
+        "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj",
+        "projectName": "Hikari.Integration.Models",
+        "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj",
+        "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
+        "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\jinyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "d:\\Program Files\\DevExpress 18.1\\Components\\System\\Components\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj": {
+      "version": "1.2.0",
+      "restore": {
+        "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj",
+        "projectName": "HikariAPI",
+        "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj",
+        "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
+        "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\jinyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "d:\\Program Files\\DevExpress 18.1\\Components\\System\\Components\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
+                "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj"
+              },
+              "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj": {
+                "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj": {
+      "version": "2.7.2",
+      "restore": {
+        "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj",
+        "projectName": "Hikari",
+        "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj",
+        "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
+        "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\jinyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "d:\\Program Files\\DevExpress 18.1\\Components\\System\\Components\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.13, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[4.0.4, )"
+            },
+            "log4net": {
+              "target": "Package",
+              "version": "[2.0.8, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

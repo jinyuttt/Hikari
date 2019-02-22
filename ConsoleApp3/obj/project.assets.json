@@ -208,7 +208,7 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Hikari.Integration.Models/1.2.2": {
+      "Hikari.Integration.Models/1.2.3": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -222,7 +222,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "Hikari.Integration.Models": "1.2.2"
+          "Hikari.Integration.Models": "1.2.3"
         },
         "compile": {
           "bin/placeholder/Hikari.Integration.Models.Core.dll": {}
@@ -543,10 +543,11 @@
       ]
     },
     "Microsoft.NETCore.Platforms/2.1.0": {
-      "sha512": "TT+QCi9LcxGTjBssH7S7n5+8DVcwfG4DYgXX7Dk7+BfZ4oVHj8Q0CbYk9glzAlHLsSt3bYzol+fOdra2iu6GOw==",
+      "sha512": "aSTPL94NloSiQVL5Len8wbjFKOnoAX/vOh3s3DF6g3c7GUUMLCDvnBhmA72M2iN2AedyA8hpr7m89kzSAKUnJQ==",
       "type": "package",
       "path": "microsoft.netcore.platforms/2.1.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
@@ -703,7 +704,7 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Hikari.Integration.Models/1.2.2": {
+    "Hikari.Integration.Models/1.2.3": {
       "type": "project",
       "path": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj",
       "msbuildProject": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj"
@@ -716,6 +717,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "Hikari.Integration.Models >= 1.2.3",
       "Hikari.Integration.Models.Core >= 1.1.2",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
@@ -727,11 +729,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp3\\ConsoleApp3.csproj",
+      "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp3\\ConsoleApp3.csproj",
       "projectName": "ConsoleApp3",
-      "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp3\\ConsoleApp3.csproj",
+      "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp3\\ConsoleApp3.csproj",
       "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-      "outputPath": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp3\\obj\\",
+      "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp3\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -752,8 +754,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models.Core\\Hikari.Integration.Models.Core.csproj": {
-              "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models.Core\\Hikari.Integration.Models.Core.csproj"
+            "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models.Core\\Hikari.Integration.Models.Core.csproj": {
+              "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models.Core\\Hikari.Integration.Models.Core.csproj"
+            },
+            "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
+              "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj"
             }
           }
         }

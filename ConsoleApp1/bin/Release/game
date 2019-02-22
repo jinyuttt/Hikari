@@ -1,3 +1,0 @@
-[2019-02-15 22:02:18,143] INFO [1][Logger:0] - HikariPool-1 - Starting...
-[2019-02-15 22:02:18,254] ERROR [1][Logger:0] - HikariPool-1 - Error thrown while acquiring connection from data source,config DriverDLLFile null unexpectedly
-[2019-02-15 22:02:18,303] INFO [1][Logger:0] - HikariPool-1 - Start completed.

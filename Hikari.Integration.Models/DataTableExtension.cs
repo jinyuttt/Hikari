@@ -18,11 +18,13 @@
 
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Hikari.Integration.Models
 {
@@ -35,6 +37,7 @@ namespace Hikari.Integration.Models
 
     public static class DataTableExtension
     {
+        private const int Size = 65000;
         /// <summary>
         /// convert datatable into entity
         /// </summary>
@@ -134,38 +137,53 @@ namespace Hikari.Integration.Models
                 .MakeGenericMethod(type);
             return method.Invoke(null, new[] { dt });
         }
-       
-        
+
+
         /// <summary>
         /// convert list of entities into datatable
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static DataTable FromEntity<T>(this List<T> entities)
+        public static DataTable FromEntity<T>(this IList<T> entities)
         {
             DataTable dt = new DataTable();
-            foreach (var property in typeof(T).GetProperties())
+            var Properties = typeof(T).GetProperties();
+            foreach (var property in Properties)
             {
                 string colName = property.Name;
-                //if enable below lines, DataTable will add Columns with Alias name
-                //var aliasAttr = property.GetCustomAttributes().FirstOrDefault(a => a as AliasAttribute != null);
-                //if (aliasAttr != null)
-                //{
-                //    colName = aliasAttr.GetType().GetProperty(nameof(AliasAttribute.ColumnName)).GetValue(aliasAttr) as string;
-                //}
+                dt.Columns.Add(new DataColumn() { ColumnName = colName, DataType = property.PropertyType });
 
-                //todo: Message: System.NotSupportedException : DataSet does not support System.Nullable<>.
-                dt.Columns.Add(new DataColumn() { ColumnName = colName });
             }
-            foreach (var entity in entities)
+            if (entities.Count < Size)
             {
-                DataRow row = dt.Rows.Add(
-                    (from p in typeof(T).GetProperties()
-                     where dt.Columns.Contains(p.Name)
-                     select p.GetValue(entity)).ToArray()
-                     );
-
+                foreach (var entity in entities)
+                {
+                    DataRow row = dt.Rows.Add(
+                        (from p in typeof(T).GetProperties()
+                         where dt.Columns.Contains(p.Name)
+                         select p.GetValue(entity)).ToArray()
+                         );
+                }
+            }
+            else
+            {
+                int  col = dt.Columns.Count;
+                ConcurrentBag<object[]> bag = new ConcurrentBag<object[]>();
+                Parallel.ForEach(entities, item =>
+                {
+                    object[] obj = new object[col];
+                    for (int i = 0; i < col; i++)
+                    {
+                        obj[i] = Properties[i].GetValue(item);
+                    }
+                    bag.Add(obj);
+                });
+                foreach (var item in bag)
+                {
+                    dt.LoadDataRow(item, false);
+                }
+                bag = null;
             }
             return dt;
         }

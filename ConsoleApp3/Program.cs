@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using Hikari.Integration.Models;
 namespace ConsoleApp3
 {
 
@@ -19,7 +19,7 @@ namespace ConsoleApp3
             dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("Name", typeof(string));
             dt.Columns.Add("Age", typeof(int));
-            for (int i = 1; i < 1000000; i++)
+            for (int i = 1; i < 65000; i++)
             {
                 var row = dt.NewRow();
                 row[0] = i;
@@ -32,7 +32,11 @@ namespace ConsoleApp3
             watch.Start();
             List<Person> lst = dt.ToEntityEmitList<Person>();
             watch.Stop();
-            Console.WriteLine(lst.Count + "," + watch.ElapsedMilliseconds);
+            Stopwatch watchDD = new Stopwatch();
+            watchDD.Start();
+            var dd= lst.FromEntity();
+            watchDD.Stop();
+            Console.WriteLine(lst.Count + "," + watch.ElapsedMilliseconds+","+watchDD.ElapsedMilliseconds);
             Console.ReadKey();
         }
     }
