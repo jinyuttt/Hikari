@@ -283,7 +283,11 @@ namespace Hikari
                 string strLine = null;
                 while ((strLine = rd.ReadLine()) != null)
                 {
-                    
+                    //增加注释行
+                    if(strLine.StartsWith("#")||strLine.StartsWith("**"))
+                    {
+                        continue;
+                    }
                     string[] cof = strLine.Split('=');
                     if (cof.Length == 2)
                     {
