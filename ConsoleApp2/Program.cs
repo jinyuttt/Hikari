@@ -33,6 +33,7 @@ namespace ConsoleApp2
             watch.Reset();
             watch.Start();
             List<Person> lst = dt.ToEntityEmitList<Person>();
+            var r = lst.FromEntityToDataEmit();
             watch.Stop();
             Console.WriteLine(lst.Count+","+watch.ElapsedMilliseconds);
             Console.ReadKey();

@@ -12,7 +12,7 @@ using System;
 using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("个人贡献")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("2019")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("c#数据库连接池   个人贡献，任意使用，希望保留作者及注释;\r\n郑重说明：本库定位于数据库连接池，源码GitHub开源公开")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.7.3.0")]

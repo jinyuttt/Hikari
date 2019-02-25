@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <Description>.net core库对数据库查询扩展，实体转换（采用Emit）   个人贡献，任意使用，希望保留版本和作者注释</Description>
+    <Description>.net core库对数据库查询扩展，实体转换（采用Emit，DataTable,DataReader与List&lt;T&gt;相互转换）   个人贡献，任意使用，希望保留版本和作者注释</Description>
     <PackageProjectUrl>https://github.com/jinyuttt/Hikari.git</PackageProjectUrl>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/ICON/Hikari.ico</PackageIconUrl>
     <Authors>jinyu成都</Authors>
   </PropertyGroup>

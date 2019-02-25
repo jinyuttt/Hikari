@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {}
+    "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {}
   },
   "projects": {
-    "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
+    "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
       "version": "1.2.3",
       "restore": {
-        "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj",
+        "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj",
         "projectName": "Hikari.Integration.Models",
-        "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj",
+        "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj",
         "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-        "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\obj\\",
+        "outputPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

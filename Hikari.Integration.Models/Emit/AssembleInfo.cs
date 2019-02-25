@@ -40,12 +40,13 @@ namespace Hikari.Integration.Models
             MethodName = "Convert" + type.Name + "To";
             CanSettedMethod = this.GetType().GetMethod("CanSetted", new Type[] { type, typeof(string) });
             GetValueMethod = type.GetMethod("get_Item", new Type[] { typeof(string) });
+            SetValueMethod = type.GetMethod("set_Item", new Type[] { typeof(string), typeof(object) });
         }
         public string MethodName;
         public Type SourceType;
         public MethodInfo CanSettedMethod;
         public MethodInfo GetValueMethod;
-
+        public MethodInfo SetValueMethod;
         /// <summary>
         /// 判断datareader是否存在某字段并且值不为空
         /// 已经改为一次验证

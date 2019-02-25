@@ -218,7 +218,7 @@
           "bin/placeholder/Hikari.Integration.Models.dll": {}
         }
       },
-      "Hikari.Integration.Models.Core/1.1.2": {
+      "Hikari.Integration.Models.Core/1.1.3": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
@@ -709,7 +709,7 @@
       "path": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj",
       "msbuildProject": "../Hikari.Integration.Models/Hikari.Integration.Models.csproj"
     },
-    "Hikari.Integration.Models.Core/1.1.2": {
+    "Hikari.Integration.Models.Core/1.1.3": {
       "type": "project",
       "path": "../Hikari.Integration.Models.Core/Hikari.Integration.Models.Core.csproj",
       "msbuildProject": "../Hikari.Integration.Models.Core/Hikari.Integration.Models.Core.csproj"
@@ -718,7 +718,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Hikari.Integration.Models >= 1.2.3",
-      "Hikari.Integration.Models.Core >= 1.1.2",
+      "Hikari.Integration.Models.Core >= 1.1.3",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
   },
@@ -729,11 +729,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp3\\ConsoleApp3.csproj",
+      "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp3\\ConsoleApp3.csproj",
       "projectName": "ConsoleApp3",
-      "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp3\\ConsoleApp3.csproj",
+      "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp3\\ConsoleApp3.csproj",
       "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-      "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp3\\obj\\",
+      "outputPath": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp3\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -754,11 +754,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models.Core\\Hikari.Integration.Models.Core.csproj": {
-              "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models.Core\\Hikari.Integration.Models.Core.csproj"
+            "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models.Core\\Hikari.Integration.Models.Core.csproj": {
+              "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models.Core\\Hikari.Integration.Models.Core.csproj"
             },
-            "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
-              "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj"
+            "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
+              "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj"
             }
           }
         }

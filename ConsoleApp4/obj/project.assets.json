@@ -5661,11 +5661,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj",
+      "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj",
       "projectName": "ConsoleApp4",
-      "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj",
+      "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj",
       "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-      "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\obj\\",
+      "outputPath": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp4\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5686,11 +5686,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj": {
-              "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj"
+            "E:\\Study\\vs\\Hikari\\Hikari\\HikariAPI\\HikariAPI.csproj": {
+              "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\HikariAPI\\HikariAPI.csproj"
             },
-            "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj": {
-              "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj"
+            "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\Hikari.csproj": {
+              "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\Hikari.csproj"
             }
           }
         }

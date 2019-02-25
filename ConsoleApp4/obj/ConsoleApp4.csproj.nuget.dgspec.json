@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj": {}
+    "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj": {}
   },
   "projects": {
-    "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj": {
+    "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj",
+        "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj",
         "projectName": "ConsoleApp4",
-        "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj",
+        "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp4\\ConsoleApp4.csproj",
         "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-        "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\ConsoleApp4\\obj\\",
+        "outputPath": "E:\\Study\\vs\\Hikari\\Hikari\\ConsoleApp4\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -32,11 +32,11 @@
         "frameworks": {
           "netcoreapp2.1": {
             "projectReferences": {
-              "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj": {
-                "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj"
+              "E:\\Study\\vs\\Hikari\\Hikari\\HikariAPI\\HikariAPI.csproj": {
+                "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\HikariAPI\\HikariAPI.csproj"
               },
-              "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj": {
-                "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj"
+              "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\Hikari.csproj": {
+                "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\Hikari.csproj"
               }
             }
           }
@@ -64,14 +64,14 @@
         }
       }
     },
-    "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
+    "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
       "version": "1.2.3",
       "restore": {
-        "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj",
+        "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj",
         "projectName": "Hikari.Integration.Models",
-        "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj",
+        "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj",
         "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-        "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\obj\\",
+        "outputPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -118,14 +118,14 @@
         }
       }
     },
-    "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj": {
+    "E:\\Study\\vs\\Hikari\\Hikari\\HikariAPI\\HikariAPI.csproj": {
       "version": "1.2.0",
       "restore": {
-        "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj",
+        "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\HikariAPI\\HikariAPI.csproj",
         "projectName": "HikariAPI",
-        "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\HikariAPI.csproj",
+        "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\HikariAPI\\HikariAPI.csproj",
         "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-        "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\HikariAPI\\obj\\",
+        "outputPath": "E:\\Study\\vs\\Hikari\\Hikari\\HikariAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -146,11 +146,11 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
-                "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj"
+              "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj": {
+                "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari.Integration.Models\\Hikari.Integration.Models.csproj"
               },
-              "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj": {
-                "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj"
+              "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\Hikari.csproj": {
+                "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\Hikari.csproj"
               }
             }
           }
@@ -179,14 +179,14 @@
         }
       }
     },
-    "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj": {
+    "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\Hikari.csproj": {
       "version": "2.7.3",
       "restore": {
-        "projectUniqueName": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj",
+        "projectUniqueName": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\Hikari.csproj",
         "projectName": "Hikari",
-        "projectPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\Hikari.csproj",
+        "projectPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\Hikari.csproj",
         "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-        "outputPath": "E:\\Study\\vs\\Hikari3.0\\Hikari\\Hikari\\obj\\",
+        "outputPath": "E:\\Study\\vs\\Hikari\\Hikari\\Hikari\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

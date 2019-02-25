@@ -37,6 +37,7 @@ namespace Hikari.Integration.Models.Emit
     public static class EntityEmitConverter
     {
         private static ConcurrentDictionary<string, object> cache = new ConcurrentDictionary<string, object>();
+        private static ConcurrentDictionary<string, object> cacheRow = new ConcurrentDictionary<string, object>();
         //数据类型和对应的强制转换方法的methodinfo，供实体属性赋值时调用
         private static Dictionary<Type, MethodInfo> ConvertMethods = new Dictionary<Type, MethodInfo>()
        {
@@ -55,6 +56,9 @@ namespace Hikari.Integration.Models.Emit
         public delegate T LoadDataRow<T>(DataRow dr);
         //把datareader转换为实体的方法的委托定义
         public delegate T LoadDataRecord<T>(IDataRecord dr);
+
+        //把实体转DataRow
+        public delegate void EntityToRow<T>(T obj, DataRow row);
 
         //emit里面用到的针对datarow的元数据信息
         private static readonly AssembleInfo dataRowAssembly = new AssembleInfo(typeof(DataRow));
@@ -102,6 +106,33 @@ namespace Hikari.Integration.Models.Emit
                 generator.MarkLabel(endIfLabel);
             }
             generator.Emit(OpCodes.Ldloc, result);
+            generator.Emit(OpCodes.Ret);
+            return method;
+        }
+
+        /// <summary>
+        /// 将T对象转换成DataRow
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        private static DynamicMethod BuildMethodToRow<T>()
+        {
+            DynamicMethod method = new DynamicMethod(typeof(T).Name+ "ToDataRow", MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard,null,
+                    new Type[] { typeof(T),typeof(DataRow) }, typeof(EntityContext).Module, true);
+            ILGenerator generator = method.GetILGenerator();
+            foreach (var p in typeof(T).GetProperties())
+            {
+                var endIfLabel = generator.DefineLabel();
+                generator.Emit(OpCodes.Ldarg_1);
+                generator.Emit(OpCodes.Ldstr, p.Name);
+                generator.Emit(OpCodes.Ldarg_0);
+                generator.Emit(OpCodes.Call, p.GetGetMethod());//获取
+                if (p.PropertyType.IsValueType || p.PropertyType == typeof(string))
+                    generator.Emit(OpCodes.Box,p.PropertyType);//装箱                                                        
+                else
+                    generator.Emit(OpCodes.Castclass, p.PropertyType);
+                generator.Emit(OpCodes.Call, dataRowAssembly.SetValueMethod);
+            }
             generator.Emit(OpCodes.Ret);
             return method;
         }
@@ -261,7 +292,52 @@ namespace Hikari.Integration.Models.Emit
             return lst.ToArray();
         }
 
+       
+        /// <summary>
+        /// 将List<T>转成DataTable
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="lst"></param>
+        /// <returns></returns>
+        public static DataTable FromEntityToDataEmit<T>(this IList<T> lst)
+        {
+            DataTable dt = new DataTable();
+            foreach (var p in typeof(T).GetProperties())
+            {
+                dt.Columns.Add(p.Name, p.PropertyType);
+            }
+            EntityToRow<T> load = FindToRow<T>();
+            foreach (var item in lst)
+            {
+                var row = dt.NewRow();
+                load(item, row);
+                dt.Rows.Add(row);
+            }
+            return dt;
+        }
 
+        /// <summary>
+        /// 获取生成的委托
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        private static EntityToRow<T> FindToRow<T>()
+        {
+            string key = typeof(T).Name + "ConvertToDataRow";
+            EntityToRow<T> load = null;
+            object v = null;
+            if (cacheRow.TryGetValue(key, out v))
+            {
+                load = v as EntityToRow<T>;
+            }
+            else
+            {
+                load = (EntityToRow<T>)BuildMethodToRow<T>().CreateDelegate(typeof(EntityToRow<T>));
+                cacheRow[key] = load;
+            }
 
+            return load;
+        }
+        
     }
 }
