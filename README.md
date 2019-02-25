@@ -104,14 +104,16 @@ Hikari.Integration.Models.Emit 新增
            var bulk=   hikariDataSource.GetBulkCopy();  
             bulk.BulkCopy(dt);    
 2019-02-21  
+
     新增CheckSQL方法，执行ConnectionInitSql配置的SQL语句
     在HikariDataSource和ManagerPool都有该方法  
 	
-2019-02-25
+2019-02-25  
+
 Hikari.Integration.Models.Core    
-     扩展.net core库emit方法对List<T>转换DataTable  
+      扩展.net core库emit方法对List<T>转换DataTable  
 Hikari.Integration.Models.Emit   
-     扩展.net framework库emit方法对List<T>转换DataTable  
+      扩展.net framework库emit方法对List<T>转换DataTable  
 
 ## 附录
 |数据库	|Dll名称|说明|
