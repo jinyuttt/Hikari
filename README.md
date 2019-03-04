@@ -113,7 +113,10 @@ Hikari.Integration.Models.Emit 新增
 Hikari.Integration.Models.Core    
       扩展.net core库emit方法对List<T>转换DataTable  
 Hikari.Integration.Models.Emit   
-      扩展.net framework库emit方法对List<T>转换DataTable  
+      扩展.net framework库emit方法对List<T>转换DataTable   
+	
+----------------------------------------------------------------
+说明：该项目的扩展项目Hikari.Integration.Models.Core 和Hikari.Integration.Models.Emit  已经被EntityMappingDBEmit项目代替
 
 ## 附录
 |数据库	|Dll名称|说明|
