@@ -33,7 +33,7 @@ namespace HikariAPI
 
   public  class ORMFactory
     {
-        public static IORM Create(String name=null)
+        public static IORM Create(string name=null)
         {
             return new SqlMapper(name);
         }

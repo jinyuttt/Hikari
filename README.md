@@ -114,6 +114,13 @@ Hikari.Integration.Models.Core
       扩展.net core库emit方法对List<T>转换DataTable  
 Hikari.Integration.Models.Emit   
       扩展.net framework库emit方法对List<T>转换DataTable   
+	  
+2019-03-24  
+
+Hikari.Integration.Entity 
+      扩展库emit方法DataTabble,DataReader与List<T>相互转换  
+	  该扩展内部引用EntityMappingDBEmit项目，替换现有所有扩展库
+
 	
 ----------------------------------------------------------------
 说明：该项目的扩展项目Hikari.Integration.Models.Core 和Hikari.Integration.Models.Emit  已经被EntityMappingDBEmit项目代替

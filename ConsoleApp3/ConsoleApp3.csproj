@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hikari.Integration.Models.Core\Hikari.Integration.Models.Core.csproj" />
     <ProjectReference Include="..\Hikari.Integration.Models\Hikari.Integration.Models.csproj" />
   </ItemGroup>
 

@@ -22,7 +22,6 @@ using System.Collections.Generic;
 using System.Text;
 using Hikari.Integration.Models;
 using Hikari.Manager;
-using System.Data;
 
 namespace HikariAPI
 {
