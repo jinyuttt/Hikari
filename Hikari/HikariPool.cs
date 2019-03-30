@@ -237,6 +237,7 @@ namespace Hikari
                 { // we check POOL_NORMAL to avoid a flood of messages if shutdown() is running concurrently
                     Logger.Singleton.DebugFormat("{0} - Cannot acquire connection from data source", poolName);
                 }
+                Logger.Singleton.DebugFormat("{0} - Cannot acquire connection from data source,error:{1}", poolName,e);
                 return null;
             }
             catch (Exception e)

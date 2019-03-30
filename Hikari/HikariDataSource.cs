@@ -164,7 +164,7 @@ namespace Hikari
                 }
                 catch (Exception e)
                 {
-                    Logger.Singleton.WarnFormat("{0} - Interrupted during closing", PoolName);
+                    Logger.Singleton.WarnFormat("{0} - Interrupted during closing,errormsg:{1}", PoolName,e);
                     Thread.CurrentThread.Interrupt();
                 }
             }
@@ -223,7 +223,7 @@ namespace Hikari
                 }
                 catch(Exception ex)
                 {
-                    Logger.Singleton.Info("验证SQL有异常");
+                    Logger.Singleton.Info("验证SQL有异常,异常信息:"+ex.Message);
                     return false;
                 }
             }
