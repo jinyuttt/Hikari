@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hikari.Integration.Models.Emit;
-
+using Hikari.Integration.Entity;
 namespace ConsoleApp2
 {
     /// <summary>
@@ -32,8 +28,8 @@ namespace ConsoleApp2
             Stopwatch watch = new Stopwatch();
             watch.Reset();
             watch.Start();
-            List<Person> lst = dt.ToEntityEmitList<Person>();
-            var r = lst.FromEntityToDataEmit();
+            List<Person> lst = dt.ToEntity<Person>();
+            var r = lst.FromEntity();
             watch.Stop();
             Console.WriteLine(lst.Count+","+watch.ElapsedMilliseconds);
             Console.ReadKey();

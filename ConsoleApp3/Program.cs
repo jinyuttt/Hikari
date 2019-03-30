@@ -1,5 +1,4 @@
-﻿using Hikari.Integration.Models.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -30,7 +29,7 @@ namespace ConsoleApp3
             Stopwatch watch = new Stopwatch();
             watch.Reset();
             watch.Start();
-            List<Person> lst = dt.ToEntityEmitList<Person>();
+            List<Person> lst = dt.ToEntityList<Person>();
             watch.Stop();
             Stopwatch watchDD = new Stopwatch();
             watchDD.Start();

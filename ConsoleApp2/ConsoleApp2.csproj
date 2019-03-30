@@ -51,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Hikari.Integration.EntityMappingDB\Hikari.Integration.Entity.csproj">
+      <Project>{9f3b0849-3955-4060-8098-0cd43d4e3323}</Project>
+      <Name>Hikari.Integration.Entity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Hikari.Integration.Models\Hikari.Integration.Models.csproj">
       <Project>{77510f36-8d22-48f6-8897-7a5edaabb94a}</Project>
       <Name>Hikari.Integration.Models</Name>

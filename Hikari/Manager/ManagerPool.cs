@@ -276,7 +276,7 @@ namespace Hikari.Manager
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IDbDataAdapter CreateDataAdapter(string name)
+        public IDbDataAdapter CreateDataAdapter(string name=null)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -305,7 +305,7 @@ namespace Hikari.Manager
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IDbCommand CreateDbCommand(string name)
+        public IDbCommand CreateDbCommand(string name=null)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -339,7 +339,7 @@ namespace Hikari.Manager
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IDbDataParameter CreateDataParameter(string name)
+        public IDbDataParameter CreateDataParameter(string name=null)
         {
             if (string.IsNullOrEmpty(name))
             {

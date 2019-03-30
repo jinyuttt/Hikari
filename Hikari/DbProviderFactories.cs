@@ -4,7 +4,6 @@ using System.Data;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using System.Data.SqlClient;
 /**
 * 命名空间: Hikari 
 * 类 名： ProxyLoad

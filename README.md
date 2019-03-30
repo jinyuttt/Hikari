@@ -73,6 +73,13 @@ ManagerPool获取连接时传入一个名称（配置文件名称）来获取连
 例如：配置文件MySql_HiKari.cfg  
 ManagerPool.Singleton.GetDbConnection(MySql);
 
+
+2019-03-30  
+
+    没有bug修改，只是增加默认参数值，完善代码
+	
+	
+
 -------------------------------------------------------------------------------------------------------
 
 
@@ -121,7 +128,8 @@ Hikari.Integration.Entity
       扩展库emit方法DataTabble,DataReader与List<T>相互转换  
 	  该扩展内部引用EntityMappingDBEmit项目，替换现有所有扩展库
 
-	
+
+   
 ----------------------------------------------------------------
 说明：该项目的扩展项目Hikari.Integration.Models.Core 和Hikari.Integration.Models.Emit  已经被EntityMappingDBEmit项目代替
 
