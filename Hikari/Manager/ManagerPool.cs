@@ -62,7 +62,7 @@ namespace Hikari.Manager
         /// <summary>
         /// 连接池数据源
         /// </summary>
-        private ConcurrentDictionary<int, IDbConnection> dicCons = new ConcurrentDictionary<int, IDbConnection>();
+        private readonly ConcurrentDictionary<int, IDbConnection> dicCons = new ConcurrentDictionary<int, IDbConnection>();
 
         /// <summary>
         /// 所有连接池配置文件路径
@@ -268,6 +268,36 @@ namespace Hikari.Manager
                 return con;
             }
         }
+
+        /// <summary>
+        /// 扩展应用
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        internal HikariDataSource GetHikariDataSource(string name=null)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                name = CfgFile;//使用默认名称
+            }
+            else
+            {
+                name += PreCfg;//组合名称
+            }
+
+            HikariDataSource hikari;
+            if (dicSource.TryGetValue(name, out hikari))
+            {
+                return hikari;
+            }
+            else
+            {
+                CreatePool(name);
+                dicSource.TryGetValue(name, out hikari);
+                return hikari;
+            }
+        }
+
 
         #region ADO.NET对象
 

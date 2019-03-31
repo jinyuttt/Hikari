@@ -191,7 +191,8 @@ namespace Hikari
             return  new DBBulkCopy() { BulkCls = cls, Connection=con};
         }
        
-        
+
+       
         #region ADO.NET对象
 
         public IDbDataAdapter DataAdapter { get {return pool.GetDataAdapter(); } }

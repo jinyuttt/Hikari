@@ -101,5 +101,10 @@
       <Name>Hikari</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Npgsql.dll" />
+    <Content Include="Npgsql.pdb" />
+    <Content Include="Npgsql.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

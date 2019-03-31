@@ -30,11 +30,10 @@ namespace Hikari
        
         private static ISet<string> ERROR_STATES;
         private static ISet<int> ERROR_CODES;
-        private long lastAccess=0;
+        private readonly long lastAccess=0;
         protected IDbConnection delegateCon = null;
         private  PoolEntry poolEntry = null;
-
-        private  bool isClosed = false;
+        private volatile  bool isClosed = false;
 
         /// <summary>
         /// 关闭状态
@@ -115,21 +114,21 @@ namespace Hikari
             }
         }
 
-        private void Init()
-        {
-            ERROR_STATES = new HashSet<string>();
-            ERROR_STATES.Add("0A000"); // FEATURE UNSUPPORTED
-            ERROR_STATES.Add("57P01"); // ADMIN SHUTDOWN
-            ERROR_STATES.Add("57P02"); // CRASH SHUTDOWN
-            ERROR_STATES.Add("57P03"); // CANNOT CONNECT NOW
-            ERROR_STATES.Add("01002"); // SQL92 disconnect error
-            ERROR_STATES.Add("JZ0C0"); // Sybase disconnect error
-            ERROR_STATES.Add("JZ0C1"); // Sybase disconnect error
+        //private void Init()
+        //{
+        //    ERROR_STATES = new HashSet<string>();
+        //    ERROR_STATES.Add("0A000"); // FEATURE UNSUPPORTED
+        //    ERROR_STATES.Add("57P01"); // ADMIN SHUTDOWN
+        //    ERROR_STATES.Add("57P02"); // CRASH SHUTDOWN
+        //    ERROR_STATES.Add("57P03"); // CANNOT CONNECT NOW
+        //    ERROR_STATES.Add("01002"); // SQL92 disconnect error
+        //    ERROR_STATES.Add("JZ0C0"); // Sybase disconnect error
+        //    ERROR_STATES.Add("JZ0C1"); // Sybase disconnect error
 
-            ERROR_CODES = new HashSet<int>();
-            ERROR_CODES.Add(500150);
-            ERROR_CODES.Add(2399);
-        }
+        //    ERROR_CODES = new HashSet<int>();
+        //    ERROR_CODES.Add(500150);
+        //    ERROR_CODES.Add(2399);
+        //}
        
 
        

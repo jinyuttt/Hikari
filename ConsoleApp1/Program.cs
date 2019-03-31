@@ -2,7 +2,6 @@
 using System.Data;
 using System.Threading.Tasks;
 using Hikari;
-using Hikari.Manager;
 
 namespace ConsoleApp1
 {
@@ -90,17 +89,18 @@ namespace ConsoleApp1
             //hikariDataSource.DBTypeXml = "DBType.xml";
             //
             var connection1 = hikariDataSource.GetConnection();
-            var bulk= hikariDataSource.GetBulkCopy();
-            DataTable dt = new DataTable();
-            dt.TableName = "\"Student\"";
-            bulk.BulkCopy(dt);
+           // var bulk= hikariDataSource.GetBulkCopy();
+            //DataTable dt = new DataTable();
+            //dt.TableName = "\"Student\"";
+            //bulk.BulkCopy(dt);
             if (connection1 != null)
             {
                 var cmd = connection1.CreateCommand();
-                cmd.CommandText = "select * from \"Student\"";
-                cmd.CommandText = "COPY \"Student\" FROM 'd:/test.csv'  WITH CSV  HEADER";
-                cmd.ExecuteNonQuery();
-                //var rd = cmd.ExecuteReader();
+                cmd.CommandText = "select * from \"Person\"";
+              //  cmd.CommandText = "COPY \"Student\" FROM 'd:/test.csv'  WITH CSV  HEADER";
+              //  cmd.ExecuteNonQuery();
+              
+                var rd = cmd.ExecuteReader();
                 //int datanum = 0;
                 //string data = "";
                 //while (rd.Read())
@@ -110,45 +110,45 @@ namespace ConsoleApp1
                 //    Console.WriteLine(data);
                 //    datanum++;
                 //}
-                //rd.Close();
-                cmd.Dispose();
-                connection1.Close();
+                rd.Close();
+              //  cmd.Dispose();
+              //  connection1.Close();
                // Console.WriteLine(datanum);
             }
                 //
-                int num = 1000;
-            Task[] tasks = new Task[num];
-            DateTime start = DateTime.Now;
-            for (int i = 0; i < num; i++)
-            {
-                tasks[i] = Task.Factory.StartNew(() =>
-                {
-                    var connection = hikariDataSource.GetConnection();
-                    if (connection != null)
-                    {
-                        var cmd = connection.CreateCommand();
-                        cmd.CommandText = "select * from student";
-                        var rd = cmd.ExecuteReader();
-                        int datanum = 0;
-                        string data = "";
-                        while (rd.Read())
-                        {
-                            data+="ID:"+rd.GetInt32(0);
-                            data+=",Name:"+ rd.GetString(1);
-                            Console.WriteLine(data);
-                            datanum++;
-                        }
-                        rd.Close();
-                        cmd.Dispose();
-                        connection.Close();
-                        Console.WriteLine(datanum);
-                    }
+            //    int num = 1000;
+            //Task[] tasks = new Task[num];
+            //DateTime start = DateTime.Now;
+            //for (int i = 0; i < num; i++)
+            //{
+            //    tasks[i] = Task.Factory.StartNew(() =>
+            //    {
+            //        var connection = hikariDataSource.GetConnection();
+            //        if (connection != null)
+            //        {
+            //            var cmd = connection.CreateCommand();
+            //            cmd.CommandText = "select * from student";
+            //            var rd = cmd.ExecuteReader();
+            //            int datanum = 0;
+            //            string data = "";
+            //            while (rd.Read())
+            //            {
+            //                data+="ID:"+rd.GetInt32(0);
+            //                data+=",Name:"+ rd.GetString(1);
+            //                Console.WriteLine(data);
+            //                datanum++;
+            //            }
+            //            rd.Close();
+            //            cmd.Dispose();
+            //            connection.Close();
+            //            Console.WriteLine(datanum);
+            //        }
 
-                });
+            //    });
 
-            }
-            Task.WaitAll(tasks);
-            Console.WriteLine("时间:" + (DateTime.Now - start).TotalSeconds);
+            //}
+            //Task.WaitAll(tasks);
+            //Console.WriteLine("时间:" + (DateTime.Now - start).TotalSeconds);
         }
     }
 }

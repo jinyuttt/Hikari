@@ -8,6 +8,7 @@
     <PackageProjectUrl>https://github.com/jinyuttt/Hikari.git</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/ICON/Hikari.ico</PackageIconUrl>
     <Copyright>2019</Copyright>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
