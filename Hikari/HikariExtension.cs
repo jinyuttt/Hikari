@@ -23,7 +23,7 @@ namespace Hikari
             {
                 var cmd = con.CreateCommand();
                 cmd.CommandText = querySql;
-                cmd.Connection = con;
+                //cmd.Connection = con;
                 if (valuePairs != null)
                 {
                     foreach(var kv in valuePairs)

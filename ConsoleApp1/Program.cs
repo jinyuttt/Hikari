@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Data;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using Hikari;
+using Hikari.Manager;
 
 namespace ConsoleApp1
 {
@@ -14,8 +14,10 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Console.WriteLine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory());
-            TestConnect();
-          //  TestBag();
+            TestQuery();
+            TestManager();
+           // TestConnect();
+           //  TestBag();
             Console.Read();
 
         }
@@ -63,13 +65,9 @@ namespace ConsoleApp1
 
         private static void TestConnect()
         {
-
-         
-          
              HikariConfig hikariConfig = new HikariConfig();
-          //  hikariConfig.DBType = "SqlServer";
-            hikariConfig.DBType = "PostgreSQL";
-            hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
+             hikariConfig.DBType = "PostgreSQL";
+             hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
             //hikariConfig.DriverDir = "DBDrivers";
             //hikariConfig.DriverDLL = "XXXX.dll";
             //hikariConfig.DBTypeXml = "DBType.xml";
@@ -80,13 +78,7 @@ namespace ConsoleApp1
 
             //
 
-            //HikariDataSource hikariDataSource = new HikariDataSource();
-            //hikariDataSource.LoadConfig("Hikari.txt");
-            //hikariDataSource.DBType = "PostgreSQL";
-            //hikariDataSource.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
-            //hikariDataSource.DriverDir = "DBDrivers";
-            //hikariDataSource.DriverDLL = "XXXX.dll";
-            //hikariDataSource.DBTypeXml = "DBType.xml";
+          
             //
             var connection1 = hikariDataSource.GetConnection();
            // var bulk= hikariDataSource.GetBulkCopy();
@@ -150,5 +142,23 @@ namespace ConsoleApp1
             //Task.WaitAll(tasks);
             //Console.WriteLine("时间:" + (DateTime.Now - start).TotalSeconds);
         }
+
+        private static void TestQuery()
+        {
+            string sql= "select * from \"Person\" where id=@ID";
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic["ID"] = 1;
+              HikariConfig hikariConfig = new HikariConfig();
+            hikariConfig.DBType = "PostgreSQL";
+            hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
+            HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+            var ds= hikariDataSource.ExecuteQuery(sql,dic);
+        }
+        private static void TestManager()
+        {
+            string sql = "select * from \"Person\"";
+           var ds= ManagerPool.Singleton.ExecuteQuery(sql);
+        }
+
     }
 }

@@ -18,10 +18,6 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Hikari.Integration.Models;
 namespace ConsoleApp2
 {
@@ -32,7 +28,7 @@ namespace ConsoleApp2
 * 更新时间 ：2019
 * ==============================================================================*/
 
-  public  class Person
+    public  class Person
     {
         public int ID { get; set; }
 
