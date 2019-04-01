@@ -29,10 +29,10 @@ hikariDataSource.GetConnection();
 var bulk= hikariDataSource.GetBulkCopy();  
 说明：我的博文中总结了几种批量处理的方式，唯独数据库提供的专门用于批量插入的类需要底层客户端驱动提供，所以增加了接口，满足调用这些类处理批量插入  
 
-使用多库管理类
-例如：配置文件MySql_HiKari.cfg  
-ManagerPool.Singleton.GetDbConnection(MySql); 
-ManagerPool.Singleton.GetBulkCopy(MySql);  
+使用多库管理类  
+例如：配置文件MySql_HiKari.cfg    
+ManagerPool.Singleton.GetDbConnection(MySql);   
+ManagerPool.Singleton.GetBulkCopy(MySql);   
 
 ## 配置文件说明
 1.连接字符串必须要  
@@ -62,12 +62,12 @@ PoolBase 操作驱动连接，是HikariPool父类
 
 ## 扩展项目  
 Hikari.Integration.Entity   
-    采用emit将DataTable,IDataReader转换成List<T>,同理将List<T>转成DataTable
+    采用emit将DataTable,IDataReader转换成List<T>,同理将List<T>转成DataTable  
     内部调用EntityMappingDB项目
 
-  使用扩展方法ToEntity 转换  
-使用扩展方法FromEntity 转换  
-如果带特性则使用扩展方法FromEntityAttribute  转换  
+    使用扩展方法ToEntity 转换  
+    使用扩展方法FromEntity 转换  
+    如果带特性则使用扩展方法FromEntityAttribute  转换  
 
 说明：因为Hikari项目定位连接池，不能随意扩展功能和类，所以转换以扩展项目的方式提供
 
