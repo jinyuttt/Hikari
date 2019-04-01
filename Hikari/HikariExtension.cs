@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace Hikari
 {
-  public static  class HikariExtension
+
+    /// <summary>
+    /// 扩展SQL操作
+    /// </summary>
+    public static  class HikariExtension
     {
 
         /// <summary>
@@ -129,6 +131,15 @@ namespace Hikari
             }
         }
 
-
+        /// <summary>
+        /// 批量导入
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="dt"></param>
+        public static void BulkCopy(this HikariDataSource source,DataTable dt)
+        {
+            var bluk=  source.GetBulkCopy();
+            bluk.BulkCopy(dt);
+        }
     }
 }

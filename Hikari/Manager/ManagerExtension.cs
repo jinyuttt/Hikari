@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace Hikari.Manager
 {
-  public static  class ManagerExtension
+
+    /// <summary>
+    /// SQL操作扩展
+    /// </summary>
+    public static  class ManagerExtension
     {
         /// <summary>
         /// 查询数据
@@ -66,5 +68,16 @@ namespace Hikari.Manager
             return source.ExecuteScalar(Sql, valuePairs);
         }
 
+        /// <summary>
+        /// 批量导入
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <param name="name"></param>
+        /// <param name="dt"></param>
+        public static void BluckCopy(this ManagerPool manager,string name=null, DataTable dt)
+        {
+            var source = manager.GetHikariDataSource(name);
+            source.BulkCopy(dt);
+        }
     }
 }
