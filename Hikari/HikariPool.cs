@@ -171,11 +171,7 @@ namespace Hikari
             {
                 throw new SQLException(poolName + " - Interrupted during connection acquisition", e);
             }
-            finally
-            {
-               
-            }
-            return null;
+            throw new SQLException(poolName + " 无法获取连接对象,需要检测网络或者数据库服务");
         }
 
         /// <summary>
@@ -218,6 +214,10 @@ namespace Hikari
             try
             {
                 PoolEntry poolEntry = NewPoolEntry();
+                if(poolEntry==null)
+                {
+                    return null;
+                }
                 long maxLifetime = config.MaxLifetime;
                 if (maxLifetime > 0&&poolEntry!=null)
                 {

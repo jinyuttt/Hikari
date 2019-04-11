@@ -10,7 +10,7 @@ namespace Hikari
     /// 连接池缓存对象
     /// 包含驱动连接
     /// </summary>
-    public class PoolEntry:IConcurrentBagEntry
+    public class PoolEntry : IConcurrentBagEntry
     {
 
         /// <summary>
@@ -20,15 +20,15 @@ namespace Hikari
 
         private long createTime = 0;
         private long lastAccessed = 0;
-        
-        private HikariPool hikariPool;//所属的连接池
+
+        private readonly HikariPool hikariPool;//所属的连接池
 
         /// <summary>
         /// 实体ID,没有实际意义
         /// 当前主要是方便调试
         /// </summary>
         public int ID { get; set; }
-       
+
 
         /// <summary>
         /// 操作时间
@@ -39,6 +39,11 @@ namespace Hikari
         /// 创建时间
         /// </summary>
         public long CreateTime { get { return createTime; } }
+
+        /// <summary>
+        /// 连接是否有效
+        /// </summary>
+        public bool IsValidate { get { return connection == null; } }
 
         /// <summary>
         /// 构造
@@ -75,7 +80,7 @@ namespace Hikari
 
         public void ResetConnectionState(ProxyConnection proxyConnection, int dirtyBits)
         {
-           // hikariPool.ResetConnectionState(connection, proxyConnection, dirtyBits);
+            // hikariPool.ResetConnectionState(connection, proxyConnection, dirtyBits);
         }
 
 
@@ -90,6 +95,10 @@ namespace Hikari
                 this.lastAccessed = lastAccess;
                 hikariPool.Recycle(this);
             }
+            if(connection.State!=ConnectionState.Open)
+            {
+                this.Close();
+            }
         }
 
         /// <summary>
@@ -97,9 +106,8 @@ namespace Hikari
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-
         {
-            long now = DateTime.Now.Ticks;
+            _ = DateTime.Now.Ticks;
             return connection
                + ", accessed " + " ago, "
                + StateToString();
@@ -109,10 +117,10 @@ namespace Hikari
         //                      IBagEntry methods
         // ***********************************************************************
 
-            /// <summary>
-            /// 返回驱动连接
-            /// </summary>
-            /// <returns></returns>
+        /// <summary>
+        /// 返回驱动连接
+        /// </summary>
+        /// <returns></returns>
         public IDbConnection Close()
         {
             //防止多线程同步

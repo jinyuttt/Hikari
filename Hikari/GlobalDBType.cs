@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 
 /**
@@ -79,6 +80,13 @@ namespace Hikari
             {
                 Init();
                 isInit = true;
+            }
+
+            //2019-04-06
+            if(!File.Exists(dbXml))
+            {
+                Logger.Singleton.Warn("没有全局配置XML文件," + dbXml);
+                return;
             }
             if (!lstDBType.Contains(dbXml))
             {

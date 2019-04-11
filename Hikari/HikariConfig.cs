@@ -322,7 +322,7 @@ namespace Hikari
                         }
                         catch(Exception ex)
                         {
-                            Logger.Singleton.Error(property.Name + "配置属性赋值转换错误," + ex.Message);
+                            Logger.Singleton.ErrorFormat("HikariConfig 配置项 {0} 赋值转换错误,{1}", property.Name, ex.Message);
                         }
                     }
                 }

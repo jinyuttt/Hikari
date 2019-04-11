@@ -44,6 +44,11 @@ namespace Hikari
         protected PoolEntry NewPoolEntry()
         {
             PoolEntry poolEntry= new PoolEntry(NewConnection(), this);
+            if (poolEntry.IsValidate)
+            {
+                //创建无效
+                poolEntry = null;
+            }
             if(poolEntry!=null)
             {
                 poolEntry.ID=Interlocked.Increment(ref entryid);
@@ -101,18 +106,20 @@ namespace Hikari
                 {
                     throw new Exception("Open Connection returned null unexpectedly");
                 }
+                if(connection.State!=ConnectionState.Open)
+                {
+                    connection.Dispose();
+                    connection = null;
+                    return null;
+                }
                 return connection;
             }
             catch (Exception e)
             {
-
+                
                 throw e;
             }
-            finally
-            {
-
-
-            }
+           
         }
 
        /// <summary>
@@ -125,7 +132,6 @@ namespace Hikari
             {
                 connection.ConnectionString = config.ConnectString;
                 ExecuteSql(connection, config.ConnectionInitSql, true);
-         
             }
             catch (SQLException e)
             {
@@ -141,10 +147,18 @@ namespace Hikari
         /// <param name="v"></param>
         private void ExecuteSql(IDbConnection connection, string sql, bool v)
         {
-          var task= Task.Factory.StartNew(() =>
+            var task= Task.Factory.StartNew(() =>
             {
-                connection.Open();
-            });
+                try
+                {
+                    connection.Open();
+                }
+                catch
+                {
+                    return;
+                }
+            }
+            );
             if(!task.Wait((int)config.ConnectionTimeout))
             {
                 HealthCheckRegistry.Singleton.Add(poolName, this);

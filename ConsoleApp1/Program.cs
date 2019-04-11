@@ -145,7 +145,7 @@ namespace ConsoleApp1
 
         private static void TestQuery()
         {
-            string sql= "select * from \"Person\" where id=@ID";
+            string sql= "select * from  person where id=@ID";
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic["ID"] = 1;
               HikariConfig hikariConfig = new HikariConfig();
@@ -156,7 +156,7 @@ namespace ConsoleApp1
         }
         private static void TestManager()
         {
-            string sql = "select * from \"Person\"";
+            string sql = "select * from  person";
            var ds= ManagerPool.Singleton.ExecuteQuery(sql);
         }
 
