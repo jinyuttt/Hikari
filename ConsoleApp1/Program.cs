@@ -157,7 +157,11 @@ namespace ConsoleApp1
         private static void TestManager()
         {
             string sql = "select * from  person";
-           var ds= ManagerPool.Singleton.ExecuteQuery(sql);
+            var ds= ManagerPool.Singleton.ExecuteQuery(sql);
+            var dt = ds.Tables[0];
+            sql = "insert into person(id,name)values(1,'jinyu')";
+            int r=ManagerPool.Singleton.ExecuteUpdate(sql);
+
         }
 
     }

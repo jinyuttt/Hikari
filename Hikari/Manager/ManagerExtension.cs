@@ -57,7 +57,7 @@ namespace Hikari.Manager
         /// <param name="Sql"></param>
         /// <param name="valuePairs"></param>
         /// <returns></returns>
-        public static int ExecuteUpdate(this ManagerPool manager, string Sql,string name, Dictionary<string, object> valuePairs = null)
+        public static int ExecuteUpdate(this ManagerPool manager, string Sql,string name=null, Dictionary<string, object> valuePairs = null)
         {
             if(string.IsNullOrEmpty(Sql))
             {

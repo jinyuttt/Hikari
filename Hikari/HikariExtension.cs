@@ -25,7 +25,6 @@ namespace Hikari
             {
                 var cmd = con.CreateCommand();
                 cmd.CommandText = querySql;
-                //cmd.Connection = con;
                 if (valuePairs != null)
                 {
                     foreach(var kv in valuePairs)
@@ -59,7 +58,7 @@ namespace Hikari
             var con = source.GetConnection();
             var cmd = con.CreateCommand();
             cmd.CommandText = querySql;
-            cmd.Connection = con;
+          //  cmd.Connection = con;
             if (valuePairs != null)
             {
                 foreach (var kv in valuePairs)
@@ -88,7 +87,6 @@ namespace Hikari
             {
                 var cmd = con.CreateCommand();
                 cmd.CommandText = Sql;
-                cmd.Connection = con;
                 if (valuePairs != null)
                 {
                     foreach (var kv in valuePairs)
@@ -116,7 +114,6 @@ namespace Hikari
             {
                 var cmd = con.CreateCommand();
                 cmd.CommandText = Sql;
-                cmd.Connection = con;
                 if (valuePairs != null)
                 {
                     foreach (var kv in valuePairs)
