@@ -136,4 +136,4 @@ E:\Study\Hikari\ConsoleApp1\bin\Release\Hikari.Integration.Entity.pdb
 E:\Study\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.csproj.CopyComplete
 E:\Study\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.exe
 E:\Study\Hikari\ConsoleApp1\obj\Release\ConsoleApp1.pdb
-E:\Study\Hikari\ConsoleApp1\bin\Release\Book.xml
+E:\Study\Hikari\ConsoleApp1\bin\Release\MySQL_Sql.xml

@@ -1,6 +1,6 @@
 ﻿namespace HikariAPI
 {
-    public class IORM
+    public interface IORM
     {
     }
 }

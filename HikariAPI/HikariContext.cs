@@ -8,7 +8,7 @@ namespace HikariAPI
     /// <summary>
     /// 配置SQL文件
     /// </summary>
-    public class HikariContext
+    public class HikariContext:IORM
     {
         readonly SqlMapper mapper = null;
         static readonly Dictionary<string, string> cfgSQL = new Dictionary<string, string>();

@@ -6236,7 +6236,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.2.0",
+    "version": "1.3.0",
     "restore": {
       "projectUniqueName": "E:\\Study\\Hikari\\HikariAPI\\HikariAPI.csproj",
       "projectName": "HikariAPI",
