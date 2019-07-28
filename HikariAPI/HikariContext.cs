@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace HikariAPI
@@ -194,6 +195,25 @@ namespace HikariAPI
             return null;
         }
 
+        public DataSet QueryData(string key, params dynamic[] param)
+        {
+            string sql = null;
+            if (!cfgSQL.TryGetValue(key, out sql))
+            {
+                sql = ReadSql(key);
+                if (!string.IsNullOrEmpty(sql))
+                {
+                    cfgSQL[key] = sql;
+                }
+            }
+            if (!string.IsNullOrEmpty(sql))
+            {
+                cfgSQL[key] = sql;
+                return mapper.QueryData(sql, param);
+            }
+            return null;
+        }
+
         /// <summary>
         /// 批量插入
         /// </summary>
@@ -235,6 +255,138 @@ namespace HikariAPI
         {
           return  mapper.Add(val, sql);
         }
+
+
+        #region 方便Model属性作为参数，支持匿名类
+
+        /// <summary>
+        /// 支持匿名类;使用实体属性参数化传值
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public int ExecuteUpdateModel(string key, dynamic entity)
+        {
+
+            string sql = null;
+            if (!cfgSQL.TryGetValue(key, out sql))
+            {
+                sql = ReadSql(key);
+                if (!string.IsNullOrEmpty(sql))
+                {
+                    cfgSQL[key] = sql;
+                }
+            }
+            if (!string.IsNullOrEmpty(sql))
+            {
+                cfgSQL[key] = sql;
+                return mapper.ExecuteUpdateModel(sql, entity);
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// 支持匿名类；使用实体属性参数化传值
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public object ExecuteScalarModel(string key, dynamic entity)
+        {
+            string sql = null;
+            if (!cfgSQL.TryGetValue(key, out sql))
+            {
+                sql = ReadSql(key);
+                if (!string.IsNullOrEmpty(sql))
+                {
+                    cfgSQL[key] = sql;
+                }
+            }
+            if (!string.IsNullOrEmpty(sql))
+            {
+                cfgSQL[key] = sql;
+                return mapper.ExecuteScalarModel(sql, entity);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 支持匿名类；使用实体属性参数化传值
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public DataSet ExecuteQueryModel(string key, dynamic entity)
+        {
+            string sql = null;
+            if (!cfgSQL.TryGetValue(key, out sql))
+            {
+                sql = ReadSql(key);
+                if (!string.IsNullOrEmpty(sql))
+                {
+                    cfgSQL[key] = sql;
+                }
+            }
+            if (!string.IsNullOrEmpty(sql))
+            {
+                cfgSQL[key] = sql;
+                return mapper.ExecuteQueryModel(sql, entity);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 支持匿名类；使用实体属性参数化传值
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public IDataReader ExecuteQueryReaderModel(string key, dynamic entity)
+        {
+            string sql = null;
+            if (!cfgSQL.TryGetValue(key, out sql))
+            {
+                sql = ReadSql(key);
+                if (!string.IsNullOrEmpty(sql))
+                {
+                    cfgSQL[key] = sql;
+                }
+            }
+            if (!string.IsNullOrEmpty(sql))
+            {
+                cfgSQL[key] = sql;
+                return mapper.ExecuteQueryReaderModel(sql, entity);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 支持匿名类；使用实体属性参数化传值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public List<T> ExecuteQueryEntity<T>(string key, dynamic entity)
+        {
+            string sql = null;
+            if (!cfgSQL.TryGetValue(key, out sql))
+            {
+                sql = ReadSql(key);
+                if (!string.IsNullOrEmpty(sql))
+                {
+                    cfgSQL[key] = sql;
+                }
+            }
+            if (!string.IsNullOrEmpty(sql))
+            {
+                cfgSQL[key] = sql;
+                return mapper.ExecuteQueryEntity<T>(sql, entity);
+            }
+            return null;
+        }
+
+        #endregion
 
 
     }

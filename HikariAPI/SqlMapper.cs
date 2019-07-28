@@ -23,6 +23,7 @@ using System.Text;
 using Hikari.Manager;
 using Hikari.Integration.Entity;
 using System.Text.RegularExpressions;
+using System.Data;
 
 namespace HikariAPI
 {
@@ -125,6 +126,34 @@ namespace HikariAPI
         }
 
         /// <summary>
+        /// 查询数据
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public DataSet QueryData(string sql, params dynamic[] param)
+        {
+            if (param.Length == 0)
+            {
+                return ManagerPool.Singleton.ExecuteQuery(sql, CfgName);
+                 
+            }
+            else
+            {
+                List<string> lst = GetSQLPara(sql);
+                Dictionary<string, object> dic = new Dictionary<string, object>();
+                int i = 0;
+                foreach (string p in lst)
+                {
+                    dic[p] = param[i];
+                }
+               return ManagerPool.Singleton.ExecuteQuery(sql, CfgName, dic);
+               
+            }
+        }
+
+
+        /// <summary>
         /// 批量插入
         /// </summary>
         /// <typeparam name="P"></typeparam>
@@ -140,6 +169,12 @@ namespace HikariAPI
             ManagerPool.Singleton.BluckCopy(CfgName, lst.FromEntity<P>());
         }
 
+
+        /// <summary>
+        ///计划使用 insert into table(XXX,XXX)values (XXX,XXX),(XXX,XXX)
+        /// </summary>
+        /// <typeparam name="P"></typeparam>
+        /// <param name="lst"></param>
         public void SqlBulk<P>(List<P> lst=null)
         {
             
@@ -245,8 +280,101 @@ namespace HikariAPI
             return ManagerPool.Singleton.ExecuteUpdate(sql, CfgName, para);
         }
 
-      
+        #region 方便Model属性作为参数，支持匿名类
 
+        /// <summary>
+        /// 支持匿名类;使用实体属性参数化传值
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public int ExecuteUpdateModel(string sql, dynamic entity)
+        {
+            //反射实体
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            Type cur = entity.FirstOrDefault().GetType();
+            foreach (var p in cur.GetProperties())
+            {
+                dic[p.Name] = p.GetValue(entity, null);
+            }
+          return  ManagerPool.Singleton.ExecuteUpdate(sql, CfgName, dic);
+        }
+
+        /// <summary>
+        /// 支持匿名类；使用实体属性参数化传值
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public object ExecuteScalarModel(string sql, dynamic entity)
+        {
+            //反射实体
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            Type cur = entity.FirstOrDefault().GetType();
+            foreach (var p in cur.GetProperties())
+            {
+                dic[p.Name] = p.GetValue(entity, null);
+            }
+            return ManagerPool.Singleton.ExecuteScalar(sql, CfgName, dic);
+        }
+
+        /// <summary>
+        /// 支持匿名类；使用实体属性参数化传值
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public DataSet ExecuteQueryModel(string sql, dynamic entity)
+        {
+            //反射实体
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            Type cur = entity.FirstOrDefault().GetType();
+            foreach (var p in cur.GetProperties())
+            {
+                dic[p.Name] = p.GetValue(entity, null);
+            }
+            return ManagerPool.Singleton.ExecuteQuery(sql, CfgName, dic);
+        }
+
+        /// <summary>
+        /// 支持匿名类；使用实体属性参数化传值
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public IDataReader ExecuteQueryReaderModel(string sql, dynamic entity)
+        {
+            //反射实体
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            Type cur = entity.FirstOrDefault().GetType();
+            foreach (var p in cur.GetProperties())
+            {
+                dic[p.Name] = p.GetValue(entity, null);
+            }
+            return ManagerPool.Singleton.ExecuteQueryReader(sql, CfgName, dic);
+        }
+
+        /// <summary>
+        /// 支持匿名类；使用实体属性参数化传值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public List<T> ExecuteQueryEntity<T>(string sql, dynamic entity)
+        {
+            //反射实体
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            Type cur = entity.FirstOrDefault().GetType();
+            foreach (var p in cur.GetProperties())
+            {
+                dic[p.Name] = p.GetValue(entity, null);
+            }
+            var reader= ManagerPool.Singleton.ExecuteQueryReader(sql, CfgName, dic);
+           return reader.ToEntity<T>();
+        }
+
+        #endregion
 
     }
 }
