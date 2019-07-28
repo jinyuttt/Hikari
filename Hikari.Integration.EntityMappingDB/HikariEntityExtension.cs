@@ -22,7 +22,7 @@ using EntityMappingDB;
 namespace Hikari.Integration.Entity
 {
     /* ============================================================================== 
-* 功能描述：HikariExtension 
+* 功能描述：HikariExtension 扩展调用EntityMappingDB对实体转换
 * 创 建 者：jinyu 
 * 创建日期：2019 
 * 更新时间 ：2019
@@ -71,7 +71,7 @@ namespace Hikari.Integration.Entity
         /// <returns></returns>
         public static DataTable FromEntityAttribute<T>(this IList<T> lst)
         {
-            return lst.FromEntityToTableMap<T>();
+            return lst.FromEntityToTableAttribute<T>();
         }
     }
 }

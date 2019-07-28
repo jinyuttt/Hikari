@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--sample XML fragment-->
+<Aplication>
+  <UserModel>
+    <UserInfo>
+      <sql>select * from user</sql>
+      <MySql>select userid fro userinfo</MySql>
+    </UserInfo>
+  </UserModel>
+</Aplication>

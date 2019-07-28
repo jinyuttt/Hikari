@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Hikari;
 using Hikari.Manager;
+using HikariAPI;
 
 namespace ConsoleApp1
 {
@@ -13,11 +14,12 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory());
-            TestQuery();
-            TestManager();
-           // TestConnect();
-           //  TestBag();
+            //  Console.WriteLine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory());
+            // TestQuery();
+            //  TestManager();
+            // TestConnect();
+            //  TestBag();
+            TestXML();
             Console.Read();
 
         }
@@ -164,5 +166,12 @@ namespace ConsoleApp1
 
         }
 
+
+        private static void  TestXML()
+        {
+            Configuration configuration = new Configuration("MySql_Sql.xml");
+            configuration.ReadAsync("UserModel/UserInfo");
+
+        }
     }
 }

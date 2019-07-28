@@ -58,7 +58,7 @@ namespace Hikari
             var con = source.GetConnection();
             var cmd = con.CreateCommand();
             cmd.CommandText = querySql;
-          //  cmd.Connection = con;
+       
             if (valuePairs != null)
             {
                 foreach (var kv in valuePairs)

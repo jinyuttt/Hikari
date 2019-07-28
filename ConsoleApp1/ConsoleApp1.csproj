@@ -96,12 +96,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HikariAPI\HikariAPI.csproj">
+      <Project>{80545f83-7da0-429c-a723-a3dafe83f9b7}</Project>
+      <Name>HikariAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Hikari\Hikari.csproj">
       <Project>{6B3BB1E8-CC33-40F7-9BC4-38811F4FF794}</Project>
       <Name>Hikari</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MySQL_Sql.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Npgsql.dll" />
     <Content Include="Npgsql.pdb" />
     <Content Include="Npgsql.xml" />

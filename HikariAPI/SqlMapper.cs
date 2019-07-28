@@ -20,8 +20,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Hikari.Integration.Models;
 using Hikari.Manager;
+using Hikari.Integration.Entity;
+using System.Text.RegularExpressions;
 
 namespace HikariAPI
 {
@@ -35,238 +36,217 @@ namespace HikariAPI
     public class SqlMapper : IORM
     {
         private readonly string CfgName = null;
+
         public SqlMapper(string name=null)
         {
             CfgName = name;
            
         }
-        //public int Execute<P>(string sql, P param = default(P))
-        //{
-        //    using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
-        //    {
-        //        var cmd = ManagerPool.Singleton.CreateDbCommand(CfgName);
-        //        cmd.Connection = con;
-        //        cmd.CommandText = sql;
 
-        //        if (param != null)
-        //        {
-        //            foreach (var p in typeof(P).GetProperties())
-        //            {
-        //                IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
-        //                parameter.Value = p.GetValue(param);
-        //                parameter.ParameterName = "@" + p.Name;
-        //                cmd.Parameters.Add(parameter);
-        //            }
-        //        }
-        //       return cmd.ExecuteNonQuery();
-        //    }
-        //}
+        #region
 
-        public int Execute<P>(string sql, params dynamic[] param)
+        /// <summary>
+        /// DML执行
+        /// </summary>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public int Execute(string sql, params dynamic[] param)
         {
-            using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
+            if (param.Length == 0)
             {
-                var cmd = con.CreateCommand();
-                cmd.CommandText = sql;
-
-                if (param != null)
-                {
-                    int index = 0;
-                    foreach (dynamic p in param)
-                    {
-                        if (p is ValueType)
-                        {
-                            object obj = p;
-                            var parameter = cmd.CreateParameter();
-                            parameter.Value = obj;
-                            parameter.ParameterName = "@" + ValueTypeParam.ParamArray[index++];
-                            cmd.Parameters.Add(parameter);
-                        }
-                        else if (p is object)
-                        {
-                            object obj = p;
-                            var properties = obj.GetType().GetProperties();
-                            foreach (var py in properties)
-                            {
-                                var parameter = cmd.CreateParameter();
-                                parameter.Value = py.GetValue(obj);
-                                parameter.ParameterName = "@" + py.Name;
-                                cmd.Parameters.Add(parameter);
-
-                            }
-                        }
-                    }
-                }
-                return cmd.ExecuteNonQuery();
+               return ManagerPool.Singleton.ExecuteUpdate(sql,CfgName);
             }
-            
-            }
-
-        //public object ExecuteScalar<T, P>(string sql, P param = default(P))
-        //{
-        //    using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
-        //    {
-        //        var cmd = ManagerPool.Singleton.CreateDbCommand(CfgName);
-        //        cmd.Connection = con;
-        //        cmd.CommandText = sql;
-
-        //        if (param != null)
-        //        {
-        //            foreach (var p in typeof(P).GetProperties())
-        //            {
-        //                IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
-        //                parameter.Value = p.GetValue(param);
-        //                parameter.ParameterName = "@" + p.Name;
-        //                cmd.Parameters.Add(parameter);
-        //            }
-        //        }
-        //        return cmd.ExecuteScalar();
-        //    }
-        //}
-
-        public object ExecuteScalar<T>(string sql, params dynamic[] param)
-        {
-            using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
+            else
             {
-                var cmd = ManagerPool.Singleton.CreateDbCommand(CfgName);
-                cmd.Connection = con;
-                cmd.CommandText = sql;
-
-                if (param != null)
+                List<string> lst = GetSQLPara(sql);
+                Dictionary<string, object> dic = new Dictionary<string, object>();
+                int i = 0;
+                foreach(string p in lst)
                 {
-                    int index = 0;
-                    foreach (dynamic p in param)
-                    {
-                        if (p is ValueType)
-                        {
-                            object obj = p;
-                            var parameter = cmd.CreateParameter();
-                            parameter.Value = obj;
-                            parameter.ParameterName = "@" + ValueTypeParam.ParamArray[index++];
-                            cmd.Parameters.Add(parameter);
-                        }
-                        else if (p is object)
-                        {
-                            object obj = p;
-                            var properties = obj.GetType().GetProperties();
-                            foreach (var py in properties)
-                            {
-                                var parameter = cmd.CreateParameter();
-                                parameter.Value = py.GetValue(obj);
-                                parameter.ParameterName = "@" + py.Name;
-                                cmd.Parameters.Add(parameter);
-
-                            }
-                        }
-                    }
+                    dic[p] = param[i];
                 }
-                return cmd.ExecuteScalar();
+               return ManagerPool.Singleton.ExecuteUpdate(sql, CfgName, dic);
             }
         }
 
-        //public List<T> Query<T, P>(string sql, P param = default(P)) where T:new ()
-        //{
-        //    using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
-        //    {
-        //        var cmd = con.CreateCommand();
-        //        //cmd.Connection = con;
-        //        cmd.CommandText = sql;
+        /// <summary>
+        /// 获取第一个值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public object ExecuteScalar(string sql, params dynamic[] param)
+        {
+            if (param.Length == 0)
+            {
+                return ManagerPool.Singleton.ExecuteScalar(sql, CfgName);
+            }
+            else
+            {
+                List<string> lst = GetSQLPara(sql);
+                Dictionary<string, object> dic = new Dictionary<string, object>();
+                int i = 0;
+                foreach (string p in lst)
+                {
+                    dic[p] = param[i];
+                }
+                return ManagerPool.Singleton.ExecuteScalar(sql, CfgName, dic);
+            }
+        }
 
-        //        if (param != null)
-        //        {
-        //            foreach (var p in typeof(P).GetProperties())
-        //            {
-        //                IDataParameter parameter = ManagerPool.Singleton.CreateDataParameter(CfgName);
-        //                parameter.Value = p.GetValue(param);
-        //                parameter.ParameterName = "@" + p.Name;
-        //                cmd.Parameters.Add(parameter);
-        //            }
-        //        }
-        //        var reader = cmd.ExecuteReader();
-        //       return   reader.ToEntityList<T>();
-        //    }
-        //}
-
+       /// <summary>
+       /// 查询转换实体
+       /// </summary>
+       /// <typeparam name="T"></typeparam>
+       /// <param name="sql"></param>
+       /// <param name="param"></param>
+       /// <returns></returns>
         public List<T> Query<T>(string sql, params dynamic[] param) where T : new()
         {
-            using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
+            if (param.Length == 0)
             {
-                var cmd = con.CreateCommand();
-                cmd.CommandText = sql;
-
-                if (param != null)
+                var reader= ManagerPool.Singleton.ExecuteQueryReader(sql, CfgName);
+                return reader.ToEntity<T>();
+            }
+            else
+            {
+                List<string> lst = GetSQLPara(sql);
+                Dictionary<string, object> dic = new Dictionary<string, object>();
+                int i = 0;
+                foreach (string p in lst)
                 {
-                    int index = 0;
-                    foreach(dynamic p in param)
-                    {
-                        if(p is ValueType)
-                        {
-                            object obj = p;
-                            var parameter = cmd.CreateParameter();
-                            parameter.Value =obj;
-                            parameter.ParameterName = "@" + ValueTypeParam.ParamArray[index++];
-                            cmd.Parameters.Add(parameter);  
-                        }
-                        else if(p is object)
-                        {
-                            object obj = p;
-                            var properties = obj.GetType().GetProperties();
-                            foreach (var py in properties)
-                            {
-                                var parameter = cmd.CreateParameter();
-                                parameter.Value = py.GetValue(obj);
-                                parameter.ParameterName = "@" + py.Name;
-                                cmd.Parameters.Add(parameter);
-                               
-                            }
-                        }
-                    }
+                    dic[p] = param[i];
                 }
-                var reader = cmd.ExecuteReader();
-                return reader.ToEntityList<T>();
+                var reader= ManagerPool.Singleton.ExecuteQueryReader(sql, CfgName, dic);
+                return reader.ToEntity<T>();
             }
         }
 
-        public bool SqlBulkCopy<P>(string sql, List<P> lst = null)
+        /// <summary>
+        /// 批量插入
+        /// </summary>
+        /// <typeparam name="P"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="lst"></param>
+        /// <returns></returns>
+        public void BulkCopy<P>(List<P> lst)
         {
-            try
+            if(lst==null||lst.Count==0)
             {
-                using (var con = ManagerPool.Singleton.GetDbConnection(CfgName))
-                {
-                    var tran = con.BeginTransaction();
-                    var cmd = ManagerPool.Singleton.CreateDbCommand(CfgName);
-                    cmd.Connection = con;
-                    cmd.CommandText = sql;
-                    cmd.Transaction = tran;
-                    //
-                    int index = sql.ToLower().IndexOf("values");
-                    string sqlvalue = sql.Substring(index + 6);
-                    string sqlItem = sqlvalue;
-                    var Properties = typeof(P).GetProperties();
-                    if (lst != null)
-                    {
-                        StringBuilder builder = new StringBuilder();
-                        builder.Append(sql.Substring(0, index + 7));
-                        foreach (var item in lst)
-                        {
-                            sqlItem = sqlvalue;
-                            foreach (var p in Properties)
-                            {
-                                sqlItem = sqlItem.Replace("@" + p.Name, p.GetValue(item).ToString());
-                            }
-                            builder.Append(sqlItem + ",");
-                        }
-                        cmd.CommandText = builder.ToString();
-                        cmd.ExecuteNonQuery();
-                    }
-                    tran.Commit();
-                }
-                return true;
+                return;
             }
-            catch
-            {
-                return false;
-            }
+            ManagerPool.Singleton.BluckCopy(CfgName, lst.FromEntity<P>());
         }
+
+        public void SqlBulk<P>(List<P> lst=null)
+        {
+            
+        }
+
+        /// <summary>
+        /// 提取SQL语句中的参数
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        private List<string> GetSQLPara(string sql)
+        {
+            List<string> result = new List<string>();
+            Regex paramReg = new Regex(@"(?<!@)[^\w$#@]@(?!@)[\w$#@]+");
+            MatchCollection matches = paramReg.Matches(sql);
+            foreach (Match m in matches)
+            {
+                result.Add(m.Groups[0].Value.Substring(m.Groups[0].Value.IndexOf("@")));
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 添加数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public int Add<T>(T obj)
+        {
+            StringBuilder builder = new StringBuilder();
+            StringBuilder sbr = new StringBuilder();
+            builder.Append("insert into ");
+            Dictionary<string, object> para = new Dictionary<string, object>();
+            var curType = obj.GetType();
+            builder.Append(curType.Name);
+            builder.Append("(");
+            foreach(var p in curType.GetProperties())
+            {
+                builder.Append(p.Name);
+                sbr.AppendFormat("@{0},", p.Name);
+                para[p.Name] = p.GetValue(obj, null);
+            }
+            builder.Append(") values");
+            sbr.Remove(sbr.Length, 1);
+            sbr.Append(")");
+            string sql = builder.ToString() + sbr.ToString();
+           return ManagerPool.Singleton.ExecuteUpdate(sql, CfgName, para);
+        }
+
+        /// <summary>
+        /// 为了支持匿名类；SQL为NULL则在Val查找TableName属性；
+        /// </summary>
+        /// <param name="sql">参数化SQL语句</param>
+        /// <param name="val">数据</param>
+        /// <returns></returns>
+        public int Add(dynamic val,string sql=null)
+        {
+            Dictionary<string, object> para = new Dictionary<string, object>();
+            if (string.IsNullOrEmpty(sql))
+            {
+                Random random = new Random();
+                string space = "####" + random.Next();//占位
+
+                StringBuilder builder = new StringBuilder();
+                StringBuilder sbr = new StringBuilder();
+                builder.Append("insert into ");
+              
+                var curType = val.GetType();
+                builder.Append(space);
+                builder.Append("(");
+                foreach (var p in curType.GetProperties())
+                {
+                    builder.Append(p.Name);
+                    sbr.AppendFormat("@{0},", p.Name);
+                    para[p.Name] = p.GetValue(val, null);
+                }
+                builder.Append(") values");
+                sbr.Remove(sbr.Length, 1);
+                sbr.Append(")");
+                if (para.ContainsKey("TableName"))
+                {
+                    sql = builder.ToString() + sbr.ToString();
+                    sql = sql.Replace(space, para["TableName"].ToString());
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                var curType = val.GetType();
+           
+                foreach (var p in curType.GetProperties())
+                {
+                    para[p.Name] = p.GetValue(val, null);
+                }
+            }
+            return ManagerPool.Singleton.ExecuteUpdate(sql, CfgName, para);
+        }
+
+      
+
+
     }
 }

@@ -11,7 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hikari.Integration.Models\Hikari.Integration.Models.csproj" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hikari.Integration.EntityMappingDB\Hikari.Integration.Entity.csproj" />
     <ProjectReference Include="..\Hikari\Hikari.csproj" />
   </ItemGroup>
 

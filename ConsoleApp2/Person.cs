@@ -17,8 +17,8 @@
 
 
 
+using EntityMappingDB;
 using System;
-using Hikari.Integration.Models;
 namespace ConsoleApp2
 {
     /* ============================================================================== 

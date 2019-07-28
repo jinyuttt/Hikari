@@ -16,12 +16,6 @@
 #endregion
 
 
-
-using Hikari.Integration.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace HikariAPI
 {
     /* ============================================================================== 
@@ -31,7 +25,7 @@ namespace HikariAPI
 * 更新时间 ：2019
 * ==============================================================================*/
 
-  public  class ORMFactory
+    public  class ORMFactory
     {
         public static IORM Create(string name=null)
         {
