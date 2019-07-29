@@ -87,7 +87,7 @@ HikariDataSource,ManagerPool通过扩展方法封装了SQL基本操作
  HikariAPI项目介绍：  
  1. SqlMapper类用于SQL语句和参数传递，参数可以是方法一样逐个传递，也可以采用实体（包括匿名）  
  2.HikariContext类用于配置和参数传递，需要SQL文件，需要配置XML文件名称和节点名称，默认节点是“Sql”  
- 这两个雷类需要使用者研究下  
+ 这两个类需要使用者研究下  
 
 
 

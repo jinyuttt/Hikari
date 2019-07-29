@@ -13,12 +13,12 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("jinyu成都")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
-[assembly: System.Reflection.AssemblyDescriptionAttribute("c# 提供Hikari实现ORM;完善配置文件方式，各类参数执行，支持匿名类使用")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.3.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.3.0")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("提供Hikari实现ORM;完善配置文件方式，各类参数执行，支持匿名类使用")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.4.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.4.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("HikariAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HikariAPI")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.3.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.4.0.0")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 
