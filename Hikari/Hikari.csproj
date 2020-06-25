@@ -16,7 +16,15 @@
     <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/ICON/Hikari.ico</PackageIconUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageReleaseNotes>郑重说明：本库定位于数据库连接池，源码GitHub开源公开，欢迎大家修改提交，但是不得对本库扩展，所有修改仅限于bug,性能优化，存储数据结构优化重构等。一切需要扩展的功能都需要你单独建库（项目)，建议以Hikari.Integration.XXX（名称)库，引用当前库进行扩展</PackageReleaseNotes>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <WarningLevel>3</WarningLevel>
