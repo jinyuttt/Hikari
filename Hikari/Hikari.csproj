@@ -31,7 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.10" />
     <PackageReference Include="Npgsql" Version="4.0.5" />
     <PackageReference Include="Npgsql.Bulk" Version="0.6.6" />
   </ItemGroup>
