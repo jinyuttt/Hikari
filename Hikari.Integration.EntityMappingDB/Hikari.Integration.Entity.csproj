@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Description>实体转换（采用Emit，DataTable,DataReader与List&lt;T&gt;相互转换） 替换其它扩展库   个人贡献，任意使用，希望保留版本和作者注释</Description>
     <Authors>jinyu成都</Authors>
     <Company>个人贡献</Company>

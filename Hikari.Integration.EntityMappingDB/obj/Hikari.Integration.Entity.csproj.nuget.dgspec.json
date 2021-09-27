@@ -1,36 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Study\\Hikari\\Hikari.Integration.EntityMappingDB\\Hikari.Integration.Entity.csproj": {}
+    "E:\\study\\hr\\Hikari\\Hikari.Integration.EntityMappingDB\\Hikari.Integration.Entity.csproj": {}
   },
   "projects": {
-    "E:\\Study\\Hikari\\Hikari.Integration.EntityMappingDB\\Hikari.Integration.Entity.csproj": {
+    "E:\\study\\hr\\Hikari\\Hikari.Integration.EntityMappingDB\\Hikari.Integration.Entity.csproj": {
       "version": "1.1.0",
       "restore": {
-        "projectUniqueName": "E:\\Study\\Hikari\\Hikari.Integration.EntityMappingDB\\Hikari.Integration.Entity.csproj",
+        "projectUniqueName": "E:\\study\\hr\\Hikari\\Hikari.Integration.EntityMappingDB\\Hikari.Integration.Entity.csproj",
         "projectName": "Hikari.Integration.Entity",
-        "projectPath": "E:\\Study\\Hikari\\Hikari.Integration.EntityMappingDB\\Hikari.Integration.Entity.csproj",
+        "projectPath": "E:\\study\\hr\\Hikari\\Hikari.Integration.EntityMappingDB\\Hikari.Integration.Entity.csproj",
         "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-        "outputPath": "E:\\Study\\Hikari\\Hikari.Integration.EntityMappingDB\\obj\\",
+        "outputPath": "E:\\study\\hr\\Hikari\\Hikari.Integration.EntityMappingDB\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\jinyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netstandard2.0"
+          "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "d:\\Program Files\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netstandard2.0": {
+          "net5.0": {
+            "targetAlias": "net5.0",
             "projectReferences": {}
           }
         },
@@ -41,17 +37,12 @@
         }
       },
       "frameworks": {
-        "netstandard2.0": {
+        "net5.0": {
+          "targetAlias": "net5.0",
           "dependencies": {
             "EntityMappingDB": {
               "target": "Package",
               "version": "[1.1.1, )"
-            },
-            "NETStandard.Library": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.0.3, )",
-              "autoReferenced": true
             }
           },
           "imports": [
@@ -63,7 +54,13 @@
             "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

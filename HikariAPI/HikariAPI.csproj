@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Description>提供Hikari实现ORM;完善配置文件方式，各类参数执行，支持匿名类使用</Description>
     <PackageProjectUrl>https://github.com/jinyuttt/Hikari.git</PackageProjectUrl>
     <Version>1.4.0</Version>

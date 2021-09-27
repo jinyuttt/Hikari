@@ -20,6 +20,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyProductAttribute("Hikari")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hikari")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.8.3.0")]
+[assembly: System.Reflection.AssemblyMetadataAttribute("RepositoryUrl", "")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 
