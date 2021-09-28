@@ -29,7 +29,7 @@ namespace Hikari
         private string driverDLL = null;
         private string driverDir = "DBDrivers";
         private string dbTypeXml = "DBType.xml";
-        private long connectionTimeout = 3000;//池中取出时间
+        private long connectionTimeout = 30000;//池中取出时间
         private int idleTimeout = 600000;//10分钟,空闲时间
         private int maxLifetime = 1800000;//30分钟，最大生存时间
         private int maximumPoolSize = 10;//最大个数
