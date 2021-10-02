@@ -12,14 +12,14 @@ namespace Hikari
     /// </summary>
     public abstract class PoolBase
     {
-      
+
         protected static int MAX_PERMITS = 10000;
         protected HikariConfig config;
         protected string poolName;
         protected long connectionTimeout;
         protected int validationTimeout;
         protected string dllPath = "";//dll路径
-        protected  int size = 0;//生成的连接数量
+        protected int size = 0;//生成的连接数量
         protected int entryid = 0;//ID生成
 
         /// <summary>
@@ -32,9 +32,9 @@ namespace Hikari
             this.config = config;
             this.poolName = config.PoolName;
             this.connectionTimeout = config.ConnectionTimeout;
-            this.validationTimeout =(int) config.ValidationTimeout;
+            this.validationTimeout = (int)config.ValidationTimeout;
         }
-       
+
 
         /// <summary>
         /// 创建池中数据对象
@@ -43,15 +43,15 @@ namespace Hikari
         /// <returns></returns>
         protected PoolEntry NewPoolEntry()
         {
-            PoolEntry poolEntry= new PoolEntry(NewConnection(), this);
+            PoolEntry poolEntry = new PoolEntry(NewConnection(), this);
             if (poolEntry.IsValidate)
             {
                 //创建无效
                 poolEntry = null;
             }
-            if(poolEntry!=null)
+            if (poolEntry != null)
             {
-                poolEntry.ID=Interlocked.Increment(ref entryid);
+                poolEntry.ID = Interlocked.Increment(ref entryid);
                 Interlocked.Increment(ref size);
             }
             return poolEntry;
@@ -65,7 +65,7 @@ namespace Hikari
         /// <param name="connection"></param>
         protected void CloseConnection(IDbConnection connection)
         {
-            if(connection!=null)
+            if (connection != null)
             {
                 connection.Close();
                 connection.Dispose();
@@ -106,7 +106,7 @@ namespace Hikari
                 {
                     throw new Exception("Open Connection returned null unexpectedly");
                 }
-                if(connection.State!=ConnectionState.Open)
+                if (connection.State != ConnectionState.Open)
                 {
                     connection.Dispose();
                     connection = null;
@@ -116,16 +116,16 @@ namespace Hikari
             }
             catch (Exception e)
             {
-                
+
                 throw e;
             }
-           
+
         }
 
-       /// <summary>
-       /// 测试连接及设置
-       /// </summary>
-       /// <param name="connection"></param>
+        /// <summary>
+        /// 测试连接及设置
+        /// </summary>
+        /// <param name="connection"></param>
         private void SetupConnection(IDbConnection connection)
         {
             try
@@ -147,25 +147,25 @@ namespace Hikari
         /// <param name="v"></param>
         private void ExecuteSql(IDbConnection connection, string sql, bool v)
         {
-            var task= Task.Factory.StartNew(() =>
-            {
-                try
-                {
-                    connection.Open();
-                }
-                catch
-                {
-                    return;
-                }
-            }
+            var task = Task.Factory.StartNew(() =>
+             {
+                 try
+                 {
+                     connection.Open();
+                 }
+                 catch
+                 {
+                     return;
+                 }
+             }
             );
-            if(!task.Wait((int)config.ConnectionTimeout))
+            if (!task.Wait((int)config.ConnectionTimeout))
             {
                 HealthCheckRegistry.Singleton.Add(poolName, this);
                 Logger.Singleton.Warn("数据库连接异常，连接池：" + poolName);
                 return;
             }
-         
+
             if (string.IsNullOrEmpty(sql))
             {
                 return;
@@ -181,12 +181,12 @@ namespace Hikari
                      int r = command.ExecuteNonQuery();
                      command.Dispose();
                  }
-                 catch(Exception ex)
+                 catch (Exception ex)
                  {
                      connection.Close();
                      connection.Dispose();
                      connection = null;
-                     Logger.Singleton.Error("执行验证SQL失败,连接关闭!原因："+ex.Message);
+                     Logger.Singleton.Error("执行验证SQL失败,连接关闭!原因：" + ex.Message);
                  }
 
              }, cts.Token
@@ -196,7 +196,7 @@ namespace Hikari
 
         }
 
-     
+
         public override string ToString()
         {
             return poolName;
@@ -204,7 +204,7 @@ namespace Hikari
 
 
         #region 数据库主要对象
-        public IDbCommand  GetDbCommand()
+        public IDbCommand GetDbCommand()
         {
             return DbProviderFactories.GetDbCommand(dllPath);
         }

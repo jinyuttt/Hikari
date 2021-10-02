@@ -41,7 +41,7 @@ namespace Hikari
         /// </summary>
         private static void Init()
         {
-           
+
             lock (lock_obj)
             {
                 //Oracle
@@ -73,7 +73,7 @@ namespace Hikari
         /// 读取数据库类型的DLL文件
         /// </summary>
         /// <param name="dbXml"></param>
-        public static  void LoadXml(string dbXml)
+        public static void LoadXml(string dbXml)
         {
             //
             if (!isInit)
@@ -83,7 +83,7 @@ namespace Hikari
             }
 
             //2019-04-06
-            if(!File.Exists(dbXml))
+            if (!File.Exists(dbXml))
             {
                 Logger.Singleton.Warn("没有全局配置XML文件," + dbXml);
                 return;

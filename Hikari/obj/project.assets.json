@@ -1340,7 +1340,7 @@
     "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.8.6",
+    "version": "2.8.7",
     "restore": {
       "projectUniqueName": "E:\\study\\hr\\Hikari\\Hikari\\Hikari.csproj",
       "projectName": "Hikari",

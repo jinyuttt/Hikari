@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Hikari;
+﻿using Hikari;
 using Hikari.Manager;
+using System;
+using System.Collections.Generic;
 
 namespace ConsoleApp3
 {
@@ -18,7 +18,7 @@ namespace ConsoleApp3
             //  TestManager();
             // TestConnect();
             //  TestBag();
-       
+
             Console.Read();
 
         }
@@ -166,6 +166,6 @@ namespace ConsoleApp3
         }
 
 
-       
+
     }
 }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
+﻿using System.Data;
 
 namespace Hikari.BulkCopy
 {
-   public interface IBulkCopy
+    /// <summary>
+    /// 批量插入
+    /// </summary>
+    public interface IBulkCopy
     {
         void BulkCopy(DataTable dt);
-        
+
     }
 }

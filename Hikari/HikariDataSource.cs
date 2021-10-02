@@ -20,9 +20,9 @@ namespace Hikari
     /// 最后修改者  ：jinyu
     /// 最后修改日期：2018/10/24 15:21:09 
     /// </summary>
-    public class HikariDataSource:HikariConfig,IDisposable
+    public class HikariDataSource : HikariConfig, IDisposable
     {
-       
+
         /// <summary>
         /// 连接池，初始化时使用，用于锁定
         /// </summary>
@@ -31,12 +31,12 @@ namespace Hikari
         /// <summary>
         /// 是否关闭
         /// </summary>
-        private volatile  bool isShutdown = false;
+        private volatile bool isShutdown = false;
 
         /// <summary>
         /// 连接池,常用对象
         /// </summary>
-        private  HikariPool fastPathPool;
+        private HikariPool fastPathPool;
 
         /// <summary>
         /// 是否初始化
@@ -69,7 +69,7 @@ namespace Hikari
         /// <summary>
         /// 连接提供DataSource
         /// </summary>
-        public HikariDataSource():base()
+        public HikariDataSource() : base()
         {
             fastPathPool = null;
         }
@@ -93,15 +93,15 @@ namespace Hikari
             {
                 throw new SQLException("HikariDataSource " + this + " has been closed.");
             }
-            if(isInit)
+            if (isInit)
             {
                 //全局配置初始化
                 GlobalDBType.LoadXml(this.DBTypeXml);
                 //
-                if(!string.IsNullOrEmpty(this.DBType))
+                if (!string.IsNullOrEmpty(this.DBType))
                 {
                     //根据全局配置信息查找DLL
-                    var dllinfo= GlobalDBType.GetDriver(this.DBType);
+                    var dllinfo = GlobalDBType.GetDriver(this.DBType);
                     if (dllinfo != null)
                     {
                         if (string.IsNullOrEmpty(this.DriverDLLFile))
@@ -146,7 +146,7 @@ namespace Hikari
         /// <summary>
         /// 关闭
         /// </summary>
-       public  void Close()
+        public void Close()
         {
             if (isShutdown)
             {
@@ -164,7 +164,7 @@ namespace Hikari
                 }
                 catch (Exception e)
                 {
-                    Logger.Singleton.WarnFormat("{0} - Interrupted during closing,errormsg:{1}", PoolName,e);
+                    Logger.Singleton.WarnFormat("{0} - Interrupted during closing,errormsg:{1}", PoolName, e);
                     Thread.CurrentThread.Interrupt();
                 }
             }
@@ -186,21 +186,21 @@ namespace Hikari
         /// <returns></returns>
         public IBulkCopy GetBulkCopy()
         {
-            HikariConnection con =(HikariConnection)GetConnection();
+            HikariConnection con = (HikariConnection)GetConnection();
             var cls = pool.GetBulkCopy();
-            return  new DBBulkCopy() { BulkCls = cls, Connection=con};
+            return new DBBulkCopy() { BulkCls = cls, Connection = con };
         }
-       
 
-       
+
+
         #region ADO.NET对象
 
-        public IDbDataAdapter DataAdapter { get {return pool.GetDataAdapter(); } }
+        public IDbDataAdapter DataAdapter { get { return pool.GetDataAdapter(); } }
 
         public IDbCommand DbCommand { get { return pool.GetDbCommand(); } }
 
         public IDbDataParameter DataParameter { get { return pool.GetDataParameter(); } }
-       
+
         #endregion
 
         /// <summary>
@@ -222,9 +222,9 @@ namespace Hikari
                     }
                     return true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Logger.Singleton.Info("验证SQL有异常,异常信息:"+ex.Message);
+                    Logger.Singleton.Info("验证SQL有异常,异常信息:" + ex.Message);
                     return false;
                 }
             }

@@ -7,7 +7,7 @@ namespace Hikari
     /// <summary>
     /// 扩展SQL操作
     /// </summary>
-    public static  class HikariExtension
+    public static class HikariExtension
     {
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace Hikari
         /// <param name="querySql"></param>
         /// <param name="valuePairs"></param>
         /// <returns></returns>
-        public static DataSet ExecuteQuery(this HikariDataSource source, string querySql, Dictionary<string,object> valuePairs=null)
+        public static DataSet ExecuteQuery(this HikariDataSource source, string querySql, Dictionary<string, object> valuePairs = null)
         {
             using (var con = source.GetConnection())
             {
@@ -27,10 +27,10 @@ namespace Hikari
                 cmd.CommandText = querySql;
                 if (valuePairs != null)
                 {
-                    foreach(var kv in valuePairs)
+                    foreach (var kv in valuePairs)
                     {
                         var p = cmd.CreateParameter();
-                        p.ParameterName ="@"+kv.Key;
+                        p.ParameterName = "@" + kv.Key;
                         p.Value = kv.Value;
                         cmd.Parameters.Add(p);
                     }
@@ -58,7 +58,7 @@ namespace Hikari
             var con = source.GetConnection();
             var cmd = con.CreateCommand();
             cmd.CommandText = querySql;
-       
+
             if (valuePairs != null)
             {
                 foreach (var kv in valuePairs)
@@ -133,9 +133,9 @@ namespace Hikari
         /// </summary>
         /// <param name="source"></param>
         /// <param name="dt"></param>
-        public static void BulkCopy(this HikariDataSource source,DataTable dt)
+        public static void BulkCopy(this HikariDataSource source, DataTable dt)
         {
-            var bluk=  source.GetBulkCopy();
+            var bluk = source.GetBulkCopy();
             bluk.BulkCopy(dt);
         }
     }

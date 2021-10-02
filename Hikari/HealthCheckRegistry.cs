@@ -18,11 +18,10 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Collections.Concurrent;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Hikari
 {
@@ -33,14 +32,14 @@ namespace Hikari
 * 更新时间 ：2019
 * ==============================================================================*/
 
-   public class HealthCheckRegistry
+    public class HealthCheckRegistry
     {
         public static readonly HealthCheckRegistry Singleton = new HealthCheckRegistry();
         private ConcurrentDictionary<string, HealthItem> dicPool = null;
         private readonly int waitTime = 1000;
         private const int ConnectTime = 250;//毫秒
         private Thread checkThread = null;
-       
+
 
         private HealthCheckRegistry()
         {
@@ -56,9 +55,9 @@ namespace Hikari
         /// </summary>
         /// <param name="name"></param>
         /// <param name="pool"></param>
-        public void Add(string name,PoolBase pool)
+        public void Add(string name, PoolBase pool)
         {
-            dicPool[name] = new HealthItem() { Pool =(HikariPool) pool, Count = 0 };
+            dicPool[name] = new HealthItem() { Pool = (HikariPool)pool, Count = 0 };
         }
 
         /// <summary>
@@ -68,13 +67,13 @@ namespace Hikari
         {
             while (true)
             {
-               
+
                 Task.Factory.StartNew(() =>
                 {
                     List<string> lst = new List<string>();
                     foreach (var kv in dicPool)
                     {
-                        
+
                         var con = kv.Value.Pool.GetConnection(ConnectTime);
                         if (con == null)
                         {
@@ -89,13 +88,13 @@ namespace Hikari
                         {
                             kv.Value.Count--;
                             con.Dispose();
-                            if(kv.Value.IsSucess)
+                            if (kv.Value.IsSucess)
                             {
                                 lst.Add(kv.Key);
                             }
                         }
                     }
-                    if(lst.Count>0)
+                    if (lst.Count > 0)
                     {
                         HealthItem item = null;
                         foreach (string k in lst)
@@ -105,7 +104,7 @@ namespace Hikari
                         }
                     }
                 });
-               
+
                 Thread.Sleep(waitTime);
             }
         }
@@ -124,9 +123,11 @@ namespace Hikari
         /// <summary>
         /// 5秒内没有延迟
         /// </summary>
-        public bool IsSucess { get
+        public bool IsSucess
+        {
+            get
             {
-                if(Count<0&&(DateTime.Now.Ticks-Tick)/TickS>5)
+                if (Count < 0 && (DateTime.Now.Ticks - Tick) / TickS > 5)
                 {
                     return true;
                 }

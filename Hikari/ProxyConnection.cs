@@ -27,13 +27,15 @@ namespace Hikari
         //static int DIRTY_BIT_CATALOG = 0b001000;
         //static int DIRTY_BIT_NETTIMEOUT = 0b010000;
         //static int DIRTY_BIT_SCHEMA = 0b100000;
-       
+
         private static ISet<string> ERROR_STATES;
+
         private static ISet<int> ERROR_CODES;
-        private readonly long lastAccess=0;
+
+        private readonly long lastAccess = 0;
         protected IDbConnection delegateCon = null;
-        private  PoolEntry poolEntry = null;
-        private volatile  bool isClosed = false;
+        private PoolEntry poolEntry = null;
+        private volatile bool isClosed = false;
 
         /// <summary>
         /// 关闭状态
@@ -43,7 +45,7 @@ namespace Hikari
 
         public IDbTransaction BeginTransaction()
         {
-           return delegateCon.BeginTransaction();
+            return delegateCon.BeginTransaction();
         }
 
         public IDbTransaction BeginTransaction(IsolationLevel il)
@@ -61,7 +63,7 @@ namespace Hikari
         /// </summary>
         public void Close()
         {
-            if(isClosed)
+            if (isClosed)
             {
                 //已经关闭的不再关闭
                 return;
@@ -72,7 +74,7 @@ namespace Hikari
 
         public IDbCommand CreateCommand()
         {
-           return delegateCon.CreateCommand();
+            return delegateCon.CreateCommand();
         }
 
         /// <summary>
@@ -95,18 +97,18 @@ namespace Hikari
 
         public int ConnectionTimeout { get { return delegateCon.ConnectionTimeout; } }
 
-        public string Database { get { return delegateCon.Database; }  }
+        public string Database { get { return delegateCon.Database; } }
 
         public ConnectionState State { get { return delegateCon.State; } }
 
-        public ProxyConnection(PoolEntry poolEntry,  IDbConnection connection,  long now)
+        public ProxyConnection(PoolEntry poolEntry, IDbConnection connection, long now)
         {
             try
             {
                 this.poolEntry = poolEntry;
                 this.delegateCon = connection;
                 this.lastAccess = now;
-               // Init();
+                // Init();
             }
             catch (Exception ex)
             {
@@ -129,11 +131,11 @@ namespace Hikari
         //    ERROR_CODES.Add(500150);
         //    ERROR_CODES.Add(2399);
         //}
-       
 
-       
 
-       
+
+
+
 
         // ***********************************************************************
         //                          Internal methods

@@ -29,21 +29,21 @@ namespace Hikari
         private static Dictionary<string, AssemblyDLLType> dicAssemblyDLLType = new Dictionary<string, AssemblyDLLType>();
         private static Dictionary<string, Type> dic_BulkCopy = new Dictionary<string, Type>();
 
-        private static IDbConnection GetConnection(string path,string clazz)
+        private static IDbConnection GetConnection(string path, string clazz)
         {
             Type type = null;
-            if (dic_ConnectType.TryGetValue(clazz,out type))
+            if (dic_ConnectType.TryGetValue(clazz, out type))
             {
                 IDbConnection connection = (IDbConnection)Activator.CreateInstance(type);
                 return connection;
             }
             else
             {
-                if(path==null)
+                if (path == null)
                 {
                     return null;
                 }
-                if(!path.ToLower().Trim().EndsWith(DllExtension))
+                if (!path.ToLower().Trim().EndsWith(DllExtension))
                 {
                     path = path + DllExtension;
                 }
@@ -68,9 +68,9 @@ namespace Hikari
                     IDbConnection connection = (IDbConnection)Activator.CreateInstance(type);
                     return connection;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Logger.Singleton.Error(string.Format("{0}-程序集加载失败",path), ex);
+                    Logger.Singleton.Error(string.Format("{0}-程序集加载失败", path), ex);
                 }
                 return null;
             }
@@ -85,7 +85,7 @@ namespace Hikari
         {
             Type type = null;
             AssemblyDLLType assemblyDLLType = null;
-            
+
             if (dicAssemblyDLLType.TryGetValue(path, out assemblyDLLType))
             {
                 IDbConnection connection = (IDbConnection)Activator.CreateInstance(assemblyDLLType.ConnectType);
@@ -105,13 +105,13 @@ namespace Hikari
                 bool token = false;
                 try
                 {
-                   
-                    Monitor.Enter(lock_obj,ref token);
+
+                    Monitor.Enter(lock_obj, ref token);
                     FileInfo fileInfo = new FileInfo(dllPath);
-                    if(!fileInfo.Exists)
+                    if (!fileInfo.Exists)
                     {
                         //
-                        if(LoadSqlServer(path))
+                        if (LoadSqlServer(path))
                         {
                             if (dicAssemblyDLLType.TryGetValue(path, out assemblyDLLType))
                             {
@@ -119,7 +119,7 @@ namespace Hikari
                                 return con;
                             }
                         }
-                        Logger.Singleton.Error("没有找到驱动程序集！路径："+path);
+                        Logger.Singleton.Error("没有找到驱动程序集！路径：" + path);
                     }
                     Assembly assembly = Assembly.LoadFrom(dllPath); //利用dll的路径加载,同时将此程序集所依赖的程序集加载进来,需后辍名.dll
                     Type[] allTypes = assembly.GetTypes();
@@ -127,11 +127,11 @@ namespace Hikari
                     int num = 4;
                     foreach (Type tmp in allTypes)
                     {
-                        if(!tmp.IsClass||tmp.IsAbstract)
+                        if (!tmp.IsClass || tmp.IsAbstract)
                         {
                             continue;
                         }
-                        if(typeof(IDbConnection).IsAssignableFrom(tmp))
+                        if (typeof(IDbConnection).IsAssignableFrom(tmp))
                         {
                             type = tmp;
                             dLLType.ConnectType = tmp;
@@ -139,13 +139,13 @@ namespace Hikari
                         }
                         if (typeof(IDbCommand).IsAssignableFrom(tmp))
                         {
-                          
+
                             dLLType.CommandType = tmp;
                             num--;
                         }
                         if (typeof(IDbDataAdapter).IsAssignableFrom(tmp))
                         {
-                           
+
                             dLLType.DataAdapterType = tmp;
                             num--;
                         }
@@ -155,7 +155,7 @@ namespace Hikari
                             dLLType.ParameterType = tmp;
                             num--;
                         }
-                        if(num==0)
+                        if (num == 0)
                         {
                             break;
                         }
@@ -214,7 +214,7 @@ namespace Hikari
                 dicAssemblyDLLType[path] = dLLType;
                 return true;
             }
-           
+
             return false;
         }
 
@@ -235,16 +235,16 @@ namespace Hikari
                     lst.Add(tmp);
                 }
             }
-            if(lst.Count>1)
+            if (lst.Count > 1)
             {
                 //再次筛选
-                foreach(var item in lst)
+                foreach (var item in lst)
                 {
-                    var member= item.GetMember("WriteToServer");
+                    var member = item.GetMember("WriteToServer");
                     var size = item.GetProperty("BatchSize");
                     var DestinationTableName = item.GetProperty("DestinationTableName");
                     var ColumnMappings = item.GetProperty("ColumnMappings");
-                    if(member!=null&&member.Length>0&&size!=null&&DestinationTableName!=null&&ColumnMappings!=null)
+                    if (member != null && member.Length > 0 && size != null && DestinationTableName != null && ColumnMappings != null)
                     {
                         //找到
                         lst.Clear();

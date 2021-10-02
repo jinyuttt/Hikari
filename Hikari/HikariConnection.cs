@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
+﻿using System.Data;
 
 /**
 * 命名空间: Hikari 
@@ -20,10 +17,10 @@ namespace Hikari
     /// 最后修改者  ：jinyu
     /// 最后修改日期：2018/10/25 1:55:36 
     /// </summary>
-   public class HikariConnection: ProxyConnection
+    public class HikariConnection : ProxyConnection
     {
-      
-        public HikariConnection(PoolEntry poolEntry, IDbConnection connection, long now):base(poolEntry,connection,now)
+
+        public HikariConnection(PoolEntry poolEntry, IDbConnection connection, long now) : base(poolEntry, connection, now)
         {
 
         }

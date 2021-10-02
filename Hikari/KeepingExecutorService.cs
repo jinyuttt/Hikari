@@ -1,5 +1,4 @@
-﻿using log4net.Core;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
 /**
@@ -21,7 +20,7 @@ namespace Hikari
     /// </summary>
     public class KeepingExecutorService
     {
-       
+
         private ConcurrentQueue<PoolEntry> idleTimeQueue;
         private ConcurrentQueue<PoolEntry> maxLiveQueue;
         private ConcurrentQueue<PoolEntry> userQueue;
@@ -36,9 +35,9 @@ namespace Hikari
         /// </summary>
         private int idleTimeOut = 0;
 
-       /// <summary>
-       /// 最大生命周期
-       /// </summary>
+        /// <summary>
+        /// 最大生命周期
+        /// </summary>
         private int maxLeftTime = 0;
 
         /// <summary>
@@ -56,12 +55,12 @@ namespace Hikari
         /// <param name="idleTime">空闲</param>
         /// <param name="maxLeft">最大存活</param>
         /// <param name="usetime">使用时间</param>
-        public KeepingExecutorService(long idleTime,long maxLeft,long usetime)
+        public KeepingExecutorService(long idleTime, long maxLeft, long usetime)
         {
-            this.idleTimeOut =(int) idleTime;
-            this.maxLeftTime =(int) maxLeft;
-            this.leakDetectionThreshold =(int) usetime;
-         
+            this.idleTimeOut = (int)idleTime;
+            this.maxLeftTime = (int)maxLeft;
+            this.leakDetectionThreshold = (int)usetime;
+
             this.idleTimeQueue = new ConcurrentQueue<PoolEntry>();
             this.maxLiveQueue = new ConcurrentQueue<PoolEntry>();
             this.userQueue = new ConcurrentQueue<PoolEntry>();
@@ -153,7 +152,7 @@ namespace Hikari
                                 //已经标记移除的不再监测
                                 maxLiveQueue.Enqueue(poolEntry);
                             }
-                           
+
                         }
                     }
                 }
@@ -169,11 +168,11 @@ namespace Hikari
                 while (!IsStop)
                 {
                     Thread.Sleep(leakDetectionThreshold);
-                    if(leakDetectionThreshold==0)
+                    if (leakDetectionThreshold == 0)
                     {
                         Thread.Sleep(1000);//延迟1s;
                         cout--;
-                        if(cout==0)
+                        if (cout == 0)
                         {
                             break;
                         }
@@ -189,7 +188,7 @@ namespace Hikari
                             {
                                 if ((now - poolEntry.AccessedTime) / TickMS > leakDetectionThreshold)
                                 {
-                                    Logger.Singleton.Warn(string.Format("{0}-可能泄露,实体:{1}",PoolName,poolEntry.ID));
+                                    Logger.Singleton.Warn(string.Format("{0}-可能泄露,实体:{1}", PoolName, poolEntry.ID));
                                 }
                             }
                             num--;
@@ -214,10 +213,10 @@ namespace Hikari
         {
 
             PoolEntry poolEntry = null;
-            while(true)
+            while (true)
             {
                 userQueue.TryDequeue(out poolEntry);
-                if(userQueue.IsEmpty||poolEntry==null)
+                if (userQueue.IsEmpty || poolEntry == null)
                 {
                     break;
                 }
@@ -225,7 +224,7 @@ namespace Hikari
             //
             while (true)
             {
-               
+
                 maxLiveQueue.TryDequeue(out poolEntry);
                 if (maxLiveQueue.IsEmpty || poolEntry == null)
                 {
@@ -236,7 +235,7 @@ namespace Hikari
             //
             while (true)
             {
-               
+
                 idleTimeQueue.TryDequeue(out poolEntry);
                 if (idleTimeQueue.IsEmpty || poolEntry == null)
                 {
@@ -244,8 +243,8 @@ namespace Hikari
                 }
             }
         }
-       
-        
+
+
         /// <summary>
         /// 关闭清除
         /// </summary>

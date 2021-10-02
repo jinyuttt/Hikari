@@ -23,8 +23,8 @@ namespace Hikari
     /// </summary>
     public class HikariConfig
     {
-       
-       
+
+
         private string connectString = null;
         private string driverDLL = null;
         private string driverDir = "DBDrivers";
@@ -44,7 +44,7 @@ namespace Hikari
         private static int pool_number = 0;//线程池ID
         private const string prefix = "HikariPool-";
         private int logNumTime = 10;//10分钟一次Log
-      
+
         /// <summary>
         /// 
         /// 数据库连接字符串
@@ -72,7 +72,7 @@ namespace Hikari
         /// </summary>
         public int MaxLifetime { get { return maxLifetime; } set { maxLifetime = value; } }
 
-      
+
         /// <summary>
         /// 在池中维护的最小空闲连接数
         /// 空闲连接低于此值并且池中的总连接数小于maximumPoolSize，
@@ -92,8 +92,8 @@ namespace Hikari
         /// </summary>
         public int MaximumPoolSize { get { return maximumPoolSize; } set { maximumPoolSize = value; } }
 
-       
-       
+
+
         /// <summary>
         /// 池名称
         /// 默认：自动生成
@@ -112,13 +112,13 @@ namespace Hikari
         /// 默认值：1
         /// </summary>
         public byte InitializationFailTimeout { get { return initializationFailTimeout; } set { initializationFailTimeout = value; } }
-      
+
         /// <summary>
         /// 此属性设置一个SQL语句，该语句将在每次创建新连接之后执行，然后再将其添加到池中
         /// </summary>
         public string ConnectionInitSql { get { return connectionInitSql; } set { connectionInitSql = value; } }
 
-       
+
         /// <summary>
         /// 此属性控制连接测试活动的最长时间。
         /// 该值必须小于connectionTimeout。
@@ -135,7 +135,7 @@ namespace Hikari
         /// </summary>
         public long LeakDetectionThreshold { get { return leakDetectionThreshold; } set { leakDetectionThreshold = value; } }
 
-     
+
         /// <summary>
         /// 驱动dll文件
         /// </summary>
@@ -179,12 +179,12 @@ namespace Hikari
         /// 默认：10分钟(600000毫秒)
         /// </summary>
         public int DestroyInterval { get { return destroyInterval; } set { destroyInterval = value; } }
-       
+
         public HikariConfig()
         {
             this.dbTypeXml = Path.Combine("DBPoolCfg", "DBType.xml");
         }
-        
+
         /// <summary>
         /// 获取数据
         /// </summary>
@@ -197,12 +197,12 @@ namespace Hikari
             }
             connectionInitSql = GetNullIfEmpty(connectionInitSql);
             connectString = GetNullIfEmpty(connectString);
-             if (connectString != null&&driverDLL!=null)
+            if (connectString != null && driverDLL != null)
             {
                 // ok
                 //需要连接字符串和DLL名称
             }
-            else if(connectString!=null&&DBType!=null)
+            else if (connectString != null && DBType != null)
             {
                 //ok
                 //需要连接字符串和DBType项
@@ -213,7 +213,7 @@ namespace Hikari
                 Logger.Singleton.ErrorFormat("{0} - connectString is required with driverDLL.", poolName);
                 throw new Exception("connectString is required ");
             }
-            else if(DBType==null)
+            else if (DBType == null)
             {
                 //说明没有driverDLL，没有DBType
                 Logger.Singleton.ErrorFormat("{0} - DBType or connectString is required.", poolName);
@@ -229,9 +229,9 @@ namespace Hikari
 
         }
 
-       /// <summary>
-       /// 配置日志
-       /// </summary>
+        /// <summary>
+        /// 配置日志
+        /// </summary>
         private void LogConfiguration()
         {
             Logger.Singleton.LogConfiguration(logConfig);
@@ -259,11 +259,11 @@ namespace Hikari
         public void CopyStateTo(HikariConfig other)
         {
             var propertys = typeof(HikariConfig).GetProperties();
-            foreach(var property in propertys)
+            foreach (var property in propertys)
             {
                 property.SetValue(other, property.GetValue(this));
             }
-           // other.isSealed = false;
+            // other.isSealed = false;
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace Hikari
         /// <param name="filePath"></param>
         public virtual void LoadConfig(string filePath)
         {
-            if(!File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
                 Logger.Singleton.Error("没有找到配置文件");
             }
@@ -284,7 +284,7 @@ namespace Hikari
                 while ((strLine = rd.ReadLine()) != null)
                 {
                     //增加注释行
-                    if(strLine.StartsWith("#")||strLine.StartsWith("**"))
+                    if (strLine.StartsWith("#") || strLine.StartsWith("**"))
                     {
                         continue;
                     }
@@ -293,10 +293,10 @@ namespace Hikari
                     {
                         dic[cof[0].Trim().ToLower()] = cof[1] == null ? "" : cof[1].Trim();
                     }
-                    else if(cof.Length>2)
+                    else if (cof.Length > 2)
                     {
                         StringBuilder sbr = new StringBuilder();
-                        for(int i=1;i<cof.Length;i++)
+                        for (int i = 1; i < cof.Length; i++)
                         {
                             sbr.Append(cof[i]);
                             sbr.Append("=");
@@ -307,26 +307,26 @@ namespace Hikari
                 }
             }
             //
-            if(dic.Count>0)
+            if (dic.Count > 0)
             {
                 var propertys = typeof(HikariConfig).GetProperties();
                 foreach (var property in propertys)
                 {
                     string value = "";
-                   if(dic.TryGetValue(property.Name.ToLower(),out value))
+                    if (dic.TryGetValue(property.Name.ToLower(), out value))
                     {
                         //
                         try
                         {
                             property.SetValue(this, Convert.ChangeType(value, property.PropertyType), null);//类型转换。
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             Logger.Singleton.ErrorFormat("HikariConfig 配置项 {0} 赋值转换错误,{1}", property.Name, ex.Message);
                         }
                     }
                 }
-               
+
             }
         }
     }

@@ -21,19 +21,19 @@ namespace Hikari
     /// 最后修改者  ：jinyu
     /// 最后修改日期：2018/10/24 16:25:50 
     /// </summary>
-    internal class HikariPool:PoolBase
+    internal class HikariPool : PoolBase
     {
-        
-        public static  int POOL_NORMAL = 0;//正常
-        public static  int POOL_SUSPENDED = 1;//挂起
-        public static  int POOL_SHUTDOWN = 2;//关闭
-        public volatile int poolState=0;//当前状态
+
+        public static int POOL_NORMAL = 0;//正常
+        public static int POOL_SUSPENDED = 1;//挂起
+        public static int POOL_SHUTDOWN = 2;//关闭
+        public volatile int poolState = 0;//当前状态
         private AutoResetEvent resetEvent = null;
         private readonly object lock_obj = new object();
         private volatile bool isWaitAdd = true;//快速添加
         private int logNumTime = 0;
         public string ConnectStr { get; set; }
-       
+
         /// <summary>
         /// 
         /// tick与毫秒的转化值
@@ -41,9 +41,9 @@ namespace Hikari
         /// </summary>
         private const int TicksMs = 10000;
         private KeepingExecutorService keepingExecutor;
-        private ConnectionBucket<PoolEntry> connectionBag=null;
+        private ConnectionBucket<PoolEntry> connectionBag = null;
 
-        
+
         public HikariPool(HikariDataSource hikariDataSource) : base(hikariDataSource)
         {
             connectionBag = new ConnectionBucket<PoolEntry>();
@@ -63,9 +63,9 @@ namespace Hikari
         /// <param name="entrys"></param>
         private void ConnectionBag_ArrayEntryRemove(object sender, PoolEntry[] entrys)
         {
-          if(entrys!=null&&entrys.Length>0)
+            if (entrys != null && entrys.Length > 0)
             {
-                foreach(PoolEntry entry in entrys)
+                foreach (PoolEntry entry in entrys)
                 {
                     CloseConnection(entry.Close());
                 }
@@ -78,13 +78,13 @@ namespace Hikari
         /// <param name="poolEntry"></param>
         internal void Recycle(PoolEntry poolEntry)
         {
-            if(poolEntry.State==IConcurrentBagEntry.STATE_REMOVED)
+            if (poolEntry.State == IConcurrentBagEntry.STATE_REMOVED)
             {
                 //已经标记移除的不能再加入，集合也不允许
                 CloseConnection(poolEntry.Close());
                 return;
             }
-            if(!connectionBag.Push(poolEntry))
+            if (!connectionBag.Push(poolEntry))
             {
                 CloseConnection(poolEntry.Close());
             }
@@ -94,7 +94,7 @@ namespace Hikari
                 keepingExecutor.ScheduleIdleTimeout(poolEntry);
             }
         }
- 
+
         /// <summary>
         /// 获取连接
         /// </summary>
@@ -111,16 +111,16 @@ namespace Hikari
         /// <returns></returns>
         public IDbConnection GetConnection(long hardTimeout)
         {
-            if(poolState== POOL_SHUTDOWN)
+            if (poolState == POOL_SHUTDOWN)
             {
                 return null;
             }
-            if(poolState==POOL_SUSPENDED)
+            if (poolState == POOL_SUSPENDED)
             {
                 //挂起操作
                 resetEvent.WaitOne();
             }
-         
+
             long startTime = DateTime.Now.Ticks;
             try
             {
@@ -128,7 +128,7 @@ namespace Hikari
                 do
                 {
                     PoolEntry poolEntry = null;
-                    if(connectionBag.TryPop(out poolEntry))
+                    if (connectionBag.TryPop(out poolEntry))
                     {
                         try
                         {
@@ -160,11 +160,11 @@ namespace Hikari
                                 keepingExecutor.ScheduleUse(poolEntry);
                                 return poolEntry.CreateProxyConnection(DateTime.Now.Ticks);
                             }
-                          
+
                         }
                     }
                     //计算获取的时间，转化成ms
-                    timeout=timeout- (DateTime.Now.Ticks - startTime) / TicksMs;
+                    timeout = timeout - (DateTime.Now.Ticks - startTime) / TicksMs;
                 } while (timeout > 0L);
             }
             catch (Exception e)
@@ -194,14 +194,14 @@ namespace Hikari
                     if (config.MinimumIdle > 0)
                     {
                         connectionBag.Push(poolEntry);
-                      
+
                         Logger.Singleton.DebugFormat("{0} - Added connection {1}", poolName, poolEntry);
                     }
                 }
                 startTime = (DateTime.Now.Ticks - startTime) / TicksMs;
             } while (startTime < initializationTimeout);
 
-           
+
         }
 
 
@@ -214,12 +214,12 @@ namespace Hikari
             try
             {
                 PoolEntry poolEntry = NewPoolEntry();
-                if(poolEntry==null)
+                if (poolEntry == null)
                 {
                     return null;
                 }
                 long maxLifetime = config.MaxLifetime;
-                if (maxLifetime > 0&&poolEntry!=null)
+                if (maxLifetime > 0 && poolEntry != null)
                 {
                     // variance up to 2.5% of the maxlifetime
                     Random random = new Random();
@@ -227,24 +227,24 @@ namespace Hikari
                     long lifetime = maxLifetime - variance;
                     keepingExecutor.ScheduleMaxLive(poolEntry);
                 }
-              
+
                 return poolEntry;
             }
             catch (SQLException e)
             {
-               
+
                 if (poolState == POOL_NORMAL)
                 { // we check POOL_NORMAL to avoid a flood of messages if shutdown() is running concurrently
                     Logger.Singleton.DebugFormat("{0} - Cannot acquire connection from data source", poolName);
                 }
-                Logger.Singleton.DebugFormat("{0} - Cannot acquire connection from data source,error:{1}", poolName,e);
+                Logger.Singleton.DebugFormat("{0} - Cannot acquire connection from data source,error:{1}", poolName, e);
                 return null;
             }
             catch (Exception e)
             {
                 if (poolState == POOL_NORMAL)
                 { // we check POOL_NORMAL to avoid a flood of messages if shutdown() is running concurrently
-                    Logger.Singleton.ErrorFormat("{0} - Error thrown while acquiring connection from data source,{1}", poolName,e.Message);
+                    Logger.Singleton.ErrorFormat("{0} - Error thrown while acquiring connection from data source,{1}", poolName, e.Message);
 
                 }
                 return null;
@@ -285,18 +285,18 @@ namespace Hikari
                         }
                         Thread.Sleep(2000);//延迟2秒，监测
                         num--;
-                        if(num == 0)
+                        if (num == 0)
                         {
                             break;
                         }
                     }
                     isWaitAdd = true;
-                  
+
                 }));
             }
             //
-           
-            
+
+
         }
 
 
@@ -342,7 +342,7 @@ namespace Hikari
                 {
                     poolState = POOL_SHUTDOWN;
                     PoolEntry poolEntry = null;
-                    
+
                     //清理资源
                     while (true)
                     {
@@ -378,9 +378,9 @@ namespace Hikari
         /// <param name="v"></param>
         private void LogPoolState(params string[] v)
         {
-                Logger.Singleton.DebugFormat("{0} - {1}stats (total={2}, active={3}, idle={4}, waiting={5})",
-                             poolName,poolState, (v.Length > 0 ? v[0] : ""),
-                             connectionBag.Count, 0, 0);
+            Logger.Singleton.DebugFormat("{0} - {1}stats (total={2}, active={3}, idle={4}, waiting={5})",
+                         poolName, poolState, (v.Length > 0 ? v[0] : ""),
+                         connectionBag.Count, 0, 0);
         }
 
 
@@ -389,20 +389,20 @@ namespace Hikari
         /// </summary>
         private void LogPoolNumber()
         {
-            if(logNumTime<=0)
+            if (logNumTime <= 0)
             {
                 return;
             }
             Task.Factory.StartNew(() =>
             {
                 //分钟缓存毫秒
-                Thread.Sleep(logNumTime *60* 1000);
+                Thread.Sleep(logNumTime * 60 * 1000);
                 Logger.Singleton.DebugFormat("PoolConnection {0} - bag:{1}-total:{2})",
                           poolName,
-                          connectionBag.Count,size);
+                          connectionBag.Count, size);
                 LogPoolNumber();//递归线程
             });
-          
+
         }
     }
 }

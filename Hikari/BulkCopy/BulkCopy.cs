@@ -23,7 +23,7 @@ namespace Hikari.BulkCopy
     /// </summary>
     internal class DBBulkCopy : IBulkCopy
     {
-    
+
 
         public HikariConnection Connection { get; set; }
 
@@ -45,8 +45,8 @@ namespace Hikari.BulkCopy
            200MB每秒~500MB每秒
          * 
          * */
-        private const int MaxBuffer = 10*1024*1024;//每10M写入一次,占用约五分之一写速
-       
+        private const int MaxBuffer = 10 * 1024 * 1024;//每10M写入一次,占用约五分之一写速
+
         public void BulkCopy(DataTable dt)
         {
             try
@@ -72,7 +72,7 @@ namespace Hikari.BulkCopy
                     CommonCopy(dt);
                 }
             }
-            catch(BulkCopyException ex)
+            catch (BulkCopyException ex)
             {
                 throw ex;
             }
@@ -89,7 +89,7 @@ namespace Hikari.BulkCopy
         /// <param name="dt"></param>
         public void CommonCopy(DataTable dt)
         {
-            
+
             object bulk = Activator.CreateInstance(BulkCls, Connection.DbConnection);
             var SizeProperty = BulkCls.GetProperty("BatchSize");
             var Table = BulkCls.GetProperty("DestinationTableName");
@@ -136,7 +136,7 @@ namespace Hikari.BulkCopy
         {
             string fileName = dt.TableName + Interlocked.Add(ref fileid, 1);
 
-            FileStream fs = new FileStream(Path.Combine(SqlDir,fileName), FileMode.Create, FileAccess.Write,FileShare.ReadWrite, MaxBuffer);
+            FileStream fs = new FileStream(Path.Combine(SqlDir, fileName), FileMode.Create, FileAccess.Write, FileShare.ReadWrite, MaxBuffer);
             StreamWriter sw = new StreamWriter(fs, Encoding.Default);
             string data = "";
 
@@ -190,12 +190,12 @@ namespace Hikari.BulkCopy
             var TableName = BulkCls.GetProperty("TableName"); //获取或设置表的名称。
             var Column = BulkCls.GetProperty("Columns"); //获取或设置表的名称。
             var con = BulkCls.GetProperty("Connection");
-            var method = BulkCls.GetMethod("Load"); 
-            if(method==null)
+            var method = BulkCls.GetMethod("Load");
+            if (method == null)
             {
                 throw new BulkCopyException("该驱动不支持或者查找Bulk类错误");
             }
-           //另外还可以设置超时
+            //另外还可以设置超时
             if (FieldTerminator != null)
             {
                 FieldTerminator.SetValue(bulk, ",");
@@ -215,7 +215,7 @@ namespace Hikari.BulkCopy
             if (NumberOfLinesToSkip != null)
             {
                 NumberOfLinesToSkip.SetValue(bulk, 0);
-               
+
             }
             if (TableName != null)
             {
@@ -232,21 +232,21 @@ namespace Hikari.BulkCopy
                 fileName = WriteFile(dt);
                 FileName.SetValue(bulk, fileName);
             }
-            if (Column!=null)
+            if (Column != null)
             {
                 var columns = dt.Columns.Cast<DataColumn>().Select(colum => colum.ColumnName).ToList();
-                List<string> lst= Column.GetValue(bulk) as List<string>;
-                if(lst!=null)
+                List<string> lst = Column.GetValue(bulk) as List<string>;
+                if (lst != null)
                 {
                     lst.AddRange(columns);
                 }
             }
             if (method != null)
             {
-                method.Invoke(bulk,null);
+                method.Invoke(bulk, null);
             }
-           //用完文件后删除
-           if(File.Exists(fileName))
+            //用完文件后删除
+            if (File.Exists(fileName))
             {
                 File.Delete(fileName);
             }
@@ -278,7 +278,7 @@ namespace Hikari.BulkCopy
         /// </summary>
         private void Close()
         {
-            if(Connection!=null)
+            if (Connection != null)
             {
                 Connection.Dispose();
             }

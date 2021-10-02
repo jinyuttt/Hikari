@@ -95,7 +95,7 @@ namespace Hikari
                 this.lastAccessed = lastAccess;
                 hikariPool.Recycle(this);
             }
-            if(connection.State!=ConnectionState.Open)
+            if (connection.State != ConnectionState.Open)
             {
                 this.Close();
             }

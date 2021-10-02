@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Hikari.BulkCopy
 {
+
+    /// <summary>
+    /// BulkCopy异常
+    /// </summary>
     public class BulkCopyException : Exception
     {
         public BulkCopyException(string message) : base(message)
