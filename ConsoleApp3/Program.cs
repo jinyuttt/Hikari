@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Hikari;
 using Hikari.Manager;
-using HikariAPI;
 
 namespace ConsoleApp3
 {
@@ -19,7 +18,7 @@ namespace ConsoleApp3
             //  TestManager();
             // TestConnect();
             //  TestBag();
-            TestXML();
+       
             Console.Read();
 
         }
@@ -167,11 +166,6 @@ namespace ConsoleApp3
         }
 
 
-        private static void TestXML()
-        {
-            Configuration configuration = new Configuration("MySql_Sql.xml");
-            configuration.ReadAsync("UserModel/UserInfo");
-
-        }
+       
     }
 }

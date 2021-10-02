@@ -6,8 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hikari.Integration.EntityMappingDB\Hikari.Integration.Entity.csproj" />
-    <ProjectReference Include="..\HikariAPI\HikariAPI.csproj" />
     <ProjectReference Include="..\Hikari\Hikari.csproj" />
   </ItemGroup>
 
