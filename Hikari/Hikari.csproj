@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <ApplicationIcon></ApplicationIcon>
+    <TargetFramework>net7.0</TargetFramework>
+    <ApplicationIcon>ICON\Hikari.ico</ApplicationIcon>
     <Win32Resource></Win32Resource>
-    <Version>2.8.7</Version>
+    <Version>2.9.0</Version>
     <Authors>jinyu成都</Authors>
     <Company>个人贡献</Company>
     <Copyright>2019</Copyright>
@@ -14,16 +14,22 @@
     <FileVersion>2.8.7.0</FileVersion>
     <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/ICON/Hikari.ico</PackageIconUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageReleaseNotes>升级net5</PackageReleaseNotes>
+    <PackageReleaseNotes>升级net7</PackageReleaseNotes>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageIcon>Hikari.ico</PackageIcon>
+    <PackageIcon>Hikari.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Title>连接池</Title>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+     <Content Include="ICON\Hikari.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.15" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
 
@@ -32,9 +38,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.12" />
-    <PackageReference Include="Npgsql" Version="5.0.10" />
-    <PackageReference Include="Npgsql.Bulk" Version="0.9.0" />
+    <PackageReference Include="Npgsql" Version="7.0.2" />
+    <PackageReference Include="Npgsql.Bulk" Version="0.10.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +61,7 @@
     <None Update="ICON\Hikari.ico">
       <Pack>True</Pack>
     </None>
+   
   </ItemGroup>
 
   <ItemGroup>

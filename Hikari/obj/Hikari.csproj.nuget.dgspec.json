@@ -1,37 +1,37 @@
 {
   "format": 1,
   "restore": {
-    "E:\\study\\hr\\Hikari\\Hikari\\Hikari.csproj": {}
+    "E:\\study\\kkk\\Hikari\\Hikari\\Hikari.csproj": {}
   },
   "projects": {
-    "E:\\study\\hr\\Hikari\\Hikari\\Hikari.csproj": {
-      "version": "2.8.7",
+    "E:\\study\\kkk\\Hikari\\Hikari\\Hikari.csproj": {
+      "version": "2.9.0",
       "restore": {
-        "projectUniqueName": "E:\\study\\hr\\Hikari\\Hikari\\Hikari.csproj",
+        "projectUniqueName": "E:\\study\\kkk\\Hikari\\Hikari\\Hikari.csproj",
         "projectName": "Hikari",
-        "projectPath": "E:\\study\\hr\\Hikari\\Hikari\\Hikari.csproj",
-        "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-        "outputPath": "E:\\study\\hr\\Hikari\\Hikari\\obj\\",
+        "projectPath": "E:\\study\\kkk\\Hikari\\Hikari\\Hikari.csproj",
+        "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
+        "outputPath": "E:\\study\\kkk\\Hikari\\Hikari\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\jinyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://aka.ms/maui-preview/index.jsont": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -42,25 +42,25 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "Microsoft.SourceLink.GitHub": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[1.1.1, )"
             },
             "Npgsql": {
               "target": "Package",
-              "version": "[5.0.10, )"
+              "version": "[7.0.2, )"
             },
             "Npgsql.Bulk": {
               "target": "Package",
-              "version": "[0.9.0, )"
+              "version": "[0.10.3, )"
             },
             "log4net": {
               "target": "Package",
-              "version": "[2.0.12, )"
+              "version": "[2.0.15, )"
             }
           },
           "imports": [
@@ -69,30 +69,17 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-rc.1.21463.6\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
