@@ -25,6 +25,7 @@
 
   <ItemGroup>
      <Content Include="ICON\Hikari.ico" />
+	  <Content Include="ICON\Hikari.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,9 +59,7 @@
     <None Update="DBPoolCfg\Hikari.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ICON\Hikari.ico">
-      <Pack>True</Pack>
-    </None>
+	 <None Include="ICON\Hikari.png" Pack="true" PackagePath=""/>
    
   </ItemGroup>
 
