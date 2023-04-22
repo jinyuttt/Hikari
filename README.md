@@ -32,6 +32,23 @@ var bulk= hikariDataSource.GetBulkCopy();
 ManagerPool.Singleton.GetDbConnection(MySql);   
 ManagerPool.Singleton.GetBulkCopy(MySql);   
 
+操作数据库
+            string sql = "select * from  person where id=@ID";
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic["ID"] = 1;
+            HikariConfig hikariConfig = new HikariConfig();
+            hikariConfig.DBType = "PostgreSQL";
+            hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
+            HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+            var ds = hikariDataSource.ExecuteQuery(sql, dic);
+管理池
+  string sql = "select * from  person";
+            var ds = ManagerPool.Singleton.ExecuteQuery(sql);
+            var dt = ds.Tables[0];
+            sql = "insert into person(id,name)values(1,'jinyu')";
+            int r = ManagerPool.Singleton.ExecuteUpdate(sql);
+详细使用可以查看例子
+
 ## 配置文件说明
 1.连接字符串必须要  
 2.驱动目录DriverDir项不配置则使用默认drivers目录  
