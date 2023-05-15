@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hikari\Hikari.csproj" />
+    <PackageReference Include="Hikari" Version="2.9.1" />
   </ItemGroup>
 
 </Project>

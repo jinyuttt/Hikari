@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ApplicationIcon>ICON\Hikari.ico</ApplicationIcon>
     <Win32Resource></Win32Resource>
-    <Version>2.9.0</Version>
+    <Version>2.9.2</Version>
     <Authors>jinyu成都</Authors>
     <Company>个人贡献</Company>
     <Copyright>2019</Copyright>
@@ -59,7 +59,7 @@
     <None Update="DBPoolCfg\Hikari.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-	 <None Include="ICON\Hikari.png" Pack="true" PackagePath=""/>
+	 <None Include="ICON\Hikari.png" Pack="true" PackagePath="" />
    
   </ItemGroup>
 

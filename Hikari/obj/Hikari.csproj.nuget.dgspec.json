@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\study\\kkk\\Hikari\\Hikari\\Hikari.csproj": {}
+    "E:\\study\\jj\\Hikari\\Hikari\\Hikari.csproj": {}
   },
   "projects": {
-    "E:\\study\\kkk\\Hikari\\Hikari\\Hikari.csproj": {
-      "version": "2.9.0",
+    "E:\\study\\jj\\Hikari\\Hikari\\Hikari.csproj": {
+      "version": "2.9.2",
       "restore": {
-        "projectUniqueName": "E:\\study\\kkk\\Hikari\\Hikari\\Hikari.csproj",
+        "projectUniqueName": "E:\\study\\jj\\Hikari\\Hikari\\Hikari.csproj",
         "projectName": "Hikari",
-        "projectPath": "E:\\study\\kkk\\Hikari\\Hikari\\Hikari.csproj",
+        "projectPath": "E:\\study\\jj\\Hikari\\Hikari\\Hikari.csproj",
         "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
-        "outputPath": "E:\\study\\kkk\\Hikari\\Hikari\\obj\\",
+        "outputPath": "E:\\study\\jj\\Hikari\\Hikari\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -79,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

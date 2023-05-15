@@ -155,6 +155,7 @@ namespace Hikari
                  }
                  catch
                  {
+                     Logger.Singleton.Debug("连接字符串:"+connection.ConnectionString);
                      return;
                  }
              }

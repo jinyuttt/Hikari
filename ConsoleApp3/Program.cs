@@ -16,7 +16,7 @@ namespace ConsoleApp3
             //  Console.WriteLine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory());
             // TestQuery();
             //  TestManager();
-            // TestConnect();
+             TestConnect();
             //  TestBag();
 
             Console.Read();
@@ -68,11 +68,19 @@ namespace ConsoleApp3
         {
             HikariConfig hikariConfig = new HikariConfig();
             hikariConfig.DBType = "PostgreSQL";
-            hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
+            hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 123456; Database = postgres;Pooling=true; ";
             //hikariConfig.DriverDir = "DBDrivers";
             //hikariConfig.DriverDLL = "XXXX.dll";
-            //hikariConfig.DBTypeXml = "DBType.xml";
-            HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+            HikariDataSource hikariDataSource=null;
+            try
+            {
+                //hikariConfig.DBTypeXml = "DBType.xml";
+                 hikariDataSource = new HikariDataSource(hikariConfig);
+            }
+            catch (Exception ex)
+            {
+                
+            }
             //
             //hikariConfig.LoadConfig("Hikari.txt");
             // hikariDataSource.LoadConfig();
