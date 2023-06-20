@@ -44,6 +44,7 @@ namespace Hikari
         private static int pool_number = 0;//线程池ID
         private const string prefix = "HikariPool-";
         private int logNumTime = 10;//10分钟一次Log
+        private string parameterType = "ParameterType.xml";//字段转换类型
 
         /// <summary>
         /// 
@@ -180,9 +181,15 @@ namespace Hikari
         /// </summary>
         public int DestroyInterval { get { return destroyInterval; } set { destroyInterval = value; } }
 
+        /// <summary>
+        /// 字段转换配置
+        /// </summary>
+        public string ParameterType { get => parameterType; set => parameterType = value; }
+
         public HikariConfig()
         {
             this.dbTypeXml = Path.Combine("DBPoolCfg", "DBType.xml");
+            this.parameterType = Path.Combine("DBPoolCfg", "ParameterType.xml");
         }
 
         /// <summary>

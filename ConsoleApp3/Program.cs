@@ -2,6 +2,7 @@
 using Hikari.Manager;
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace ConsoleApp3
 {
@@ -13,6 +14,9 @@ namespace ConsoleApp3
     {
         static void Main(string[] args)
         {
+            Npgsql.NpgsqlParameter ss = new Npgsql.NpgsqlParameter();
+            ss.NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Oidvector;
+       
             //  Console.WriteLine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory());
             // TestQuery();
             //  TestManager();
@@ -76,6 +80,16 @@ namespace ConsoleApp3
             {
                 //hikariConfig.DBTypeXml = "DBType.xml";
                  hikariDataSource = new HikariDataSource(hikariConfig);
+               Dictionary<string, SqlValue> map = new Dictionary<string, SqlValue>();
+                Dictionary<string, object> mapkk = new Dictionary<string, object>();
+                uint[] ss = new uint[3] {1,2, 3};
+                IPAddress pAddress =  IPAddress.Parse("127.0.0.1");
+                map.Add("p", new SqlValue() { Type= "IPAddress", Value= pAddress });
+                map.Add("m", new SqlValue() { Type="uint[]", Value=ss});
+                mapkk.Add("p", pAddress);
+                mapkk.Add("m", 32);
+                hikariDataSource.ExecuteUpdate("insert into test(temp,kk)values(@p,@m)", map);
+
             }
             catch (Exception ex)
             {
@@ -94,11 +108,17 @@ namespace ConsoleApp3
             //DataTable dt = new DataTable();
             //dt.TableName = "\"Student\"";
             //bulk.BulkCopy(dt);
+
+            
             if (connection1 != null)
             {
                 var cmd = connection1.CreateCommand();
                 cmd.CommandText = "select * from \"Person\"";
-                //  cmd.CommandText = "COPY \"Student\" FROM 'd:/test.csv'  WITH CSV  HEADER";
+                cmd.CommandText = "insert into test(temp)values(@p)";
+
+
+                var p=  cmd.CreateParameter();
+                  cmd.CommandText = "COPY \"Student\" FROM 'd:/test.csv'  WITH CSV  HEADER";
                 //  cmd.ExecuteNonQuery();
 
                 var rd = cmd.ExecuteReader();
@@ -111,7 +131,7 @@ namespace ConsoleApp3
                 //    Console.WriteLine(data);
                 //    datanum++;
                 //}
-                rd.Close();
+              //  rd.Close();
                 //  cmd.Dispose();
                 //  connection1.Close();
                 // Console.WriteLine(datanum);

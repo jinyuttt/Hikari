@@ -21,7 +21,8 @@ namespace Hikari
     /// </summary>
     public class GlobalDBType
     {
-        private static Dictionary<string, DriverDLL> dicDBType = new Dictionary<string, DriverDLL>();
+        private static  Dictionary<string, DriverDLL> dicDBType = new Dictionary<string, DriverDLL>();
+        public static readonly Dictionary<string, Dictionary<string, string>> dicParameterType = new Dictionary<string, Dictionary<string, string>>();
 
         private static readonly object lock_obj = new object();
 
@@ -118,5 +119,43 @@ namespace Hikari
             dicDBType.TryGetValue(dbtype, out driver);
             return driver;
         }
+
+
+
+        /// <summary>
+        /// 加载数据库信息
+        /// 读取数据库类型的DLL文件
+        /// </summary>
+        /// <param name="dbXml"></param>
+        public static void LoadPParameterXml(string dbXml)
+        {
+          
+
+            //2023-04-06
+            if (!File.Exists(dbXml))
+            {
+                Logger.Singleton.Warn("没有配置参数XML文件," + dbXml);
+                return;
+            }
+            if (!lstDBType.Contains(dbXml))
+            {
+                //没有加载过才加载
+                XmlDocument doc = new XmlDocument();
+                doc.Load(dbXml);
+                foreach (XmlNode child in doc.DocumentElement.ChildNodes)
+                {
+
+                    string name=child.Name;
+                    Dictionary<string,string> values = new Dictionary<string,string>();
+                    foreach(XmlNode node in child.ChildNodes)
+                    {
+                        values.Add(node.InnerText, node.Name);
+                    }
+                    dicParameterType[name] = values;
+                }
+                lstDBType.Add(dbXml);
+            }
+        }
+
     }
 }

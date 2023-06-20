@@ -98,6 +98,8 @@ namespace Hikari
                 //全局配置初始化
                 GlobalDBType.LoadXml(this.DBTypeXml);
                 //
+                GlobalDBType.LoadPParameterXml(this.ParameterType);
+                //
                 if (!string.IsNullOrEmpty(this.DBType))
                 {
                     //根据全局配置信息查找DLL
