@@ -203,6 +203,113 @@ namespace Hikari
         }
 
         /// <summary>
+        /// 执行存储过程
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="Sql">存储过程名称</param>
+        /// <param name="valuePairs"></param>
+        /// <param name="outvalues">输出参数</param>
+        /// <returns></returns>
+        public static int ExecuteStoredProcedure(this HikariDataSource source, string Sql, Dictionary<string, object> valuePairs = null,Dictionary<string,object> outvalues=null)
+        {
+            using (var con = source.GetConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = Sql;
+                cmd.CommandType= CommandType.StoredProcedure;
+                if (valuePairs != null)
+                {
+                    foreach (var kv in valuePairs)
+                    {
+                        var p = cmd.CreateParameter();
+                        p.ParameterName = kv.Key;
+                        p.Value = kv.Value;
+                        cmd.Parameters.Add(p);
+                    }
+                }
+                if(outvalues!= null)
+                {
+                    foreach (var kv in outvalues)
+                    { 
+                        var p = cmd.CreateParameter();
+                        p.ParameterName = kv.Key;
+                        p.Value = kv.Value;
+                        p.Direction = ParameterDirection.Output;
+
+                        cmd.Parameters.Add(p);
+                    }
+                }
+                int r= cmd.ExecuteNonQuery();
+
+                //取出输出
+                if (outvalues != null)
+                {
+                    foreach (var kv in outvalues.Keys)
+                    {
+                        IDbDataParameter p = (IDbDataParameter)cmd.Parameters[kv];
+                        outvalues[kv]= p.Value;
+                    }
+                }
+                return r;
+            }
+        }
+
+        /// <summary>
+        /// 执行存储过程
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="Sql">存储过程名称</param>
+        /// <param name="valuePairs"></param>
+        /// <param name="outvalues">输出参数</param>
+        /// <returns></returns>
+        public static DataSet ExecuteStoredProcedureWithValue(this HikariDataSource source, string Sql, Dictionary<string, object> valuePairs = null, Dictionary<string, object> outvalues = null)
+        {
+            using (var con = source.GetConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = Sql;
+                cmd.CommandType = CommandType.StoredProcedure;
+                if (valuePairs != null)
+                {
+                    foreach (var kv in valuePairs)
+                    {
+                        var p = cmd.CreateParameter();
+                        p.ParameterName = "@" + kv.Key;
+                        p.Value = kv.Value;
+                        cmd.Parameters.Add(p);
+                    }
+                }
+                if (outvalues != null)
+                {
+                    foreach (var kv in outvalues)
+                    {
+                        var p = cmd.CreateParameter();
+                        p.ParameterName = "@" + kv.Key;
+                        p.Value = kv.Value;
+                        p.Direction = ParameterDirection.Output;
+
+                        cmd.Parameters.Add(p);
+                    }
+                }
+                 var adapter=  source.DataAdapter;
+                 adapter.SelectCommand = cmd;
+                 DataSet ds = new DataSet();
+                 adapter.Fill(ds);
+
+                //取出输出
+                if (outvalues != null)
+                {
+                    foreach (var kv in outvalues.Keys)
+                    {
+                        IDbDataParameter p = (IDbDataParameter)cmd.Parameters[kv];
+                        outvalues[kv] = p.Value;
+                    }
+                }
+                return ds;
+            }
+        }
+
+        /// <summary>
         /// 批量导入
         /// </summary>
         /// <param name="source"></param>
@@ -340,6 +447,122 @@ namespace Hikari
                 return cmd.ExecuteScalar();
             }
         }
+
+
+        /// <summary>
+        /// 执行存储过程
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="Sql">存储过程名称</param>
+        /// <param name="valuePairs"></param>
+        /// <param name="outvalues">输出参数</param>
+        /// <returns></returns>
+        public static int ExecuteStoredProcedure(this HikariDataSource source, string Sql, Dictionary<string, SqlValue > valuePairs = null, Dictionary<string, SqlValue> outvalues = null)
+        {
+            using (var con = source.GetConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = Sql;
+                cmd.CommandType = CommandType.StoredProcedure;
+                if (valuePairs != null)
+                {
+                    foreach (var kv in valuePairs)
+                    {
+                        var p = cmd.CreateParameter();
+                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        p.ParameterName = kv.Key;
+                        p.Value = kv.Value.Value;
+                        p.DbType = GetDbType(kv.Value.Type);
+                        cmd.Parameters.Add(p);
+                    }
+                }
+                if (outvalues != null)
+                {
+                    foreach (var kv in outvalues)
+                    {
+                        var p = cmd.CreateParameter();
+                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        p.ParameterName = kv.Key;
+                      
+                        p.DbType = GetDbType(kv.Value.Type);
+                        p.Direction = ParameterDirection.Output;
+
+                        cmd.Parameters.Add(p);
+                    }
+                }
+                int r = cmd.ExecuteNonQuery();
+
+                //取出输出
+                if (outvalues != null)
+                {
+                    foreach (var kv in outvalues.Keys)
+                    {
+                        IDbDataParameter p = (IDbDataParameter)cmd.Parameters[kv];
+                        outvalues[kv].Value = p.Value;
+                    }
+                }
+                return r;
+            }
+        }
+
+        /// <summary>
+        /// 执行存储过程
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="Sql"></param>
+        /// <param name="valuePairs"></param>
+        /// <param name="outvalues">输出参数</param>
+        /// <returns></returns>
+        public static DataSet ExecuteStoredProcedureWithValue(this HikariDataSource source, string Sql, Dictionary<string, SqlValue> valuePairs = null, Dictionary<string, SqlValue> outvalues = null)
+        {
+            using (var con = source.GetConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = Sql;
+                cmd.CommandType = CommandType.StoredProcedure;
+                if (valuePairs != null)
+                {
+                    foreach (var kv in valuePairs)
+                    {
+                        var p = cmd.CreateParameter();
+                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        p.ParameterName = kv.Key;
+                        p.Value = kv.Value.Value;
+                        p.DbType = GetDbType(kv.Value.Type);
+                        cmd.Parameters.Add(p);
+                    }
+                }
+                if (outvalues != null)
+                {
+                    foreach (var kv in outvalues)
+                    {
+                        var p = cmd.CreateParameter();
+                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        p.ParameterName =  kv.Key;
+                      
+                        p.DbType = GetDbType(kv.Value.Type);
+                        p.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(p);
+                    }
+                }
+                var adapter = source.DataAdapter;
+                adapter.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);
+
+                //取出输出
+                if (outvalues != null)
+                {
+                    foreach (var kv in outvalues.Keys)
+                    {
+                        IDbDataParameter p = (IDbDataParameter)cmd.Parameters[ kv];
+                        outvalues[kv].Value = p.Value;
+                    }
+                }
+                return ds;
+            }
+        }
+
 
 
     }

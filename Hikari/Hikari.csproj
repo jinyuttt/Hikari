@@ -4,17 +4,17 @@
     <TargetFramework>net7.0</TargetFramework>
     <ApplicationIcon>ICON\Hikari.ico</ApplicationIcon>
     <Win32Resource></Win32Resource>
-    <Version>2.9.3</Version>
+    <Version>2.9.4</Version>
     <Authors>jinyu成都</Authors>
     <Company>个人贡献</Company>
     <Copyright>2019</Copyright>
     <Description>C#数据库连接池,管理多数据库连接</Description>
     <PackageProjectUrl>https://github.com/jinyuttt/Hikari.git</PackageProjectUrl>
-    <AssemblyVersion>2.9.3</AssemblyVersion>
-    <FileVersion>2.9.3</FileVersion>
+    <AssemblyVersion>2.9.4</AssemblyVersion>
+    <FileVersion>2.9.4</FileVersion>
     <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/ICON/Hikari.ico</PackageIconUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageReleaseNotes>增加字段类型</PackageReleaseNotes>
+    <PackageReleaseNotes>增加存储过程调用，修改日志框架Microsoft.Extensions.Logging</PackageReleaseNotes>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -29,8 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.15" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
   </ItemGroup>
 
 

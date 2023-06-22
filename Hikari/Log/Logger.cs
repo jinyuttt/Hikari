@@ -1,7 +1,9 @@
-﻿using log4net;
-using log4net.Config;
+﻿
+
+
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
-using System.Reflection;
 /**
 * 命名空间: Hikari 
 * 类 名： Logger
@@ -10,7 +12,6 @@ using System.Reflection;
 * Copyright (c) jinyu  
 */
 
-[assembly: XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 namespace Hikari
 {
     /// <summary>
@@ -24,15 +25,29 @@ namespace Hikari
     public sealed class Logger
     {
         #region [ 单例模式 ]
+       
 
-        private static Logger logger;
-        private static readonly log4net.ILog _Logger4net = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static Logger logger= null;
+
+        private readonly ILoggerFactory _loggerFactory;
+        
+        private readonly ILogger _logger;
+
+        public Logger() : this(NullLoggerFactory.Instance)
+        {
+            //LoggerFactory.Create(builder => { builder.AddConsole(); });
+            _logger = _loggerFactory.CreateLogger("Hikari");
+        }
 
         /// <summary>  
         /// 无参私有构造函数  
         /// </summary>  
-        private Logger()
+        private Logger(Microsoft.Extensions.Logging.ILoggerFactory loggerFactory)
         {
+            this._loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
+           
+                 _logger = loggerFactory.CreateLogger("Hikari");
+            
         }
 
         /// <summary>  
@@ -44,7 +59,9 @@ namespace Hikari
             {
                 if (logger == null)
                 {
+                   
                     logger = new Logger();
+                   
                 }
                 return logger;
             }
@@ -62,7 +79,7 @@ namespace Hikari
             }
             try
             {
-                XmlConfigurator.ConfigureAndWatch(null, new System.IO.FileInfo(path));
+               // XmlConfigurator.ConfigureAndWatch(null, new System.IO.FileInfo(path));
             }
             catch (Exception ex)
             {
@@ -75,23 +92,23 @@ namespace Hikari
 
         public bool IsDebugEnabled
         {
-            get { return _Logger4net.IsDebugEnabled; }
+            get { return _logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Debug); }
         }
         public bool IsInfoEnabled
         {
-            get { return _Logger4net.IsInfoEnabled; }
+            get { return _logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Information); }
         }
         public bool IsWarnEnabled
         {
-            get { return _Logger4net.IsWarnEnabled; }
+            get { return _logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Warning); }
         }
         public bool IsErrorEnabled
         {
-            get { return _Logger4net.IsErrorEnabled; }
+            get { return _logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Error); }
         }
         public bool IsFatalEnabled
         {
-            get { return _Logger4net.IsFatalEnabled; }
+            get { return _logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Critical); }
         }
 
         #endregion
@@ -279,6 +296,34 @@ namespace Hikari
         #endregion
 
         #region [ 内部方法 ]  
+        ///// <summary>  
+        ///// 输出普通日志  
+        ///// </summary>  
+        ///// <param name="level"></param>  
+        ///// <param name="format"></param>  
+        ///// <param name="args"></param>  
+        //private void Log(LogLevel level, string format, params object[] args)
+        //{
+        //    switch (level)
+        //    {
+        //        case LogLevel.Debug:
+        //            _Logger4net.DebugFormat(format, args);
+        //            break;
+        //        case LogLevel.Info:
+        //            _Logger4net.InfoFormat(format, args);
+        //            break;
+        //        case LogLevel.Warn:
+        //            _Logger4net.WarnFormat(format, args);
+        //            break;
+        //        case LogLevel.Error:
+        //            _Logger4net.ErrorFormat(format, args);
+        //            break;
+        //        case LogLevel.Fatal:
+        //            _Logger4net.FatalFormat(format, args);
+        //            break;
+        //    }
+        //}
+
         /// <summary>  
         /// 输出普通日志  
         /// </summary>  
@@ -290,23 +335,52 @@ namespace Hikari
             switch (level)
             {
                 case LogLevel.Debug:
-                    _Logger4net.DebugFormat(format, args);
+                  
+                     _logger.LogDebug(format, args);
                     break;
                 case LogLevel.Info:
-                    _Logger4net.InfoFormat(format, args);
+                    _logger.LogInformation(format, args);
                     break;
                 case LogLevel.Warn:
-                    _Logger4net.WarnFormat(format, args);
+                    _logger.LogWarning(format, args);
                     break;
                 case LogLevel.Error:
-                    _Logger4net.ErrorFormat(format, args);
+                    _logger.LogError(format, args);
                     break;
                 case LogLevel.Fatal:
-                    _Logger4net.FatalFormat(format, args);
+                    _logger.LogCritical(format, args);
                     break;
             }
         }
 
+
+        ///// <summary>  
+        ///// 格式化输出异常信息  
+        ///// </summary>  
+        ///// <param name="level"></param>  
+        ///// <param name="message"></param>  
+        ///// <param name="exception"></param>  
+        //private void Log(LogLevel level, string message, Exception exception)
+        //{
+        //    switch (level)
+        //    {
+        //        case LogLevel.Debug:
+        //            _Logger4net.Debug(message, exception);
+        //            break;
+        //        case LogLevel.Info:
+        //            _Logger4net.Info(message, exception);
+        //            break;
+        //        case LogLevel.Warn:
+        //            _Logger4net.Warn(message, exception);
+        //            break;
+        //        case LogLevel.Error:
+        //            _Logger4net.Error(message, exception);
+        //            break;
+        //        case LogLevel.Fatal:
+        //            _Logger4net.Fatal(message, exception);
+        //            break;
+        //    }
+        //}
         /// <summary>  
         /// 格式化输出异常信息  
         /// </summary>  
@@ -318,22 +392,23 @@ namespace Hikari
             switch (level)
             {
                 case LogLevel.Debug:
-                    _Logger4net.Debug(message, exception);
+                    _logger.LogDebug(exception,message);
                     break;
                 case LogLevel.Info:
-                    _Logger4net.Info(message, exception);
+                    _logger.LogInformation(exception, message);
                     break;
                 case LogLevel.Warn:
-                    _Logger4net.Warn(message, exception);
+                    _logger.LogWarning(exception, message);
                     break;
                 case LogLevel.Error:
-                    _Logger4net.Error(message, exception);
+                    _logger.LogError(exception, message);
                     break;
                 case LogLevel.Fatal:
-                    _Logger4net.Fatal(message, exception);
+                    _logger.LogCritical(exception, message);
                     break;
             }
         }
+
 
         #endregion
     }

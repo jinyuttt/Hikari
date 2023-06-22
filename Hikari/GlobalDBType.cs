@@ -101,7 +101,7 @@ namespace Hikari
                     // XmlNode cls = child.SelectSingleNode("DriverClass");
                     DriverDLL driver = new DriverDLL();
                     driver.DBType = child.Name;
-                    driver.DriverDLLName = dll == null ? "" : dll.OuterXml;
+                    driver.DriverDLLName = dll == null ? "" : dll.InnerText;
                     dicDBType[driver.DBType] = driver;
                 }
                 lstDBType.Add(dbXml);
