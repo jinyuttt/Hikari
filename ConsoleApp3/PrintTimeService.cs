@@ -2,33 +2,26 @@
 using System.Threading;
 using System;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace ConsoleApp3
 {
-    public class PrintTimeService: IHostedService
+    public class PrintTimeService : BackgroundService
     {
-        public string _Topic { get; set; }
-        public string _ConsumerGroup { get; set; }
+        private readonly ILogger _logger;
 
-       
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public PrintTimeService(ILogger<PrintTimeService> logger)
         {
-           
-            await Task.CompletedTask;
+            _logger = logger;
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            throw new NotImplementedException();
-        }
-        /// <summary>
-        /// 处理消息的方法
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        public virtual bool Process(string message)
-        {
-            throw new NotImplementedException();
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                _logger.LogInformation("The current time is: {CurrentTime}", DateTimeOffset.UtcNow);
+                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+            }
         }
     }
 }

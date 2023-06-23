@@ -1,11 +1,18 @@
-﻿using Hikari;
+﻿
+
+
+using Hikari;
+using Hikari.Log;
 using Hikari.Manager;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Events;
+using Serilog.Extensions.Logging;
+using Serilog.Formatting.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration.Provider;
+using System.Threading;
 
 namespace ConsoleApp3
 {
@@ -18,64 +25,91 @@ namespace ConsoleApp3
         private static string connstr = "server=127.0.0.1;database=mystudy;username=root;password=123456;";
         static void Main(string[] args)
         {
+        
 
-            //Log.Logger = new LoggerConfiguration()
-            //.MinimumLevel.Debug()
-            //.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-            //.Enrich.FromLogContext()
-            //.WriteTo.Console()
-            //.CreateLogger();
-
-            try
+            ServiceCollection services = new ServiceCollection();
+            services.AddSingleton<ILoggerFactory>(sc =>
             {
-              //  Log.Information("Starting host");
-                BuildHost(args);
+                var providerCollection = sc.GetService<LoggerProviderCollection>();
+                var factory = new SerilogLoggerFactory(null, true, providerCollection);
 
-            }
-            catch (Exception ex)
+                foreach (var provider in sc.GetServices<ILoggerProvider>())
+                    factory.AddProvider(provider);
+
+                return factory;
+            });
+
+            services.AddLogging(loggingBuilder =>
             {
-              //  Log.Fatal(ex, "Host terminated unexpectedly");
+                loggingBuilder.AddConsole();
+                Log.Logger = new LoggerConfiguration().
+                MinimumLevel.
+                Debug().
+                Enrich.
+                FromLogContext().
+                WriteTo.Console(new JsonFormatter()).CreateLogger();
+                loggingBuilder.AddSerilog();
+            });
+            services.AddSingleton<HikariLogger>();
+            var serviceProvider = services.BuildServiceProvider();
 
-            }
-            //finally
-            //{
-            //    Log.CloseAndFlush();
-            //}
+            //
+          
+            SerilogLoggerProvider provider = new SerilogLoggerProvider(Log.Logger);
+          //  LoggerProviderCollection providerCollection = new LoggerProviderCollection();
+           // providerCollection.AddProvider(provider);
+           // var factory = new SerilogLoggerFactory(null, true, providerCollection);
+           // HikariLogger hikariLogger=new HikariLogger(factory);
+            HikariLogger hikariLogger1 = new HikariLogger(provider.CreateLogger("HikariLogger"));
+            Hikari.Logger.Singleton.HKLogger = hikariLogger1;
+            //Hikari.Logger.Singleton.HKLogger = hikariLogger;
+            var hillogrt= serviceProvider.GetRequiredService<HikariLogger>();
 
+           
             Npgsql.NpgsqlParameter ss = new Npgsql.NpgsqlParameter();
             ss.NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Oidvector;
+            while (true)
+            {
+                Logger.Singleton.Info("测试INFO");
 
+                Thread.Sleep(5000);
+
+                Logger.Singleton.Error("测试Error");
+
+                Logger.Singleton.Fatal("Fatal");
+            }
             //  Console.WriteLine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory());
             // TestQuery();
             //  TestManager();
-            TestConnect();
+            // TestConnect();
             //  TestBag();
 
             Console.Read();
 
         }
-
-        public static IHost BuildHost(string[] args)
+        private static void Add()
         {
-            return new HostBuilder()
-            .ConfigureServices(services => services.AddSingleton<IHostedService, PrintTimeService>())
-            .UseSerilog((context, configuration) =>
+            ServiceCollection services = new ServiceCollection();
+            //添加日志到容器
+
+            services.AddLogging(loggingBuilder =>
             {
-                configuration
-                .MinimumLevel.Information()
-                // 日志调用类命名空间如果以 Microsoft 开头，覆盖日志输出最小级别为 Information
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                // 配置日志输出到控制台
-                .WriteTo.Console();
-                // 配置日志输出到文件，文件输出到当前项目的 logs 目录下
-                // 日记的生成周期为每天
-               // .WriteTo.File(Path.Combine("logs", @"log.txt"), rollingInterval: RollingInterval.Day)
-                // 创建 logger
-               // .CreateLogger();
-            }) // <- Add this line
-            .Build();
+                loggingBuilder.AddConsole();
+
+                Log.Logger = new LoggerConfiguration().
+               MinimumLevel.
+               Debug().
+               Enrich.
+               FromLogContext().
+               WriteTo.Console(new JsonFormatter()).CreateLogger();
+                loggingBuilder.AddSerilog();
+            });
+            services.AddScoped<HikariLogger>();
         }
+
+      
+
+        
    
 
     //private static void TestBag()

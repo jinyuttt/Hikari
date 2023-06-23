@@ -164,11 +164,7 @@ namespace Hikari
         /// </summary>
         public string DBType { get; set; }
 
-        /// <summary>
-        /// 日志配置文件
-        /// </summary>
-        public string LogConfig { get { return logConfig; } set { logConfig = value; LogConfiguration(); } }
-
+        
         /// <summary>
         /// log日志输出池中个数的时间间隔
         /// 该日志是DEBUG类型
@@ -236,14 +232,7 @@ namespace Hikari
 
         }
 
-        /// <summary>
-        /// 配置日志
-        /// </summary>
-        private void LogConfiguration()
-        {
-            Logger.Singleton.LogConfiguration(logConfig);
-        }
-
+      
         private string GetNullIfEmpty(string catalog)
         {
             return catalog;

@@ -20,6 +20,26 @@ hikariConfig.LoadConfig("Hikari.txt");
 HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 
 ```
+
+日志框架（默认Microsoft.Extensions.Logging,用Serilog替换Serilog.Extensions.Logging):
+
+```
+ Log.Logger = new LoggerConfiguration().
+                MinimumLevel.
+                Debug().
+                Enrich.
+                FromLogContext().
+                WriteTo.Console(new JsonFormatter()).CreateLogger();
+  SerilogLoggerProvider provider = new SerilogLoggerProvider(Log.Logger);
+          //  LoggerProviderCollection providerCollection = new LoggerProviderCollection();
+           // providerCollection.AddProvider(provider);
+           // var factory = new SerilogLoggerFactory(null, true, providerCollection);
+           // HikariLogger hikariLogger=new HikariLogger(factory);
+            HikariLogger hikariLogger1 = new HikariLogger(provider.CreateLogger("HikariLogger"));
+            Hikari.Logger.Singleton.HKLogger = hikariLogger1;
+            //Hikari.Logger.Singleton.HKLogger = hikariLogger;
+
+```
 使用连接
 hikariDataSource.GetConnection();  
 使用批量处理接口
