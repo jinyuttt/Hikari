@@ -171,7 +171,7 @@ namespace Hikari
             {
                 throw new SQLException(poolName + " - Interrupted during connection acquisition", e);
             }
-            throw new SQLException(poolName + " 无法获取连接对象,需要检测网络或者数据库服务");
+            throw new SQLException(poolName + " 无法获取连接对象,需要检测网络或者数据库服务或者数据库驱动不在配置的文件夹中！");
         }
 
         /// <summary>

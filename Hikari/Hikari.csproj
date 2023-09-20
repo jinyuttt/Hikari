@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ApplicationIcon>ICON\Hikari.ico</ApplicationIcon>
     <Win32Resource></Win32Resource>
-    <Version>2.9.5</Version>
+    <Version>2.9.6</Version>
     <Authors>jinyu成都</Authors>
     <Company>个人贡献</Company>
     <Copyright>2019</Copyright>
@@ -14,7 +14,7 @@
     <FileVersion>2.9.5</FileVersion>
     <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/ICON/Hikari.ico</PackageIconUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageReleaseNotes>修改日志框架增加替换接口</PackageReleaseNotes>
+    <PackageReleaseNotes>更新Npgsql</PackageReleaseNotes>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -38,7 +38,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql" Version="7.0.4" />
+    <PackageReference Include="Npgsql" Version="7.0.6" />
     <PackageReference Include="Npgsql.Bulk" Version="0.10.3" />
   </ItemGroup>
 

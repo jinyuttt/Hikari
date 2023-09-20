@@ -339,7 +339,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "Npgsql/7.0.4": {
+      "Npgsql/7.0.6": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "6.0.0"
@@ -959,10 +959,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Npgsql/7.0.4": {
-      "sha512": "7UVPYy2RP0ci04PED1tc9ZCaTw/DfSdSkLiGEFCAvwMwsgA/bAluj1liNzP1IpN0MFofnOF0cm1zJfmbEuCehg==",
+    "Npgsql/7.0.6": {
+      "sha512": "TAqvwRnm3NJ0QvN7cvu6geJkbI0XPzGVRElVY5hF4gsgA+BnE12x6GM1TLhdeq+7ZKvvo3BD8jXKnXmr3tvdEw==",
       "type": "package",
-      "path": "npgsql/7.0.4",
+      "path": "npgsql/7.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -979,7 +979,7 @@
         "lib/netstandard2.0/Npgsql.xml",
         "lib/netstandard2.1/Npgsql.dll",
         "lib/netstandard2.1/Npgsql.xml",
-        "npgsql.7.0.4.nupkg.sha512",
+        "npgsql.7.0.6.nupkg.sha512",
         "npgsql.nuspec",
         "postgresql.png"
       ]
@@ -1247,7 +1247,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Microsoft.Extensions.Logging.Console >= 7.0.0",
-      "Npgsql >= 7.0.4",
+      "Npgsql >= 7.0.6",
       "Npgsql.Bulk >= 0.10.3"
     ]
   },
@@ -1256,13 +1256,13 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.9.5",
+    "version": "2.9.6",
     "restore": {
-      "projectUniqueName": "E:\\study\\Hria\\Hikari\\Hikari\\Hikari.csproj",
+      "projectUniqueName": "E:\\study\\hirai\\Hikari\\Hikari\\Hikari.csproj",
       "projectName": "Hikari",
-      "projectPath": "E:\\study\\Hria\\Hikari\\Hikari\\Hikari.csproj",
+      "projectPath": "E:\\study\\hirai\\Hikari\\Hikari\\Hikari.csproj",
       "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
-      "outputPath": "E:\\study\\Hria\\Hikari\\Hikari\\obj\\",
+      "outputPath": "E:\\study\\hirai\\Hikari\\Hikari\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1302,7 +1302,7 @@
           },
           "Npgsql": {
             "target": "Package",
-            "version": "[7.0.4, )"
+            "version": "[7.0.6, )"
           },
           "Npgsql.Bulk": {
             "target": "Package",
@@ -1325,7 +1325,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
       }
     }
   }
