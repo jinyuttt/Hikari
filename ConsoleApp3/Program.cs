@@ -11,12 +11,16 @@ using Serilog.Extensions.Logging;
 using Serilog.Formatting.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration.Provider;
 using System.Threading;
 
 namespace ConsoleApp3
 {
+    public class SQLP
+    {
+        public Object Value { get; set; }
 
+        public string DateType { get; set; }
+    }
     /// <summary>
     /// 数据库连接池测试
     /// </summary>
@@ -68,18 +72,18 @@ namespace ConsoleApp3
            
             Npgsql.NpgsqlParameter ss = new Npgsql.NpgsqlParameter();
             ss.NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Oidvector;
-            while (true)
-            {
-                Logger.Singleton.Info("测试INFO");
+            //while (true)
+            //{
+            //    Logger.Singleton.Info("测试INFO");
 
-                Thread.Sleep(5000);
+            //    Thread.Sleep(5000);
 
-                Logger.Singleton.Error("测试Error");
+            //    Logger.Singleton.Error("测试Error");
 
-                Logger.Singleton.Fatal("Fatal");
-            }
+            //    Logger.Singleton.Fatal("Fatal");
+            //}
             //  Console.WriteLine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory());
-            // TestQuery();
+           //  TestQuery();
             //  TestManager();
             // TestConnect();
             //  TestBag();
@@ -283,11 +287,16 @@ namespace ConsoleApp3
             string sql = "select * from  person where id=@ID";
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic["ID"] = 1;
+
+
+            Dictionary<string, SQLP> tmp = new Dictionary<string, SQLP>();
+            tmp["ID"] = new SQLP() { DateType = "String", Value = "32" };
+
             HikariConfig hikariConfig = new HikariConfig();
             hikariConfig.DBType = "PostgreSQL";
-            hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 1234; Database = postgres;Pooling=true; ";
+            hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 123456; Database = postgres;Pooling=true; ";
             HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-            var ds = hikariDataSource.ExecuteQuery(sql, dic);
+            var ds = hikariDataSource.ExecuteQuery(sql, tmp);
         }
         private static void TestManager()
         {

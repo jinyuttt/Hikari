@@ -11,13 +11,13 @@ namespace Hikari
     {
 
         /// <summary>
-        /// 类型隐射
+        /// 类型映射
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
         private static DbType GetDbType(string name)
         {
-            
+
             DbType db = DbType.Object;
             switch (name)
             {
@@ -25,9 +25,9 @@ namespace Hikari
                 case "Char[]":
                     db = DbType.String;
                     break;
-            ;
-                    case "Number":
-                        db = DbType.Int32;
+                    ;
+                case "Number":
+                    db = DbType.Int32;
                     break;
                 case "Byte[]":
                     db = DbType.Binary;
@@ -210,13 +210,13 @@ namespace Hikari
         /// <param name="valuePairs"></param>
         /// <param name="outvalues">输出参数</param>
         /// <returns></returns>
-        public static int ExecuteStoredProcedure(this HikariDataSource source, string Sql, Dictionary<string, object> valuePairs = null,Dictionary<string,object> outvalues=null)
+        public static int ExecuteStoredProcedure(this HikariDataSource source, string Sql, Dictionary<string, object> valuePairs = null, Dictionary<string, object> outvalues = null)
         {
             using (var con = source.GetConnection())
             {
                 var cmd = con.CreateCommand();
                 cmd.CommandText = Sql;
-                cmd.CommandType= CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
                 if (valuePairs != null)
                 {
                     foreach (var kv in valuePairs)
@@ -227,10 +227,10 @@ namespace Hikari
                         cmd.Parameters.Add(p);
                     }
                 }
-                if(outvalues!= null)
+                if (outvalues != null)
                 {
                     foreach (var kv in outvalues)
-                    { 
+                    {
                         var p = cmd.CreateParameter();
                         p.ParameterName = kv.Key;
                         p.Value = kv.Value;
@@ -239,7 +239,7 @@ namespace Hikari
                         cmd.Parameters.Add(p);
                     }
                 }
-                int r= cmd.ExecuteNonQuery();
+                int r = cmd.ExecuteNonQuery();
 
                 //取出输出
                 if (outvalues != null)
@@ -247,7 +247,7 @@ namespace Hikari
                     foreach (var kv in outvalues.Keys)
                     {
                         IDbDataParameter p = (IDbDataParameter)cmd.Parameters[kv];
-                        outvalues[kv]= p.Value;
+                        outvalues[kv] = p.Value;
                     }
                 }
                 return r;
@@ -291,10 +291,10 @@ namespace Hikari
                         cmd.Parameters.Add(p);
                     }
                 }
-                 var adapter=  source.DataAdapter;
-                 adapter.SelectCommand = cmd;
-                 DataSet ds = new DataSet();
-                 adapter.Fill(ds);
+                var adapter = source.DataAdapter;
+                adapter.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);
 
                 //取出输出
                 if (outvalues != null)
@@ -358,6 +358,41 @@ namespace Hikari
         }
 
         /// <summary>
+        /// 转换参数
+        /// </summary>
+        /// <typeparam name="T">泛型参数</typeparam>
+        /// <param name="valuePairs">SQL参数</param>
+        /// <returns></returns>
+        private static Dictionary<string, SqlValue> ConvertSqlValue<T>(Dictionary<string, T> valuePairs) where T:class
+        {
+            Dictionary<string, SqlValue> keyValuePairs = new Dictionary<string, SqlValue>();
+            if (valuePairs == null || valuePairs.Count == 0)
+            {
+                return keyValuePairs;
+            }
+            foreach (var kv in valuePairs)
+            {
+                var sqlvalue = HikariExtensionHelpers.ConvertSqlValue(kv.Value);
+                keyValuePairs.Add(kv.Key, sqlvalue);
+            }
+            return keyValuePairs;
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <typeparam name="T">泛型参数，需要SqlValue相同属性</typeparam>
+        /// <param name="source"></param>
+        /// <param name="querySql"></param>
+        /// <param name="valuePairs"></param>
+        /// <returns></returns>
+        public static DataSet ExecuteQuery<T>(this HikariDataSource source, string querySql, Dictionary<string, T> valuePairs = null) where T:class
+        {
+            var dic = ConvertSqlValue<T>(valuePairs);
+            return ExecuteQuery(source, querySql, dic);
+        }
+
+        /// <summary>
         /// 查询数据
         /// 例如：select * from Person where id=@ID
         ///  valuePairs["ID"]=1;
@@ -380,11 +415,25 @@ namespace Hikari
                     HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                     p.ParameterName = "@" + kv.Key;
                     p.Value = kv.Value.Value;
-                    p.DbType = GetDbType(kv.Value.Type) ;
+                    p.DbType = GetDbType(kv.Value.Type);
                     cmd.Parameters.Add(p);
                 }
             }
             return cmd.ExecuteReader();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T">需要SqlValue相同属性</typeparam>
+        /// <param name="source"></param>
+        /// <param name="querySql"></param>
+        /// <param name="valuePairs"></param>
+        /// <returns></returns>
+        public static IDataReader ExecuteQueryReader<T>(this HikariDataSource source, string querySql, Dictionary<string, T> valuePairs = null) where T : class
+        {
+            var dic = ConvertSqlValue<T>(valuePairs);
+            return ExecuteQueryReader(source, querySql, dic);
         }
 
         /// <summary>
@@ -396,7 +445,7 @@ namespace Hikari
         /// <param name="Sql"></param>
         /// <param name="valuePairs"></param>
         /// <returns></returns>
-        public static int ExecuteUpdate(this HikariDataSource source, string Sql, Dictionary<string, SqlValue> valuePairs = null)
+        public static int ExecuteUpdate(this HikariDataSource source, string Sql, Dictionary<string, SqlValue> valuePairs = null) 
         {
             using (var con = source.GetConnection())
             {
@@ -411,12 +460,26 @@ namespace Hikari
                         p.Value = kv.Value.Value;
                         HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = "@" + kv.Key;
-                      
+
                         cmd.Parameters.Add(p);
                     }
                 }
                 return cmd.ExecuteNonQuery();
             }
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <typeparam name="T">需要SqlValue相同属性</typeparam>
+        /// <param name="source"></param>
+        /// <param name="Sql"></param>
+        /// <param name="valuePairs"></param>
+        /// <returns></returns>
+        public static int ExecuteUpdate<T>(this HikariDataSource source, string Sql, Dictionary<string, T> valuePairs = null)where T : class
+        {
+            var dic = ConvertSqlValue<T>(valuePairs);
+            return ExecuteUpdate(source, Sql, dic);
         }
 
         /// <summary>
@@ -440,7 +503,7 @@ namespace Hikari
                         HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = "@" + kv.Key;
                         p.Value = kv.Value.Value;
-                        p.DbType = GetDbType(kv.Value.Type) ;
+                        p.DbType = GetDbType(kv.Value.Type);
                         cmd.Parameters.Add(p);
                     }
                 }
@@ -448,6 +511,18 @@ namespace Hikari
             }
         }
 
+        /// <summary>
+        /// 执行
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="Sql"></param>
+        /// <param name="valuePairs"></param>
+        /// <returns></returns>
+        public static object ExecuteScalar<T>(this HikariDataSource source, string Sql, Dictionary<string, T> valuePairs = null)where T : class
+        {
+            var dic = ConvertSqlValue<T>(valuePairs);
+            return ExecuteScalar(source, Sql, dic);
+        }
 
         /// <summary>
         /// 执行存储过程
@@ -457,7 +532,7 @@ namespace Hikari
         /// <param name="valuePairs"></param>
         /// <param name="outvalues">输出参数</param>
         /// <returns></returns>
-        public static int ExecuteStoredProcedure(this HikariDataSource source, string Sql, Dictionary<string, SqlValue > valuePairs = null, Dictionary<string, SqlValue> outvalues = null)
+        public static int ExecuteStoredProcedure(this HikariDataSource source, string Sql, Dictionary<string, SqlValue> valuePairs = null, Dictionary<string, SqlValue> outvalues = null)
         {
             using (var con = source.GetConnection())
             {
@@ -483,7 +558,7 @@ namespace Hikari
                         var p = cmd.CreateParameter();
                         HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = kv.Key;
-                      
+
                         p.DbType = GetDbType(kv.Value.Type);
                         p.Direction = ParameterDirection.Output;
 
@@ -538,8 +613,8 @@ namespace Hikari
                     {
                         var p = cmd.CreateParameter();
                         HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
-                        p.ParameterName =  kv.Key;
-                      
+                        p.ParameterName = kv.Key;
+
                         p.DbType = GetDbType(kv.Value.Type);
                         p.Direction = ParameterDirection.Output;
                         cmd.Parameters.Add(p);
@@ -555,7 +630,7 @@ namespace Hikari
                 {
                     foreach (var kv in outvalues.Keys)
                     {
-                        IDbDataParameter p = (IDbDataParameter)cmd.Parameters[ kv];
+                        IDbDataParameter p = (IDbDataParameter)cmd.Parameters[kv];
                         outvalues[kv].Value = p.Value;
                     }
                 }
@@ -563,7 +638,19 @@ namespace Hikari
             }
         }
 
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T">需要SqlValue相同属性</typeparam>
+        /// <param name="source"></param>
+        /// <param name="Sql"></param>
+        /// <param name="valuePairs"></param>
+        /// <param name="outvalues"></param>
+        /// <returns></returns>
+        public static DataSet ExecuteStoredProcedureWithValue<T>(this HikariDataSource source, string Sql, Dictionary<string, T> valuePairs = null, Dictionary<string, SqlValue> outvalues = null) where T : class
+        {
+            var div = ConvertSqlValue<T>(valuePairs);
+            return ExecuteStoredProcedureWithValue(source, Sql, div);
+        }
     }
 }

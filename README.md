@@ -51,6 +51,8 @@ var bulk= hikariDataSource.GetBulkCopy();
 ManagerPool.Singleton.GetDbConnection(MySql);   
 ManagerPool.Singleton.GetBulkCopy(MySql);   
 
+
+
 操作数据库
 ```
             string sql = "select * from  person where id=@ID";  
@@ -80,7 +82,7 @@ ManagerPool.Singleton.GetBulkCopy(MySql);
 
 ```
  
-		
+使用SQLValue提供泛型，程序只需要有相同属性定义的类即可		
 详细使用可以查看例子   
 
 ## 配置文件说明

@@ -1256,13 +1256,13 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.9.6",
+    "version": "2.9.7",
     "restore": {
-      "projectUniqueName": "E:\\study\\hirai\\Hikari\\Hikari\\Hikari.csproj",
+      "projectUniqueName": "E:\\study\\Hira\\Hikari\\Hikari\\Hikari.csproj",
       "projectName": "Hikari",
-      "projectPath": "E:\\study\\hirai\\Hikari\\Hikari\\Hikari.csproj",
+      "projectPath": "E:\\study\\Hira\\Hikari\\Hikari\\Hikari.csproj",
       "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
-      "outputPath": "E:\\study\\hirai\\Hikari\\Hikari\\obj\\",
+      "outputPath": "E:\\study\\Hira\\Hikari\\Hikari\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
