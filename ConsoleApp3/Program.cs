@@ -4,6 +4,7 @@
 using Hikari;
 using Hikari.Log;
 using Hikari.Manager;
+using Hikari.PropertyWrapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -29,7 +30,11 @@ namespace ConsoleApp3
         private static string connstr = "server=127.0.0.1;database=mystudy;username=root;password=123456;";
         static void Main(string[] args)
         {
-        
+            //SQLP qLP = new SQLP();
+            //var property = new PropertyValue<SQLP>(qLP);
+            //property.Set("DataType", "int");
+            //property.Set("Value", 43);
+
 
             ServiceCollection services = new ServiceCollection();
             services.AddSingleton<ILoggerFactory>(sc =>
@@ -83,7 +88,7 @@ namespace ConsoleApp3
             //    Logger.Singleton.Fatal("Fatal");
             //}
             //  Console.WriteLine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory());
-           //  TestQuery();
+             TestQuery();
             //  TestManager();
             // TestConnect();
             //  TestBag();

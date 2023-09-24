@@ -341,7 +341,8 @@ namespace Hikari
                     foreach (var kv in valuePairs)
                     {
                         var p = cmd.CreateParameter();
-                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
+                        //HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = "@" + kv.Key;
                         p.Value = kv.Value.Value;
                         p.DbType = GetDbType(kv.Value.Type);
@@ -412,7 +413,8 @@ namespace Hikari
                 foreach (var kv in valuePairs)
                 {
                     var p = cmd.CreateParameter();
-                    HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                    HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
+                    // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                     p.ParameterName = "@" + kv.Key;
                     p.Value = kv.Value.Value;
                     p.DbType = GetDbType(kv.Value.Type);
@@ -458,7 +460,8 @@ namespace Hikari
                         var p = cmd.CreateParameter();
                         p.DbType = GetDbType(kv.Value.Type);
                         p.Value = kv.Value.Value;
-                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
+                        // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = "@" + kv.Key;
 
                         cmd.Parameters.Add(p);
@@ -500,7 +503,8 @@ namespace Hikari
                     foreach (var kv in valuePairs)
                     {
                         var p = cmd.CreateParameter();
-                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
+                        //  HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = "@" + kv.Key;
                         p.Value = kv.Value.Value;
                         p.DbType = GetDbType(kv.Value.Type);
@@ -544,7 +548,8 @@ namespace Hikari
                     foreach (var kv in valuePairs)
                     {
                         var p = cmd.CreateParameter();
-                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
+                        // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = kv.Key;
                         p.Value = kv.Value.Value;
                         p.DbType = GetDbType(kv.Value.Type);
@@ -556,7 +561,8 @@ namespace Hikari
                     foreach (var kv in outvalues)
                     {
                         var p = cmd.CreateParameter();
-                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
+                        // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = kv.Key;
 
                         p.DbType = GetDbType(kv.Value.Type);
@@ -600,7 +606,8 @@ namespace Hikari
                     foreach (var kv in valuePairs)
                     {
                         var p = cmd.CreateParameter();
-                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
+                        // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = kv.Key;
                         p.Value = kv.Value.Value;
                         p.DbType = GetDbType(kv.Value.Type);
@@ -612,7 +619,8 @@ namespace Hikari
                     foreach (var kv in outvalues)
                     {
                         var p = cmd.CreateParameter();
-                        HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
+                        HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
+                        // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = kv.Key;
 
                         p.DbType = GetDbType(kv.Value.Type);
