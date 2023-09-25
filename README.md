@@ -31,13 +31,8 @@ HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
                 FromLogContext().
                 WriteTo.Console(new JsonFormatter()).CreateLogger();
   SerilogLoggerProvider provider = new SerilogLoggerProvider(Log.Logger);
-          //  LoggerProviderCollection providerCollection = new LoggerProviderCollection();
-           // providerCollection.AddProvider(provider);
-           // var factory = new SerilogLoggerFactory(null, true, providerCollection);
-           // HikariLogger hikariLogger=new HikariLogger(factory);
             HikariLogger hikariLogger1 = new HikariLogger(provider.CreateLogger("HikariLogger"));
             Hikari.Logger.Singleton.HKLogger = hikariLogger1;
-            //Hikari.Logger.Singleton.HKLogger = hikariLogger;
 
 ```
 使用连接

@@ -18,7 +18,7 @@ namespace ConsoleApp3
 {
     public class SQLP
     {
-        public Object Value { get; set; }
+        public string Value { get; set; }
 
         public string DateType { get; set; }
     }
@@ -295,7 +295,7 @@ namespace ConsoleApp3
 
 
             Dictionary<string, SQLP> tmp = new Dictionary<string, SQLP>();
-            tmp["ID"] = new SQLP() { DateType = "Int32", Value =32 };
+            tmp["ID"] = new SQLP() { DateType = "Int32", Value ="33" };
 
             HikariConfig hikariConfig = new HikariConfig();
             hikariConfig.DBType = "PostgreSQL";

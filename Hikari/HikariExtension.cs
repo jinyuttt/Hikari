@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace Hikari
@@ -85,6 +87,25 @@ namespace Hikari
         }
 
         /// <summary>
+        /// 对字符串值转换处理
+        /// </summary>
+        /// <param name="dataType"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        private static object CheckString(string dataType, object v)
+        {
+            if(dataType == null) return v;
+            if (v.GetType().Name == "String" && dataType != "String")
+            {
+                if (Enum.TryParse(typeof(TypeCode), dataType, out var result))
+                {
+                    v = Convert.ChangeType(v, (TypeCode)result);
+                }
+            }
+            return v;
+        }
+
+        /// <summary>
         /// 查询数据
         /// 例如：select * from Person where id=@ID
         /// valuePairs["ID"]=1;
@@ -104,8 +125,8 @@ namespace Hikari
                     foreach (var kv in valuePairs)
                     {
                         var p = cmd.CreateParameter();
-                        p.ParameterName = "@" + kv.Key;
-                        p.Value = kv.Value;
+                        p.ParameterName = "@" + kv.Key.TrimStart('@');
+                        p.Value =kv.Value;
                         cmd.Parameters.Add(p);
                     }
                 }
@@ -138,7 +159,7 @@ namespace Hikari
                 foreach (var kv in valuePairs)
                 {
                     var p = cmd.CreateParameter();
-                    p.ParameterName = "@" + kv.Key;
+                    p.ParameterName = "@" + kv.Key.TrimStart('@');
                     p.Value = kv.Value;
                     cmd.Parameters.Add(p);
                 }
@@ -166,7 +187,7 @@ namespace Hikari
                     foreach (var kv in valuePairs)
                     {
                         var p = cmd.CreateParameter();
-                        p.ParameterName = "@" + kv.Key;
+                        p.ParameterName = "@" + kv.Key.TrimStart('@');
                         p.Value = kv.Value;
                         cmd.Parameters.Add(p);
                     }
@@ -193,7 +214,7 @@ namespace Hikari
                     foreach (var kv in valuePairs)
                     {
                         var p = cmd.CreateParameter();
-                        p.ParameterName = "@" + kv.Key;
+                        p.ParameterName = "@" + kv.Key.TrimStart('@');
                         p.Value = kv.Value;
                         cmd.Parameters.Add(p);
                     }
@@ -274,7 +295,7 @@ namespace Hikari
                     foreach (var kv in valuePairs)
                     {
                         var p = cmd.CreateParameter();
-                        p.ParameterName = "@" + kv.Key;
+                        p.ParameterName = "@" + kv.Key.TrimStart('@');
                         p.Value = kv.Value;
                         cmd.Parameters.Add(p);
                     }
@@ -284,7 +305,7 @@ namespace Hikari
                     foreach (var kv in outvalues)
                     {
                         var p = cmd.CreateParameter();
-                        p.ParameterName = "@" + kv.Key;
+                        p.ParameterName = "@" + kv.Key.TrimStart('@');
                         p.Value = kv.Value;
                         p.Direction = ParameterDirection.Output;
 
@@ -342,9 +363,9 @@ namespace Hikari
                     {
                         var p = cmd.CreateParameter();
                         HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
-                        //HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
-                        p.ParameterName = "@" + kv.Key;
-                        p.Value = kv.Value.Value;
+                        
+                        p.ParameterName = "@" + kv.Key.TrimStart('@');
+                        p.Value =CheckString(kv.Value.Type, kv.Value.Value);
                         p.DbType = GetDbType(kv.Value.Type);
                         cmd.Parameters.Add(p);
                     }
@@ -415,8 +436,8 @@ namespace Hikari
                     var p = cmd.CreateParameter();
                     HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
                     // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
-                    p.ParameterName = "@" + kv.Key;
-                    p.Value = kv.Value.Value;
+                    p.ParameterName = "@" + kv.Key.TrimStart('@');
+                    p.Value = CheckString(kv.Value.Type, kv.Value.Value);
                     p.DbType = GetDbType(kv.Value.Type);
                     cmd.Parameters.Add(p);
                 }
@@ -459,10 +480,10 @@ namespace Hikari
                     {
                         var p = cmd.CreateParameter();
                         p.DbType = GetDbType(kv.Value.Type);
-                        p.Value = kv.Value.Value;
+                        p.Value = CheckString(kv.Value.Type, kv.Value.Value);
                         HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
-                        // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
-                        p.ParameterName = "@" + kv.Key;
+                        
+                        p.ParameterName = "@" + kv.Key.TrimStart('@');
 
                         cmd.Parameters.Add(p);
                     }
@@ -505,8 +526,8 @@ namespace Hikari
                         var p = cmd.CreateParameter();
                         HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
                         //  HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
-                        p.ParameterName = "@" + kv.Key;
-                        p.Value = kv.Value.Value;
+                        p.ParameterName = "@" + kv.Key.TrimStart('@');
+                        p.Value = CheckString(kv.Value.Type, kv.Value.Value);
                         p.DbType = GetDbType(kv.Value.Type);
                         cmd.Parameters.Add(p);
                     }
@@ -551,7 +572,7 @@ namespace Hikari
                         HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
                         // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
                         p.ParameterName = kv.Key;
-                        p.Value = kv.Value.Value;
+                        p.Value = CheckString(kv.Value.Type, kv.Value.Value);
                         p.DbType = GetDbType(kv.Value.Type);
                         cmd.Parameters.Add(p);
                     }
@@ -563,7 +584,7 @@ namespace Hikari
                         var p = cmd.CreateParameter();
                         HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
                         // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
-                        p.ParameterName = kv.Key;
+                        p.ParameterName = kv.Key.TrimStart('@');
 
                         p.DbType = GetDbType(kv.Value.Type);
                         p.Direction = ParameterDirection.Output;
@@ -608,8 +629,8 @@ namespace Hikari
                         var p = cmd.CreateParameter();
                         HikariExtensionHelpers.SetParameter(p, kv.Value.Type, kv.Value.Value);
                         // HikariExtensionHelpers.SetParameter(kv.Value.Type, p);
-                        p.ParameterName = kv.Key;
-                        p.Value = kv.Value.Value;
+                        p.ParameterName = kv.Key.TrimStart('@');
+                        p.Value = CheckString(kv.Value.Type, kv.Value.Value);
                         p.DbType = GetDbType(kv.Value.Type);
                         cmd.Parameters.Add(p);
                     }

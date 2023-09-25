@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ApplicationIcon>ICON\Hikari.ico</ApplicationIcon>
     <Win32Resource></Win32Resource>
-    <Version>2.9.8</Version>
+    <Version>2.9.9</Version>
     <Authors>jinyu成都</Authors>
     <Company>个人贡献</Company>
     <Copyright>2019</Copyright>
@@ -14,7 +14,7 @@
     <FileVersion>2.9.8</FileVersion>
     <PackageIconUrl>https://raw.githubusercontent.com/jinyuttt/Hikari/master/Hikari/ICON/Hikari.ico</PackageIconUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageReleaseNotes>优化参数化SQL,使用原始驱动库设置值</PackageReleaseNotes>
+    <PackageReleaseNotes>优化参数化，规范类型使用，增加值类型转换成datatype指定类型。</PackageReleaseNotes>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

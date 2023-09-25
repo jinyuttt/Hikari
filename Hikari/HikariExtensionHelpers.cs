@@ -21,38 +21,7 @@ internal  class HikariExtensionHelpers
 
 
 
-    ///// <summary>
-    ///// 设置一次数据库专有类型
-    ///// </summary>
-    ///// <param name="sqlValue"></param>
-    ///// <param name="value"></param>
-    ///// <returns></returns>
-    //public static bool SetParameter(string sqlValue, IDbDataParameter value)
-    //{
-
-    //    string name = value.GetType().Name.Replace("Parameter","");
-    //    Dictionary<string, string> parameters = new Dictionary<string, string>();
-    //    if (GlobalDBType.dicParameterType.TryGetValue
-    //        (name, out parameters))
-    //    {
-    //        if (parameters.TryGetValue(sqlValue, out string valueString))
-    //        {
-
-    //            //赋值
-    //            string dbp = name + "DbType";
-    //            var dbtype = value.GetType().GetProperty(dbp);
-    //            if (dbtype != null)
-    //            {
-    //                Object v = Enum.Parse(dbtype.PropertyType, valueString, true);
-    //               // dbtype.SetValue(value, v, null);
-    //                PropertyValue<IDbDataParameter> property = new(value);
-    //                property.Set(dbp, v);
-    //            }
-    //        }
-
-    //    }
-    //    return false;
-    //}
+   
 
     /// <summary>
     /// 赋值类型和值 20230924
@@ -68,6 +37,14 @@ internal  class HikariExtensionHelpers
         //赋值
         string dbp = name + "DbType";
         string dbv = name + "Value";
+        if (v.GetType().Name == "String" && dataType != "String")
+        {
+            if (Enum.TryParse(typeof(TypeCode), dataType, out var result))
+            {
+               v= Convert.ChangeType(v,(TypeCode) result);
+            }
+        }
+        
         var dbtype = value.GetType().GetProperty(dbp);
         var dbvalue = value.GetType().GetProperty(dbv);
         PropertyValue<IDbDataParameter> property = new(value);
