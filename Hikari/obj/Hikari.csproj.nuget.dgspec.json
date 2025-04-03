@@ -1,28 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "E:\\study\\Hira\\Hikari\\Hikari\\Hikari.csproj": {}
+    "E:\\github\\Hikari\\Hikari\\Hikari.csproj": {}
   },
   "projects": {
-    "E:\\study\\Hira\\Hikari\\Hikari\\Hikari.csproj": {
+    "E:\\github\\Hikari\\Hikari\\Hikari.csproj": {
       "version": "2.9.9",
       "restore": {
-        "projectUniqueName": "E:\\study\\Hira\\Hikari\\Hikari\\Hikari.csproj",
+        "projectUniqueName": "E:\\github\\Hikari\\Hikari\\Hikari.csproj",
         "projectName": "Hikari",
-        "projectPath": "E:\\study\\Hira\\Hikari\\Hikari\\Hikari.csproj",
-        "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
-        "outputPath": "E:\\study\\Hira\\Hikari\\Hikari\\obj\\",
+        "projectPath": "E:\\github\\Hikari\\Hikari\\Hikari.csproj",
+        "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
+        "outputPath": "E:\\github\\Hikari\\Hikari\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jinyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -30,8 +30,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -39,19 +39,25 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.Extensions.Logging.Console": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[9.0.3, )"
             },
             "Npgsql": {
               "target": "Package",
-              "version": "[7.0.6, )"
+              "version": "[9.0.3, )"
             },
             "Npgsql.Bulk": {
               "target": "Package",
@@ -74,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
